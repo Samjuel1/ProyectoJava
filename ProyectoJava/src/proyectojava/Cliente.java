@@ -15,6 +15,15 @@ public class Cliente extends Usuario {
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
     private boolean vip;
+    
+    public Cliente(String correo, String clave, String nombre, String telefono, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
+        super(correo, clave);
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.tarjeta = new Tarjeta_credito(nombre,numero_tarjeta, fecha_caducidad);
+        this.direccion = new Direccion(calle,numero,ciudad,cp);
+        this.vip = vip;
+    }
 
     public boolean isVip() {
         return vip;
@@ -43,15 +52,7 @@ public class Cliente extends Usuario {
         this.telefono = telefono;
     }
 
-    public Cliente(String correo, String clave, String nombre, String telefono, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
-        super(correo, clave);
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.tarjeta = new Tarjeta_credito(nombre,numero_tarjeta, fecha_caducidad);
-        this.direccion = new Direccion(calle,numero,ciudad,cp);
-        this.vip = vip;
-    }
-    public String comprobar(boolean vip){
+    public String comprobar_vip(boolean vip){
     String esvip = "";
     if (vip){
     esvip = "Si.";}
@@ -69,9 +70,7 @@ public class Cliente extends Usuario {
                "Direccion ==> " + direccion.toString() +
                "Correo electronico: " + correo + "\n" + 
                "Clave: " + clave + "\n" + 
-               "VIP: " + comprobar(vip);
+               "VIP: " + comprobar_vip(vip);
     }
     
-    
-
 }
