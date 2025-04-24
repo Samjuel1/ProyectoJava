@@ -14,7 +14,8 @@ public class ProyectoJava {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Cliente cliente1 = new Cliente("hola@gmail","1234","Juan","651728694","1522 2727 2833 2387","12/28", "callef",4,"madrid",28732);
+        System.out.println(cliente1);
     }
     
 }

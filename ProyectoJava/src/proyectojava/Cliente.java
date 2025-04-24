@@ -1,0 +1,57 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package proyectojava;
+
+/**
+ *
+ * @author icesa
+ */
+public class Cliente extends Usuario {
+
+    private String nombre;
+    private String telefono;
+    private Tarjeta_credito tarjeta;
+    private Direccion direccion;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Cliente(String correo, String clave, String nombre, String telefono, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
+        super(correo, clave);
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.tarjeta = new Tarjeta_credito(nombre,numero_tarjeta, fecha_caducidad);
+        this.direccion = new Direccion(calle,numero,ciudad,cp);
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente: \n" +
+               "Nombre: "  + nombre + "\n" + 
+               "Telefono: " + telefono + "\n" +
+               "Tarjeta de credito ==> " + tarjeta.toString() + "\n" +
+               "Direccion ==> " + direccion.toString() +
+               "Correo electronico: " + correo + "\n" + 
+               "Clave: " + clave;
+    }
+    
+    
+
+}
