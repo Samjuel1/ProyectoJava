@@ -14,6 +14,16 @@ public class Cliente extends Usuario {
     private String telefono;
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
+    private boolean vip;
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -33,14 +43,23 @@ public class Cliente extends Usuario {
         this.telefono = telefono;
     }
 
-    public Cliente(String correo, String clave, String nombre, String telefono, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
+    public Cliente(String correo, String clave, String nombre, String telefono, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
         super(correo, clave);
         this.nombre = nombre;
         this.telefono = telefono;
         this.tarjeta = new Tarjeta_credito(nombre,numero_tarjeta, fecha_caducidad);
         this.direccion = new Direccion(calle,numero,ciudad,cp);
+        this.vip = vip;
     }
-
+    public String comprobar(boolean vip){
+    String esvip = "";
+    if (vip){
+    esvip = "Si.";}
+    else{
+    esvip = "No.";}
+    return esvip;
+    }
+    
     @Override
     public String toString() {
         return "Cliente: \n" +
@@ -49,7 +68,8 @@ public class Cliente extends Usuario {
                "Tarjeta de credito ==> " + tarjeta.toString() + "\n" +
                "Direccion ==> " + direccion.toString() +
                "Correo electronico: " + correo + "\n" + 
-               "Clave: " + clave;
+               "Clave: " + clave + "\n" + 
+               "VIP: " + comprobar(vip);
     }
     
     
