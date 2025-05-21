@@ -40,10 +40,12 @@ public class Ventana_in_sesion extends JFrame {
         JButton boton1 = new JButton("Guardar");
         JButton boton2 = new JButton("Limpiar");
         JButton boton3 = new JButton("Iniciar sesion");
+        JButton boton4 = new JButton("Registrarse");
 
         panelBotones.add(boton1);
         panelBotones.add(boton2);
         panelBotones.add(boton3);
+        panelBotones.add(boton4);
 
         add(panelBotones, BorderLayout.SOUTH);
 
@@ -66,18 +68,33 @@ public class Ventana_in_sesion extends JFrame {
         boton3.addActionListener(e -> {
             String correo = campoCorreo.getText();
             String contrasena = new String (campoContrasena.getText());
-            if (campoCorreo.getText().equals("") || campoCorreo.getText().equals("")){
+            if (correo.equals("") || contrasena.equals("") || contrasena.length() < 8){
                     JOptionPane.showMessageDialog(this,
                     "Por favor, introduce los datos.",
-                    "Datos no introducidos", JOptionPane.INFORMATION_MESSAGE);
-            } else{
+                    "Datos no introducidos", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }else if(!correo.endsWith("@gmail.com") || correo.endsWith("@hotmail.com")){
+                JOptionPane.showMessageDialog(this, 
+                "Formato inválido",
+                "Por favor introduce un correo valido",
+                JOptionPane.INFORMATION_MESSAGE);
+            } 
+            else{
                 JOptionPane.showMessageDialog(this,
                 "Has iniciado sesion.",
-                "Inicio de sesion correcto ", JOptionPane.INFORMATION_MESSAGE);
+                "Inicio de sesion correcto ", 
+                JOptionPane.INFORMATION_MESSAGE);
+                
             new VentanaInicio().setVisible(true);
+            dispose();
             
             }
                 
+        });
+        boton4.addActionListener(e -> {
+            dispose();
+            new VentanaRegistro().setVisible(true);
+            
         });
         
        

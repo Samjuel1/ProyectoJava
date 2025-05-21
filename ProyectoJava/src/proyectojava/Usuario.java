@@ -4,14 +4,16 @@
  */
 package proyectojava;
 
+import java.io.Serializable;
+
 /**
  *
  * @author icesa
  */
-public abstract class Usuario {
+public abstract class Usuario implements Serializable {
     
     protected String correo;
-    protected String clave;
+    protected String contrasena;
 
     public String getCorreo() {
         return correo;
@@ -22,17 +24,17 @@ public abstract class Usuario {
     }
     
 
-    public String getClave() {
-        return clave;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public Usuario(String correo, String clave) {
+    public Usuario(String correo, String contrasena) {
         this.correo = correo;
-        this.clave = clave;
+        this.contrasena = contrasena;
     }
     
 
