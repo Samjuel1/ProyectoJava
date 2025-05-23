@@ -1,28 +1,37 @@
 package proyectojava;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Pagina {
     private ArrayList<Evento> ListaEventos;
-    private ArrayList<Cliente> ListaClientes;
-    private ArrayList<Administrador> ListaAdministradores;
+    private HashMap<String,Cliente> UsuariosClientes;
+    private HashMap<String, Administrador> UsuariosAdministradores;
 
     public Pagina() {
         this.ListaEventos = new ArrayList<>();
-        this.ListaClientes = new ArrayList<>();
-        this.ListaAdministradores = new ArrayList<>();
+        this.UsuariosClientes = new HashMap<>();
+        this.UsuariosAdministradores = new HashMap<>();
     }
 
     public ArrayList<Evento> getListaEventos() {
         return ListaEventos;
     }
-
-    public ArrayList<Cliente> getListaClientes() {
-        return ListaClientes;
+    
+    public HashMap<String, Cliente> getUsuariosClientes(){
+        return this.UsuariosClientes;
     }
-
-    public ArrayList<Administrador> getListaAdministradores() {
-        return ListaAdministradores;
+    
+    public void añadirCliente(Cliente cliente){
+        this.UsuariosClientes.put(cliente.getNombre(), cliente);
+    }
+    
+    public HashMap<String, Administrador> getUsuariosAdministradores(){
+        return this.UsuariosAdministradores;
+    }
+    
+    public void añadirAdministradores(Administrador administrador){
+        this.UsuariosAdministradores.put(administrador.getCorreo(), administrador);
     }
     
     public ArrayList<Evento> busquedaEventoPorCiudad(String ciudad){
