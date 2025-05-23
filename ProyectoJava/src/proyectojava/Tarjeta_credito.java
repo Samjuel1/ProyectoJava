@@ -8,7 +8,9 @@ package proyectojava;
  *
  * @author icesa
  */
-public class Tarjeta_credito {
+import java.io.Serializable;
+
+public class Tarjeta_credito implements Serializable{
     
     private String numero_tarjeta;
     private String fecha_caducidad;

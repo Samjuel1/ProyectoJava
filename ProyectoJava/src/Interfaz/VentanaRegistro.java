@@ -11,14 +11,11 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import proyectojava.Cliente;
 
 
 import java.util.ArrayList;
+import proyectojava.GestionClientes;
 
 public class VentanaRegistro extends JFrame{
     private JTextField campoNombre;
@@ -128,6 +125,16 @@ public class VentanaRegistro extends JFrame{
             JOptionPane.INFORMATION_MESSAGE);}
             
             Cliente cliente = registrarCliente();
+            ArrayList<Cliente> lista = GestionClientes.cargarClientes();
+
+    // Agregar el nuevo
+            lista.add(cliente);
+
+    // Guardar lista actualizada
+            GestionClientes.guardarClientes(lista);
+            System.out.println(lista);
+
+            JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
             
 
             
