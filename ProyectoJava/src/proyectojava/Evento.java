@@ -7,7 +7,8 @@ public class Evento {
     private String titulo;
     private String tipo;
     private Direccion direccion;
-    private ArrayList<LocalDateTime> ListaFechas;
+    private ArrayList<LocalDateTime> ListaFechas = new ArrayList<>();
+    private ArrayList<Reseña> ListaReseñas = new ArrayList<>();
     private long precio;
     private double calificacion;
 
@@ -31,6 +32,10 @@ public class Evento {
         return direccion;
     }
 
+    public ArrayList<LocalDateTime> getListaFechas() {
+        return ListaFechas;
+        
+    }
 
     public long getPrecio() {
         return precio;
@@ -53,6 +58,19 @@ public class Evento {
     }
 
 
+    public void addFecha(LocalDateTime fechaHora) {
+        this.ListaFechas.add(fechaHora);
+        
+    }
+    public void removeReseña(LocalDateTime fechaHora) {
+        if (!this.ListaFechas.contains(fechaHora)){
+            System.out.println("No se ha encontrado ningun evento en esa fecha");
+        }
+        else{
+            this.ListaFechas.remove(fechaHora);
+        }
+    }
+
     public void setPrecio(long precio) {
         this.precio = precio;
     }
@@ -63,7 +81,7 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "Evento{" + "titulo=" + titulo + ", tipo=" + tipo + ", direccion=" + direccion + ", precio=" + precio + ", calificacion=" + calificacion + '}';
+        return "Evento{" + "titulo=" + titulo + ", tipo=" + tipo + ", direccion=" + direccion + ", ListaFechas=" + ListaFechas + ", ListaReseñas=" + ListaReseñas + ", precio=" + precio + ", calificacion=" + calificacion + '}';
     }
     
 }

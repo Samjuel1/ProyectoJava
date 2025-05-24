@@ -10,8 +10,6 @@ public class ProyectoJava {
         ArrayList<Cliente> recuperados = GestionClientes.cargarClientes();
         for (Cliente c : recuperados) {
             System.out.println(c.getNombre());
-            System.out.println(c.getCorreo());
-            System.out.println(c);
 
         }
   //      ArrayList<Cliente> clientes = new ArrayList<>();

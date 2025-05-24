@@ -135,6 +135,8 @@ public class VentanaRegistro extends JFrame{
             System.out.println(lista);
 
             JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
+            new VentanaInicio().setVisible(true);
+            dispose();
             
 
             

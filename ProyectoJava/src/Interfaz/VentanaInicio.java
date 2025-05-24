@@ -15,6 +15,7 @@ public class VentanaInicio extends JFrame {
     private JLabel etiqueta2;
     private JLabel etiqueta3;
     private JTextField campoTexto;
+    //fsvareogbmepig
 
     public VentanaInicio() {
         setTitle("Ejemplo completo");
