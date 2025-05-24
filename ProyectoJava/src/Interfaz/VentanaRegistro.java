@@ -108,8 +108,7 @@ public class VentanaRegistro extends JFrame{
             "Número de puerta",
             "Por favor introduce un número de puerta válido.",
             JOptionPane.INFORMATION_MESSAGE);
-            return;}
-            
+            return;}    
             try{
              int codigo = Integer.parseInt(campoNumero.getText());
             } catch(NumberFormatException i){

@@ -20,7 +20,7 @@ public class GestionClientes {
             out.writeObject(lista);
             System.out.println("Lista de clientes guardada correctamente.");
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //imprimir error
         }
     }
     
