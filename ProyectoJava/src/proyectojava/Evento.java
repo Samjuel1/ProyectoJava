@@ -1,17 +1,18 @@
 package proyectojava;
 
+import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
 
-public class Evento {
+public class Evento implements Serializable{
     private String titulo;
     private String tipo;
     private Direccion direccion;
-    private ArrayList<LocalDateTime> ListaFechas;
+    private ArrayList<LocalDate> ListaFechas;
     private long precio;
     private double calificacion;
 
-    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, LocalDateTime fechaHora, long precio, double calificacion) {
+    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.direccion = new Direccion(calle,numero,ciudad,cp);
@@ -60,6 +61,31 @@ public class Evento {
     public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
+    
+    public void añadirFecha(LocalDate fecha){
+        if (!this.ListaFechas.contains(fecha)){
+            this.ListaFechas.add(fecha);
+        }
+    }
+    
+  /*  
+    
+    public crearBoton(){
+        ArrayList<Evento> eventos = GestionClientes.cargarEventos();
+
+        // Verifica que haya al menos un evento
+        if (eventos.isEmpty()) {
+            return new JButton("Sin eventos disponibles");
+        }
+
+        Evento evento = eventos.get(0); // primer evento
+        JButton boton = new JButton("Evento: " + evento.getTitulo() + " - Calificación: 0");
+        
+        boton.setFont(new Font("Arial", Font.BOLD, 30));
+        boton.setBackground(Color.WHITE);
+
+        return boton;
+    } */
 
     @Override
     public String toString() {

@@ -14,7 +14,7 @@ import java.awt.*;
 import proyectojava.Cliente;
 
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import proyectojava.GestionClientes;
 
 public class VentanaRegistro extends JFrame{
@@ -82,6 +82,7 @@ public class VentanaRegistro extends JFrame{
         add(registrar);
         
         cancelar.addActionListener(e -> {
+            new Ventana_in_sesion().setVisible(true);
             dispose();
         });
         
@@ -124,10 +125,10 @@ public class VentanaRegistro extends JFrame{
             JOptionPane.INFORMATION_MESSAGE);}
             
             Cliente cliente = registrarCliente();
-            ArrayList<Cliente> lista = GestionClientes.cargarClientes();
+            HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
 
     // Agregar el nuevo
-            lista.add(cliente);
+            lista.put(cliente.getCorreo(), cliente);
 
     // Guardar lista actualizada
             GestionClientes.guardarClientes(lista);

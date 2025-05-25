@@ -84,7 +84,7 @@ public class Ventana_in_sesion extends JFrame {
                 "Has iniciado sesion.",
                 "Inicio de sesion correcto ", 
                 JOptionPane.INFORMATION_MESSAGE);
-                
+                                
             new VentanaInicio().setVisible(true);
             dispose();
             
