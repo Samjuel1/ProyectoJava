@@ -18,7 +18,6 @@ public abstract class Usuario implements Serializable {
     public String getCorreo() {
         return correo;
     }
-
     public void setCorreo(String correo) {
         this.correo = correo;
     }
@@ -37,7 +36,9 @@ public abstract class Usuario implements Serializable {
         this.contrasena = contrasena;
     }
     
-
+public static void mecago(){
+    System.out.println("hola");
+}
 
     
 }
