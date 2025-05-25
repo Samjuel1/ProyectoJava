@@ -5,13 +5,11 @@ import java.util.HashMap;
 
 public class Pagina {
     private ArrayList<Evento> ListaEventos;
-    private HashMap<String,Cliente> UsuariosClientes;
-    private HashMap<String, Administrador> UsuariosAdministradores;
+    private HashMap<String, Cliente> UsuariosClientes;
 
-    public Pagina() {
-        this.ListaEventos = new ArrayList<>();
-        this.UsuariosClientes = new HashMap<>();
-        this.UsuariosAdministradores = new HashMap<>();
+    public Pagina(ArrayList<Evento> eventos, HashMap<String, Cliente> clientes) {
+        this.ListaEventos = eventos;
+        this.UsuariosClientes = clientes;
     }
 
     public ArrayList<Evento> getListaEventos() {
@@ -24,14 +22,6 @@ public class Pagina {
     
     public void añadirCliente(Cliente cliente){
         this.UsuariosClientes.put(cliente.getNombre(), cliente);
-    }
-    
-    public HashMap<String, Administrador> getUsuariosAdministradores(){
-        return this.UsuariosAdministradores;
-    }
-    
-    public void añadirAdministradores(Administrador administrador){
-        this.UsuariosAdministradores.put(administrador.getCorreo(), administrador);
     }
     
     public ArrayList<Evento> busquedaEventoPorCiudad(String ciudad){

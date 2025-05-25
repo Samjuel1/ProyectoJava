@@ -6,9 +6,11 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import proyectojava.ProyectoJava;
+import java.util.ArrayList;
+import java.util.HashMap;
+import proyectojava.Cliente;
+import proyectojava.GestionClientes;
+import proyectojava.Evento;
 
 public class VentanaInicio extends JFrame {
 
@@ -23,6 +25,7 @@ public class VentanaInicio extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
         
+        
         ImageIcon lupa = new ImageIcon(getClass().getResource("/resources/lupa.png"));
 
         JButton botonlupa = new JButton(lupa);
@@ -33,11 +36,61 @@ public class VentanaInicio extends JFrame {
         
 
         // === Pestaña 1: Texto simple ===
-        JPanel panelTexto = new JPanel(new GridLayout(2,2));
-        panelTexto.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        panelTexto.add(new JLabel("Busca aqui un evento: "));
-        panelTexto.add(botonlupa);
-        pestañas.addTab("Buscar eventos", panelTexto);
+        JPanel panelBusqueda = new JPanel();
+        panelBusqueda.setLayout(new BoxLayout(panelBusqueda,BoxLayout.Y_AXIS));
+        panelBusqueda.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelBusqueda.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        
+        JLabel buscar = new JLabel("Buscar eventos");
+        buscar.setFont(new Font("Arial", Font.BOLD, 40));
+        panelBusqueda.add(buscar);
+        panelBusqueda.add(Box.createVerticalStrut(70)); 
+        campoBusqueda = new JTextField();
+        campoBusqueda.setMaximumSize(campoBusqueda.getPreferredSize());
+        panelBusqueda.add(campoBusqueda);
+        panelBusqueda.add(Box.createVerticalStrut(70)); 
+        JLabel otros = new JLabel("Eventos destacados: ");
+        otros.setFont(new Font("Arial", Font.BOLD,35));
+        panelBusqueda.add(otros);
+        panelBusqueda.add(Box.createVerticalStrut(30));
+        JButton botonevento1 = new JButton("Evento 1: Concierto bernabeu            Calificacion: 5");
+        botonevento1.setFont(new Font("Arial", Font.BOLD,30));
+        botonevento1.setBackground(Color.WHITE);
+        botonevento1.setHorizontalAlignment(SwingConstants.LEFT);
+        panelBusqueda.add(botonevento1);
+        JButton botonevento2 = new JButton("Evento 2: concierto en mi casa          Calificaion: 4");
+        botonevento2.setFont(new Font("Arial", Font.BOLD,30));
+        botonevento2.setBackground(Color.WHITE);
+        botonevento2.setHorizontalAlignment(SwingConstants.LEFT);
+
+        panelBusqueda.add(botonevento2);
+        
+        
+        
+        
+         
+        
+        buscar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        campoBusqueda.setAlignmentX(Component.CENTER_ALIGNMENT);
+        otros.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonevento1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonevento2.setAlignmentX(Component.CENTER_ALIGNMENT);
+       
+        campoBusqueda.setMaximumSize(new Dimension(600, 40));
+        campoBusqueda.setPreferredSize(new Dimension(600, 40));
+        
+        botonevento1.setMaximumSize(new Dimension(800, 70));
+        botonevento1.setPreferredSize(new Dimension(800, 70));
+        
+        botonevento2.setMaximumSize(new Dimension(800, 70));
+        botonevento2.setPreferredSize(new Dimension(800, 70));
+        
+        
+
+        
+        
+      //  panelBuscarEvento.add(botonlupa);
+        pestañas.addTab("Buscar eventos", panelBusqueda);
         
         
         
@@ -50,6 +103,130 @@ public class VentanaInicio extends JFrame {
         pestañas.addTab("Buscar eventos", panelTexto2);
         }
 
+        //pestaña gestion admin
+        
+        JPanel panelConfiguracionAdmin = new JPanel();
+        panelConfiguracionAdmin.setLayout( new BoxLayout(panelConfiguracionAdmin,BoxLayout.Y_AXIS));
+        panelConfiguracionAdmin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JButton gestionarEvento = new JButton("Gestionar evento");
+        gestionarEvento.setFont(new Font("Arial", Font.BOLD, 25));
+        
+        JButton consultarEvento = new JButton("Consultar eventos ");
+        consultarEvento.setFont(new Font("Arial", Font.BOLD, 25));
+        
+        JButton consultarUsuarios = new JButton("Consultar usuarios");
+        consultarUsuarios.setFont(new Font("Arial", Font.BOLD, 25));
+        
+        JButton consultarReservas = new JButton("Consultar reservas");
+        consultarReservas.setFont(new Font("Arial", Font.BOLD, 25));
+        
+        gestionarEvento.setAlignmentX(Component.CENTER_ALIGNMENT);
+        consultarEvento.setAlignmentX(Component.CENTER_ALIGNMENT);
+        consultarUsuarios.setAlignmentX(Component.CENTER_ALIGNMENT);
+        consultarReservas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        gestionarEvento.setMaximumSize(new Dimension(300, 100));
+        gestionarEvento.setPreferredSize(new Dimension(300, 100));
+        
+        consultarEvento.setMaximumSize(new Dimension(300, 100));
+        consultarEvento.setPreferredSize(new Dimension(300, 100));
+        
+        consultarUsuarios.setMaximumSize(new Dimension(300, 100));
+        consultarUsuarios.setPreferredSize(new Dimension(300, 100));
+        
+        consultarReservas.setMaximumSize(new Dimension(300, 100));
+        consultarReservas.setPreferredSize(new Dimension(300, 100));
+        
+        panelConfiguracionAdmin.add(Box.createVerticalGlue());       
+        panelConfiguracionAdmin.add(gestionarEvento);
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(30));  
+        panelConfiguracionAdmin.add(consultarEvento);
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(30)); 
+        panelConfiguracionAdmin.add(consultarUsuarios);
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(30)); 
+        panelConfiguracionAdmin.add(consultarReservas);
+        panelConfiguracionAdmin.add(Box.createVerticalGlue());
+        
+        pestañas.addTab("Gestionar eventos", panelConfiguracionAdmin);
+        
+        //botones del admin
+        
+        gestionarEvento.addActionListener(e -> {
+
+        });
+        
+        consultarEvento.addActionListener(e -> {
+            JFrame ventanaUsuarios = new JFrame("Usuarios");
+           // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ventanaUsuarios.setSize(300, 200);
+            ventanaUsuarios.setLocationRelativeTo(this); 
+        
+            ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
+            ArrayList<String> recuperadosArray = new ArrayList<>();
+
+        for (Evento evento : eventosRecuperados) {
+            String clave = evento.getTitulo(); // Suponiendo que existe este método
+            recuperadosArray.add(clave);
+            System.out.println(recuperadosArray);
+            System.out.println("Clave: " + clave);
+        }
+
+        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
+        JScrollPane scroll = new JScrollPane(lista);
+
+            ventanaUsuarios.add(scroll);
+            ventanaUsuarios.setVisible(true);
+
+        });
+        
+        consultarUsuarios.addActionListener(e -> {
+            JFrame ventanaUsuarios = new JFrame("Usuarios");
+           // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ventanaUsuarios.setSize(300, 200);
+            ventanaUsuarios.setLocationRelativeTo(this); 
+        
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
+            ArrayList<String> recuperadosArray = new ArrayList<>();
+            for (String clave : recuperados.keySet()) {
+            recuperadosArray.add(clave);
+            System.out.println(recuperadosArray);
+            System.out.println("Clave: " + clave);
+            }
+           JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));  //cambiar
+
+           JScrollPane scroll = new JScrollPane(lista);
+
+            ventanaUsuarios.add(scroll);
+            ventanaUsuarios.setVisible(true);
+
+        });
+        
+        consultarReservas.addActionListener(e -> {
+            JFrame ventanaUsuarios = new JFrame("Reservas");
+            ventanaUsuarios.setSize(300, 200);
+            ventanaUsuarios.setLocationRelativeTo(this); 
+        
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
+            ArrayList<String> recuperadosArray = new ArrayList<>();
+            for (String clave : recuperados.keySet()) {
+            recuperadosArray.add(clave);
+            System.out.println(recuperadosArray);
+            System.out.println("Clave: " + clave);
+            }
+           JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
+
+           JScrollPane scroll = new JScrollPane(lista);
+
+            ventanaUsuarios.add(scroll);
+            ventanaUsuarios.setVisible(true);
+
+        });
+        
+        
+        
+        
+        
         
         //pestaña ajustes usuario
         JPanel panelConfiguracion = new JPanel();
@@ -149,51 +326,44 @@ public class VentanaInicio extends JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
         //  System.out.println(ProyectoJava.recuperados);
             } else if(resultado == JOptionPane.OK_OPTION && !usuario.isEmpty() && !contrasena.isEmpty()){
+                
                 JOptionPane.showMessageDialog(this, "Las credenciales no coinciden,\nvuelve a introducir los datos", "Datos erróneos", resultado);
             }
 
 
         });
         
-  /*      cambioContrasena.addActionListener(e -> {
-            JDialog dialogo = new JDialog((Frame) null, "Formulario", true);
-            dialogo.setSize(700,300);
-        dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialogo.setLayout(new GridLayout(3, 2, 10, 10));
-        
-        JTextField campo1 = new JTextField(10);
-        JTextField campo2 = new JTextField(10);
-        //JTextField campo
-        JButton botonOk = new JButton("OK");
-
-        dialogo.add(new JLabel("Usuario:"));
-        dialogo.add(campo1);
-        dialogo.add(new JLabel("Contraseña:"));
-        dialogo.add(campo2);
-        dialogo.add(new JLabel()); // espacio vacío
-        dialogo.add(botonOk);
-
-        botonOk.addActionListener(i -> {
-            String usuario = campo1.getText();
-            String pass = campo2.getText();
+        cambioContrasena.addActionListener(e -> {
+            JTextField campoContrasena = new JTextField(10);
+            JTextField campoCambioContrasena = new JTextField(10);
+            JTextField campoCambioContrasenaV = new JTextField(10);
             
-            // Aquí haces lo que quieras antes de cerrar
-            if (usuario.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(dialogo, "Rellena todos los campos.");
-                return; // No cerrar
+            JPanel panelCambioContrasena = new JPanel();
+            panelCambioContrasena.setLayout(new BoxLayout(panelCambioContrasena, BoxLayout.Y_AXIS));
+            panelCambioContrasena.add(new JLabel("Contraseña actual: "));
+            panelCambioContrasena.add(campoContrasena);          
+            panelCambioContrasena.add(Box.createVerticalStrut(10));
+            panelCambioContrasena.add(new JLabel("Nueva contraseña: "));
+            panelCambioContrasena.add(campoCambioContrasena); 
+            panelCambioContrasena.add(Box.createVerticalStrut(10));
+            panelCambioContrasena.add(new JLabel("Repetir nueva contraseña: "));
+            panelCambioContrasena.add(campoCambioContrasenaV); 
+            
+            int resultadoC = JOptionPane.showConfirmDialog(this, panelCambioContrasena, "Cambio de contraseña", JOptionPane.OK_CANCEL_OPTION);
+            String contrasena = campoContrasena.getText();
+            String nuevaContrasena = campoCambioContrasena.getText();
+            String nuevaContrasenaV = campoCambioContrasenaV.getText();
+            
+            if (resultadoC == JOptionPane.OK_OPTION && (contrasena.isEmpty() || nuevaContrasena.isEmpty() || nuevaContrasenaV.isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
+            } else{
             }
-
-            System.out.println("Usuario: " + usuario);
-            System.out.println("Contraseña: " + pass);
-
-            dialogo.dispose(); // Esto sí cierra el diálogo
+            
+            
+            
+        
         });
-
-        dialogo.pack();
-        dialogo.setLocationRelativeTo(null);
-        dialogo.setVisible(true);
-        });
-        */
+        
         cambioTarjeta.addActionListener(e -> {
             JTextField campoCambioNombreT = new JTextField(10);
             JTextField campoCambioNumeroT = new JTextField(10);

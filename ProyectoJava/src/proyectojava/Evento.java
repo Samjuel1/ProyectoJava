@@ -1,9 +1,14 @@
 package proyectojava;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JButton;
 
-public class Evento {
+public class Evento implements Serializable{
     private String titulo;
     private String tipo;
     private Direccion direccion;
@@ -60,6 +65,25 @@ public class Evento {
     public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
+    
+  /*  
+    
+    public crearBoton(){
+        ArrayList<Evento> eventos = GestionClientes.cargarEventos();
+
+        // Verifica que haya al menos un evento
+        if (eventos.isEmpty()) {
+            return new JButton("Sin eventos disponibles");
+        }
+
+        Evento evento = eventos.get(0); // primer evento
+        JButton boton = new JButton("Evento: " + evento.getTitulo() + " - Calificación: 0");
+        
+        boton.setFont(new Font("Arial", Font.BOLD, 30));
+        boton.setBackground(Color.WHITE);
+
+        return boton;
+    } */
 
     @Override
     public String toString() {
