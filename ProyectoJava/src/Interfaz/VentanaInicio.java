@@ -155,7 +155,7 @@ public class VentanaInicio extends JFrame {
 
         });
         
-        cambioContrasena.addActionListener(e -> {
+  /*      cambioContrasena.addActionListener(e -> {
             JDialog dialogo = new JDialog((Frame) null, "Formulario", true);
             dialogo.setSize(700,300);
         dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -193,26 +193,79 @@ public class VentanaInicio extends JFrame {
         dialogo.setLocationRelativeTo(null);
         dialogo.setVisible(true);
         });
-        
+        */
         cambioTarjeta.addActionListener(e -> {
-            JTextField campoNombreT = new JTextField(10);
-            JTextField campoNumeroT = new JTextField(10);
-            JTextField campoFechaT = new JTextField(10);
+            JTextField campoCambioNombreT = new JTextField(10);
+            JTextField campoCambioNumeroT = new JTextField(10);
+            JTextField campoCambioFechaT = new JTextField(10);
+            JTextField campoCambioContrasenaT = new JTextField(10);
 
             JPanel panelCambioTarjeta = new JPanel();
             panelCambioTarjeta.setLayout(new BoxLayout(panelCambioTarjeta, BoxLayout.Y_AXIS)); 
+            panelCambioTarjeta.add(new JLabel("Tarjeta de credito"));
+            panelCambioTarjeta.add(Box.createVerticalStrut(10));  
             panelCambioTarjeta.add(new JLabel("Nuevo titular de la tarjeta: "));
-            panelCambioTarjeta.add(campoNombreT);
+            panelCambioTarjeta.add(campoCambioNombreT);
             panelCambioTarjeta.add(Box.createVerticalStrut(10));  
             panelCambioTarjeta.add(new JLabel("Nuevo número de tarjeta: "));
-            panelCambioTarjeta.add(campoNumeroT);
+            panelCambioTarjeta.add(campoCambioNumeroT);
             panelCambioTarjeta.add(Box.createVerticalStrut(10)); 
             panelCambioTarjeta.add(new JLabel("Nueva fecha de caducidad de tarjeta: "));
-            panelCambioTarjeta.add(campoFechaT);
+            panelCambioTarjeta.add(campoCambioFechaT);
+            panelCambioTarjeta.add(Box.createVerticalStrut(10));
+            panelCambioTarjeta.add(new JLabel("Contraseña: "));
+            panelCambioTarjeta.add(campoCambioContrasenaT);
             
-            int resultado = JOptionPane.showConfirmDialog(null, panelCambioTarjeta, "Cambio de tarjeta", JOptionPane.OK_CANCEL_OPTION);
             
+            int resultadoT = JOptionPane.showConfirmDialog(null, panelCambioTarjeta, "Cambio de tarjeta", JOptionPane.OK_CANCEL_OPTION);
+            String nombreT = campoCambioNombreT.getText();
+            String numeroT = campoCambioNombreT.getText();
+            String fechaT = campoCambioNombreT.getText();
+            String contrasenaT = campoCambioContrasenaT.getText();
+            
+            if (resultadoT == JOptionPane.OK_OPTION && (nombreT.isEmpty() || numeroT.isEmpty() || fechaT.isEmpty() || contrasenaT.isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
+            } else { 
+            }
         });
+            
+            cambioDireccion.addActionListener(e -> {
+            JTextField campoCambioCalle = new JTextField(10);
+            JTextField campoCambioNumero = new JTextField(10);
+            JTextField campoCambioCiudad = new JTextField(10);
+            JTextField campoCambioCodigo = new JTextField(10);
+            JTextField campoContrasenaD = new JTextField(10);
+           
+            JPanel panelCambioDireccion = new JPanel();
+            panelCambioDireccion.setLayout(new BoxLayout(panelCambioDireccion,BoxLayout.Y_AXIS));
+            panelCambioDireccion.add(new JLabel("Nueva calle: "));
+            panelCambioDireccion.add(campoCambioCalle);
+            panelCambioDireccion.add(Box.createVerticalStrut(10));
+            panelCambioDireccion.add(new JLabel("Nuevo número: "));
+            panelCambioDireccion.add(campoCambioNumero);
+            panelCambioDireccion.add(Box.createVerticalStrut(10));
+            panelCambioDireccion.add(new JLabel("Nueva ciudad: "));
+            panelCambioDireccion.add(campoCambioCiudad);
+            panelCambioDireccion.add(Box.createVerticalStrut(10));
+            panelCambioDireccion.add(new JLabel("Nuevo código: "));
+            panelCambioDireccion.add(campoCambioCodigo);
+            panelCambioDireccion.add(Box.createVerticalStrut(10));
+            panelCambioDireccion.add(new JLabel("Contraseña: "));
+            panelCambioDireccion.add(campoContrasenaD);
+            
+            int resultadoD = JOptionPane.showConfirmDialog(null, panelCambioDireccion, "Cambio de dirección", JOptionPane.OK_CANCEL_OPTION);
+            String calle = campoCambioCalle.getText();
+            String numeroD = campoCambioNumero.getText();
+            String ciudad = campoCambioCiudad.getText();
+            String codigo = campoCambioCodigo.getText();
+            String contrasenaD = campoContrasenaD.getText();
+            
+            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudad.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
+            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos", "Datos no introducidos", HEIGHT);}
+            
+            });
+            
+        
         
     }}
 
