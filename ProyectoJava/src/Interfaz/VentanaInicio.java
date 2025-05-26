@@ -23,7 +23,7 @@ public class VentanaInicio extends JFrame {
         setTitle("Gestión de eventos");
         setSize(1300, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         
         
         ImageIcon lupa = new ImageIcon(getClass().getResource("/resources/lupa.png"));

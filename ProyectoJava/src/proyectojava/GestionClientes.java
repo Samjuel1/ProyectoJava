@@ -1,8 +1,12 @@
 package proyectojava;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class GestionClientes {
     
@@ -180,6 +184,15 @@ public class GestionClientes {
             clientesArray.add(clave);
         }
         return clientesArray.toArray(new String[0]);
+    }
+    
+    public static JButton crearBoton(int posicion){
+        ArrayList<Evento> eventosOrdenados = ordenacionPorCalificacion(GestionClientes.cargarEventos());
+        JButton boton = new JButton(eventosOrdenados.get(posicion+1).getTitulo() + "    Calificacion: " + eventosOrdenados.get(posicion+1).getCalificacion());
+        boton.setFont(new Font("Arial", Font.BOLD,30));
+        boton.setBackground(Color.WHITE);
+        boton.setHorizontalAlignment(SwingConstants.LEFT);
+        return boton;
     }
     
 }
