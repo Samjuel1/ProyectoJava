@@ -117,25 +117,48 @@ public class VentanaGestion extends JFrame{
         String titulo = campoAnadirTitulo.getText();
         String tipo = campoAnadirCiudad.getText();
         String calle = campoAnadirCalle.getText();
-        int numero = Integer.parseInt(campoAnadirNumero.getText());
-        String ciudad = campoAnadirCiudad.getText();
-        int cp = Integer.parseInt(campoAnadirCp.getText());
-        long precio = Long.parseLong(campoAnadirPrecio.getText());
-        
+        String ciudad = campoAnadirCiudad.getText();      
 
 
         
-        if (resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())) {
-            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
-        //  System.out.println(ProyectoJava.recuperados);
-            } else {
+        if (resultado == JOptionPane.OK_OPTION) {
+            
+            try{
+             int numero = Integer.parseInt(campoAnadirNumero.getText());
+            } catch(NumberFormatException i){
+            JOptionPane.showMessageDialog(this, 
+            "Error en el formato de número",
+            "Por favor vuelva a introducir los datos.",
+            JOptionPane.INFORMATION_MESSAGE);
+            return;} 
+            try{
+             int cp = Integer.parseInt(campoAnadirCp.getText());
+            } catch(NumberFormatException i){
+            JOptionPane.showMessageDialog(this, 
+            "Error en el formato de código postal",
+            "Por favor vuelva a introducir los datos.",
+            JOptionPane.INFORMATION_MESSAGE);
+            return;} 
+            try{
+             long precio = Long.parseLong(campoAnadirPrecio.getText());
+            } catch(NumberFormatException i){
+            JOptionPane.showMessageDialog(this, 
+            "Error en el formato de precio",
+            "Por favor vuelva a introducir los datos.",
+            JOptionPane.INFORMATION_MESSAGE);
+            return;} 
+            
             Evento evento = registrarEvento();
             ArrayList<Evento> recuperadosArrayEventos = GestionClientes.cargarEventos();
             recuperadosArrayEventos.add(evento);
             GestionClientes.guardarEventos(recuperadosArrayEventos);
             System.out.println(recuperadosArrayEventos);
-            dispose();
-            }
+            
+            
+          
+        //  System.out.println(ProyectoJava.recuperados);
+        } else if(resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())){
+        JOptionPane.showMessageDialog(this,"Datos no introducidos", "Por favor, rellene los datos", JOptionPane.INFORMATION_MESSAGE);}
 
         });
     
