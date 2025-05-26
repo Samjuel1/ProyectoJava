@@ -6,10 +6,7 @@ import java.awt.Font;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class GestionClientes {
     
