@@ -4,75 +4,75 @@
  */
 package proyectojava;
 
+import java.io.Serializable;
+
 /**
  *
  * @author icesa
  */
-public class Cliente extends Usuario {
-
+public class Cliente implements Serializable {
+    private String correo;
+    private String contrasena;
     private String nombre;
     private String telefono;
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
-    private boolean vip;
     
-    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
-        super(correo, contrasena);
+    public Cliente(String correo, String contraseña, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
+        this.correo = correo;
+        this.contrasena = contraseña;
         this.nombre = nombre; 
         this.telefono = telefono;
         this.tarjeta = new Tarjeta_credito(titular_tarjeta,numero_tarjeta, fecha_caducidad);
         this.direccion = new Direccion(calle,numero,ciudad,cp);
-        this.vip = vip;
     }
 
-    public boolean isVip() {
-        return vip;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setVip(boolean vip) {
-        this.vip = vip;
+    public String getContrasena() {
+        return contrasena;
     }
-
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public Tarjeta_credito getTarjeta() {
+        return tarjeta;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setContrasena(String contraseña) {
+        this.contrasena = contraseña;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    
-
-    public String getTelefono() {
-        return telefono;
-    }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public String comprobar_vip(boolean vip){
-    String esvip = "";
-    if (vip){
-    esvip = "Si.";}
-    else{
-    esvip = "No.";}
-    return esvip;
+    public void setTarjeta(Tarjeta_credito tarjeta) {
+        this.tarjeta = tarjeta;
     }
-    
-    
-    
-    @Override
-    public String toString() {
-        return "Cliente: \n" +
-               "Nombre: "  + nombre + "\n" + 
-               "Telefono: " + telefono + "\n" +
-               "Tarjeta de credito ==> " + tarjeta.toString() + "\n" +
-               "Direccion ==> " + direccion.toString() +
-               "Correo electronico: " + correo + "\n" + 
-               "Clave: " + contrasena + "\n" + 
-               "VIP: " + comprobar_vip(vip);
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
     }
     
 }
