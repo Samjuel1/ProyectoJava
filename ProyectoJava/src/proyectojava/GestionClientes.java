@@ -1,11 +1,14 @@
 package proyectojava;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class GestionClientes {
@@ -177,7 +180,7 @@ public class GestionClientes {
     
     // Varios 
     
-    public static Object[] clientesToArray(){
+    public static String[] clientesToArray(){
         HashMap<String, Cliente> clientes = GestionClientes.cargarClientes();
         ArrayList<String> clientesArray = new ArrayList<>();
         for(String clave : clientes.keySet()){
@@ -193,6 +196,34 @@ public class GestionClientes {
         boton.setBackground(Color.WHITE);
         boton.setHorizontalAlignment(SwingConstants.LEFT);
         return boton;
+    }
+    
+    
+    
+    // Tratado de Datos
+    
+    public static Integer leerEntero(JTextField campo, Component parent, String mensajeError) {
+        try {
+            return Integer.parseInt(campo.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parent,
+                mensajeError,
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static Long leerLong(JTextField campo, Component parent, String mensajeError) {
+        try {
+            return Long.parseLong(campo.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parent,
+                mensajeError,
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
     }
     
 }

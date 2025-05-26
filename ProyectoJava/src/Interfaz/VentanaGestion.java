@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
+import static proyectojava.GestionClientes.*;
 
 /**
  *
@@ -122,15 +123,19 @@ public class VentanaGestion extends JFrame{
 
         
         if (resultado == JOptionPane.OK_OPTION) {
-            
-            try{
+            Integer numero = leerEntero(campoAnadirNumero, this, " Error en el formato del Numero\nPor favor vuelva a introducir los datos.");
+            if (numero == null) return;
+            /*try{
              int numero = Integer.parseInt(campoAnadirNumero.getText());
             } catch(NumberFormatException i){
             JOptionPane.showMessageDialog(this, 
             "Error en el formato de número",
             "Por favor vuelva a introducir los datos.",
             JOptionPane.INFORMATION_MESSAGE);
-            return;} 
+            return;} */
+            numero = leerEntero(campoAnadirCp, this, " Error en el formato del Codigo Postal\nPor favor vuelva a introducir los datos.");
+            if (numero == null) return;
+            /*
             try{
              int cp = Integer.parseInt(campoAnadirCp.getText());
             } catch(NumberFormatException i){
@@ -138,7 +143,10 @@ public class VentanaGestion extends JFrame{
             "Error en el formato de código postal",
             "Por favor vuelva a introducir los datos.",
             JOptionPane.INFORMATION_MESSAGE);
-            return;} 
+            return;}*/
+            Long numero2 = leerLong(campoAnadirPrecio, this, " Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
+            if (numero2 == null) return;
+            /*
             try{
              long precio = Long.parseLong(campoAnadirPrecio.getText());
             } catch(NumberFormatException i){
@@ -146,7 +154,7 @@ public class VentanaGestion extends JFrame{
             "Error en el formato de precio",
             "Por favor vuelva a introducir los datos.",
             JOptionPane.INFORMATION_MESSAGE);
-            return;} 
+            return;}*/ 
             
             Evento evento = registrarEvento();
             ArrayList<Evento> recuperadosArrayEventos = GestionClientes.cargarEventos();

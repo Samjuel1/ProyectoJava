@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Interfaz;
 
 import javax.swing.*;
@@ -10,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import proyectojava.Cliente;
 import proyectojava.GestionClientes;
-import proyectojava.Evento;
+import static proyectojava.GestionClientes.*;
 
 public class VentanaInicio extends JFrame {
 
@@ -161,7 +157,7 @@ public class VentanaInicio extends JFrame {
            // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             ventanaUsuarios.setSize(300, 200);
             ventanaUsuarios.setLocationRelativeTo(this); 
-        
+        /*
             ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
             ArrayList<String> recuperadosArray = new ArrayList<>();
 
@@ -172,7 +168,8 @@ public class VentanaInicio extends JFrame {
             System.out.println("Clave: " + clave);
         }
 
-        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
+        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));*/
+        JList<String> lista = new JList<>(clientesToArray());
         JScrollPane scroll = new JScrollPane(lista);
 
             ventanaUsuarios.add(scroll);
