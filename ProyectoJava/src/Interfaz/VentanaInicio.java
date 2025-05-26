@@ -153,8 +153,7 @@ public class VentanaInicio extends JFrame {
         });
         
         consultarEvento.addActionListener(e -> {
-            JFrame ventanaUsuarios = new JFrame("Usuarios");
-           // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JFrame ventanaUsuarios = new JFrame("Consultar eventos");
             ventanaUsuarios.setSize(300, 200);
             ventanaUsuarios.setLocationRelativeTo(this); 
         /*
@@ -162,7 +161,7 @@ public class VentanaInicio extends JFrame {
             ArrayList<String> recuperadosArray = new ArrayList<>();
 
         for (Evento evento : eventosRecuperados) {
-            String clave = evento.getTitulo(); // Suponiendo que existe este método
+            String clave = evento.getTitulo(); 
             recuperadosArray.add(clave);
             System.out.println(recuperadosArray);
             System.out.println("Clave: " + clave);
@@ -423,11 +422,11 @@ public class VentanaInicio extends JFrame {
             int resultadoD = JOptionPane.showConfirmDialog(null, panelCambioDireccion, "Cambio de dirección", JOptionPane.OK_CANCEL_OPTION);
             String calle = campoCambioCalle.getText();
             String numeroD = campoCambioNumero.getText();
-            String ciudad = campoCambioCiudad.getText();
+            String ciudadD = campoCambioCiudad.getText();
             String codigo = campoCambioCodigo.getText();
             String contrasenaD = campoContrasenaD.getText();
             
-            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudad.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
+            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudadD.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos", "Datos no introducidos", HEIGHT);}
             
             });
