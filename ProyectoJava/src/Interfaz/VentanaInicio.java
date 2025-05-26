@@ -425,11 +425,11 @@ public class VentanaInicio extends JFrame {
             int resultadoD = JOptionPane.showConfirmDialog(null, panelCambioDireccion, "Cambio de dirección", JOptionPane.OK_CANCEL_OPTION);
             String calle = campoCambioCalle.getText();
             String numeroD = campoCambioNumero.getText();
-            String ciudad = campoCambioCiudad.getText();
+            String ciudadD = campoCambioCiudad.getText();
             String codigo = campoCambioCodigo.getText();
             String contrasenaD = campoContrasenaD.getText();
             
-            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudad.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
+            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudadD.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos", "Datos no introducidos", HEIGHT);}
             
             });

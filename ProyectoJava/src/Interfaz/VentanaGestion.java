@@ -186,15 +186,15 @@ public class VentanaGestion extends JFrame{
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         lista.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                if (evt.getClickCount() == 2) {
-                    int index = lista.locationToIndex(evt.getPoint());
+            public void mouseClicked(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                    int index = lista.locationToIndex(event.getPoint());
                     if (index >= 0) {
                         Evento seleccionado = eventosRecuperados.get(index);
                         JOptionPane.showMessageDialog(
                             null,
                             "Nombre: " + seleccionado.getTitulo() + "\nDescripción: ",
-                            "Detalles del Evento",
+                            "Detalles del Evento" + "hola",
                             JOptionPane.INFORMATION_MESSAGE
                         );
                     }
