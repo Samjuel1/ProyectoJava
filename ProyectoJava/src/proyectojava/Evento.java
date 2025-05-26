@@ -89,7 +89,12 @@ public class Evento implements Serializable{
 
     @Override
     public String toString() {
-        return "Evento{" + "titulo=" + titulo + ", tipo=" + tipo + ", direccion=" + direccion + ", precio=" + precio + ", calificacion=" + calificacion + '}';
+        return "Evento\n"
+        + " Titulo: " + titulo 
+        + ", Tipo: " + tipo 
+        + ", Direccion ==> [" + direccion + "]" 
+        + ", Precio: " + precio 
+        + ", Calificacion: " + calificacion + "\n";
     }
     
 }

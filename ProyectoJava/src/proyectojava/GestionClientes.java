@@ -19,13 +19,13 @@ public class GestionClientes {
     
     // Nombres de Archivos
     
-    private static final String ARCHIVO_CLIENTES = "clientes.dat";
+    private static final String archivo_clientes = "clientes.dat";
     private static final String ARCHIVO_EVENTOS = "eventos.dat";
     
     // Serializacion de Clientes
     
     public static void guardarClientes(HashMap<String, Cliente> lista) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_CLIENTES))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo_clientes))) {
             out.writeObject(lista);
             System.out.println("Lista de clientes guardada correctamente.");
         } catch (IOException e) {
@@ -34,10 +34,11 @@ public class GestionClientes {
     }
     
     public static HashMap<String, Cliente> cargarClientes() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_CLIENTES))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo_clientes))) {
             return (HashMap<String, Cliente>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("hola");
             return new HashMap<String, Cliente>(); // si falla, devuelve una lista vacía
         }
     }
@@ -54,10 +55,11 @@ public class GestionClientes {
     }
     
     public static ArrayList<Evento> cargarEventos() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_CLIENTES))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_EVENTOS))) {
             return (ArrayList<Evento>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("hola");
             return new ArrayList<Evento>(); // si falla, devuelve una lista vacía
         }
     }
