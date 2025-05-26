@@ -1,17 +1,16 @@
 package proyectojava;
-import Interfaz.Ventana_in_sesion;
-import java.time.LocalDateTime;
-import java.time.Month;
-import Interfaz.VentanaInicio;
+import Interfaz.VentanaGestion;
 import java.util.HashMap;
 import javax.swing.*;
-import Interfaz.VentanaGestion;
+import java.util.ArrayList;
 
 
 public class ProyectoJava {
     public static HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
+    public static ArrayList<Evento> recuperadosEventos = GestionClientes.cargarEventos();
     public static void main(String[] args) {
         System.out.println(recuperados);
+        System.out.println(recuperadosEventos);
         
   //      ArrayList<Cliente> clientes = new ArrayList<>();
   //      clientes.add(new Cliente("hola@gmail","1234","Juan","651728694","juan","1522 2727 2833 2387","12/28", "callef",4,"madrid",28732,true));
@@ -28,9 +27,9 @@ public class ProyectoJava {
        /// SwingUtilities.invokeLater(() -> {
           ///  new VentanaMixta().setVisible(true);
         ///});
-        SwingUtilities.invokeLater(() -> {
+  /*      SwingUtilities.invokeLater(() -> {
             new VentanaInicio().setVisible(true);
-        });
+        });*/
         
         
      //   SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));

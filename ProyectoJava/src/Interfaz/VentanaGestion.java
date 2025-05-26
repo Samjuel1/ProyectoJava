@@ -4,22 +4,34 @@
  */
 package Interfaz;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import proyectojava.Evento;
+import proyectojava.GestionClientes;
 
 /**
  *
  * @author icesa
  */
 public class VentanaGestion extends JFrame{
+    private JTextField campoAnadirTitulo;
+    private JTextField campoAnadirTipo;
+    private JTextField campoAnadirCalle;
+    private JTextField campoAnadirNumero;
+    private JTextField campoAnadirCiudad;
+    private JTextField campoAnadirCp;
+    private JTextField campoAnadirPrecio;
     
     public VentanaGestion(){
     setTitle("Gestión de eventos");
@@ -67,8 +79,79 @@ public class VentanaGestion extends JFrame{
     
     
     anadirEvento.addActionListener(e -> {
+        campoAnadirTitulo = new JTextField(10);
+        campoAnadirTipo = new JTextField(10);
+        campoAnadirCiudad = new JTextField(10);
+        campoAnadirCalle = new JTextField(10);
+        campoAnadirNumero = new JTextField(10);
+        campoAnadirCp = new JTextField(10);
+        campoAnadirPrecio = new JTextField(10);
+
+        JPanel panelAnadirEvento = new JPanel();
+        panelAnadirEvento.setLayout(new BoxLayout(panelAnadirEvento, BoxLayout.Y_AXIS)); 
+        panelAnadirEvento.add(new JLabel("Título: "));
+        panelAnadirEvento.add(campoAnadirTitulo);
+        panelAnadirEvento.add(Box.createVerticalStrut(10));  
+        panelAnadirEvento.add(new JLabel("Tipo:"));
+        panelAnadirEvento.add(campoAnadirTipo);
+        panelAnadirEvento.add(Box.createVerticalStrut(10)); 
+        panelAnadirEvento.add(new JLabel("Ciudad:"));
+        panelAnadirEvento.add(campoAnadirCiudad);
+        panelAnadirEvento.add(Box.createVerticalStrut(10)); 
+        panelAnadirEvento.add(new JLabel("Calle:"));
+        panelAnadirEvento.add(campoAnadirCalle);
+        panelAnadirEvento.add(Box.createVerticalStrut(10)); 
+        panelAnadirEvento.add(new JLabel("Numero:"));
+        panelAnadirEvento.add(campoAnadirNumero);
+        panelAnadirEvento.add(Box.createVerticalStrut(10)); 
+        panelAnadirEvento.add(new JLabel("Codigo postal:"));
+        panelAnadirEvento.add(campoAnadirCp);
+        panelAnadirEvento.add(Box.createVerticalStrut(10)); 
+        panelAnadirEvento.add(new JLabel("Precio:"));
+        panelAnadirEvento.add(campoAnadirPrecio);
+  
+     
+        
+        
+        int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Cambio de contraseña", JOptionPane.OK_CANCEL_OPTION);
+        String titulo = campoAnadirTitulo.getText();
+        String tipo = campoAnadirCiudad.getText();
+        String calle = campoAnadirCalle.getText();
+        int numero = Integer.parseInt(campoAnadirNumero.getText());
+        String ciudad = campoAnadirCiudad.getText();
+        int cp = Integer.parseInt(campoAnadirCp.getText());
+        long precio = Long.parseLong(campoAnadirPrecio.getText());
+        
+
+
+        
+        if (resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
+        //  System.out.println(ProyectoJava.recuperados);
+            } else {
+            Evento evento = registrarEvento();
+            ArrayList<Evento> recuperadosArrayEventos = GestionClientes.cargarEventos();
+            recuperadosArrayEventos.add(evento);
+            GestionClientes.guardarEventos(recuperadosArrayEventos);
+            System.out.println(recuperadosArrayEventos);
+            dispose();
+            }
 
         });
+    
+    
+        
     }
+    public Evento registrarEvento(){
+        String titulo = campoAnadirTitulo.getText();
+        String tipo = campoAnadirCiudad.getText();
+        String calle = campoAnadirCalle.getText();
+        int numero = Integer.parseInt(campoAnadirNumero.getText());
+        String ciudad = campoAnadirCiudad.getText();
+        int cp = Integer.parseInt(campoAnadirCp.getText());
+        long precio = Long.parseLong(campoAnadirPrecio.getText());
+        return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0);
+        
+        }
     
 }
