@@ -1,5 +1,5 @@
 package proyectojava;
-import Interfaz.VentanaGestion;
+import Interfaz.Ventana_in_sesion;
 import java.util.HashMap;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class ProyectoJava {
         });*/
         
         
-     //   SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
-     SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
+        SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
+     //SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
     
     }
     

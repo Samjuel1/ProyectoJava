@@ -11,10 +11,10 @@ import java.io.Serializable;
  */
 public class Direccion implements Serializable {
     
-    private String calle;
-    private int numero;
-    private String ciudad;
-    private int cp;
+    public String calle;
+    public int numero;
+    public String ciudad;
+    public int cp;
 
     public String getCalle() {
         return calle;

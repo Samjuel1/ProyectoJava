@@ -149,6 +149,7 @@ public class VentanaInicio extends JFrame {
         //botones del admin
         
         gestionarEvento.addActionListener(e -> {
+            new VentanaGestion().setVisible(true);
 
         });
         
@@ -305,6 +306,8 @@ public class VentanaInicio extends JFrame {
         cambioCorreo.addActionListener(e -> {
             JTextField campoCorreo = new JTextField(10);
             JTextField campoContrasena = new JTextField(10);
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
+            
 
             JPanel panelCambioContrasena = new JPanel();
             panelCambioContrasena.setLayout(new BoxLayout(panelCambioContrasena, BoxLayout.Y_AXIS)); 
@@ -322,8 +325,9 @@ public class VentanaInicio extends JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
         //  System.out.println(ProyectoJava.recuperados);
             } else if(resultado == JOptionPane.OK_OPTION && !usuario.isEmpty() && !contrasena.isEmpty()){
+                if (contrasena.length() < 8 && usuario.contains("@gmail.com")){
+                JOptionPane.showMessageDialog(this,"Contraseña demasiado corta, por favor introduce una con al menos 8 caracteres");}
                 
-                JOptionPane.showMessageDialog(this, "Las credenciales no coinciden,\nvuelve a introducir los datos", "Datos erróneos", resultado);
             }
 
 

@@ -121,7 +121,7 @@ public class VentanaGestion extends JFrame{
         
         int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Añadir evento", JOptionPane.OK_CANCEL_OPTION);
         String titulo = campoAnadirTitulo.getText();
-        String tipo = campoAnadirCiudad.getText();
+        String tipo = campoAnadirTipo.getText();
         String calle = campoAnadirCalle.getText();
         String ciudad = campoAnadirCiudad.getText();      
 
@@ -170,16 +170,19 @@ public class VentanaGestion extends JFrame{
             
         } else if(resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())){
         JOptionPane.showMessageDialog(this,"Datos no introducidos", "Por favor, rellene los datos", JOptionPane.INFORMATION_MESSAGE);}
-
         });
     
         eliminarEvento.addActionListener(e -> {
             JFrame panelEliminarEvento = new JFrame("Eliminar evento");
+            JPanel panelPantallaEliminarEvento = new JPanel();
+            panelPantallaEliminarEvento.setLayout(new BoxLayout(panelPantallaEliminarEvento, BoxLayout.Y_AXIS));
             panelEliminarEvento.setSize(300, 200);
             panelEliminarEvento.setLocationRelativeTo(this); 
+            
         
             ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
             ArrayList<String> recuperadosArray = new ArrayList<>();
+            
 
         for (Evento evento : eventosRecuperados) {
             String clave = evento.getTitulo(); 
@@ -189,7 +192,6 @@ public class VentanaGestion extends JFrame{
         }
 
         JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
-       // eventosRecuperados.toArray(new Evento[0]);
         JScrollPane scroll = new JScrollPane(lista);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -199,12 +201,16 @@ public class VentanaGestion extends JFrame{
                     int index = lista.locationToIndex(event.getPoint());
                     if (index >= 0) {
                         Evento seleccionado = eventosRecuperados.get(index);
-                        JOptionPane.showMessageDialog(
-                            null,
-                            "Nombre: " + seleccionado.getTitulo() + "\nDescripción: ",
-                            "Detalles del Evento" + "hola",
-                            JOptionPane.INFORMATION_MESSAGE
-                        );
+                        
+                        panelPantallaEliminarEvento.add(new JLabel("¿Estás seguro que deseas eliminar el evento " + seleccionado.getTitulo() + '?'));
+                        
+                        int resultado = JOptionPane.showConfirmDialog(null, panelPantallaEliminarEvento, "Eliminar evento", JOptionPane.OK_CANCEL_OPTION);
+                        
+                        if (resultado == JOptionPane.OK_OPTION){ eventosRecuperados.remove(seleccionado);
+                        GestionClientes.guardarEventos(eventosRecuperados);
+                        panelPantallaEliminarEvento.removeAll();
+                        panelEliminarEvento.dispose();
+                        } else if (resultado == JOptionPane.CANCEL_OPTION){panelPantallaEliminarEvento.removeAll();}
                     }
                 }
             }
@@ -217,8 +223,12 @@ public class VentanaGestion extends JFrame{
         
         modificarEvento.addActionListener(e -> {
             JFrame panelModificarEvento = new JFrame("Modificar evento");
+            JPanel panelPantallaModificarEvento = new JPanel();
+            panelPantallaModificarEvento.setLayout(new BoxLayout(panelPantallaModificarEvento, BoxLayout.Y_AXIS)); 
             panelModificarEvento.setSize(300, 200);
             panelModificarEvento.setLocationRelativeTo(this); 
+            
+            
         
             ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
             ArrayList<String> recuperadosArray = new ArrayList<>();
@@ -226,12 +236,76 @@ public class VentanaGestion extends JFrame{
         for (Evento evento : eventosRecuperados) {
             String clave = evento.getTitulo(); 
             recuperadosArray.add(clave);
-            System.out.println(recuperadosArray);
-            System.out.println("Clave: " + clave);
         }
 
         JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
         JScrollPane scroll = new JScrollPane(lista);
+        lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        lista.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                    int index = lista.locationToIndex(event.getPoint());
+                    if (index >= 0) {
+                        Evento seleccionado = eventosRecuperados.get(index);
+
+                        JTextField campoModificarTitulo = new JTextField(seleccionado.getTitulo());
+                        JTextField campoModificarTipo = new JTextField(seleccionado.getTipo());
+                        JTextField campoModificarCalle = new JTextField(seleccionado.getDireccion().calle);
+                        JTextField campoModificarNumero = new JTextField(String.valueOf(seleccionado.getDireccion().numero));
+                        JTextField campoModificarCiudad = new JTextField(seleccionado.getDireccion().ciudad);
+                        JTextField campoModificarCp = new JTextField(String.valueOf(seleccionado.getDireccion().cp));
+                        JTextField campoModificarPrecio = new JTextField(String.valueOf(seleccionado.getPrecio()));
+                        panelPantallaModificarEvento.add(new JLabel("Título: "));
+                        panelPantallaModificarEvento.add(campoModificarTitulo);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Tipo: "));
+                        panelPantallaModificarEvento.add(campoModificarTipo);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Calle: "));
+                        panelPantallaModificarEvento.add(campoModificarCalle);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Numero: "));
+                        panelPantallaModificarEvento.add(campoModificarNumero);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Ciudad: "));
+                        panelPantallaModificarEvento.add(campoModificarCiudad);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Código postal: "));
+                        panelPantallaModificarEvento.add(campoModificarCp);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Precio: "));
+                        panelPantallaModificarEvento.add(campoModificarPrecio);
+                        
+                        int resultado = JOptionPane.showConfirmDialog(null, panelPantallaModificarEvento, "Modificar evento", JOptionPane.OK_CANCEL_OPTION);
+                        
+                        if (resultado == JOptionPane.OK_OPTION){
+                        String tituloModificado = campoModificarTitulo.getText();
+                        String tipoModificado = campoModificarTipo.getText();
+                        String calleModificada = campoModificarCalle.getText();
+                        int numeroModificado = Integer.parseInt(campoModificarNumero.getText());
+                        String ciudadModificada = campoModificarCiudad.getText();
+                        int cpModificado = Integer.parseInt(campoModificarCp.getText());
+                        long precioModificado = Long.parseLong(campoModificarPrecio.getText());
+                        
+                        
+                        seleccionado.setTitulo(tituloModificado);
+                        seleccionado.setTipo(tipoModificado);
+                        seleccionado.getDireccion().setCalle(calleModificada);
+                        seleccionado.getDireccion().setNumero(numeroModificado);
+                        seleccionado.getDireccion().setCiudad(ciudadModificada);
+                        seleccionado.getDireccion().setCp(cpModificado);
+                        seleccionado.setPrecio(precioModificado);
+
+                        
+                        GestionClientes.guardarEventos(eventosRecuperados);
+                        panelPantallaModificarEvento.removeAll();
+
+                        }else if(resultado == JOptionPane.CANCEL_OPTION){panelPantallaModificarEvento.removeAll();}
+                    }
+                }
+            }
+        });
 
             panelModificarEvento.add(scroll);
             panelModificarEvento.setVisible(true);
@@ -248,7 +322,7 @@ public class VentanaGestion extends JFrame{
     
     public Evento registrarEvento(){
         String titulo = campoAnadirTitulo.getText();
-        String tipo = campoAnadirCiudad.getText();
+        String tipo = campoAnadirTipo.getText();
         String calle = campoAnadirCalle.getText();
         int numero = Integer.parseInt(campoAnadirNumero.getText());
         String ciudad = campoAnadirCiudad.getText();
