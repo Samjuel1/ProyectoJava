@@ -157,8 +157,7 @@ public class VentanaInicio extends JFrame {
         });
         
         consultarEvento.addActionListener(e -> {
-            JFrame ventanaUsuarios = new JFrame("Usuarios");
-           // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JFrame ventanaUsuarios = new JFrame("Consultar eventos");
             ventanaUsuarios.setSize(300, 200);
             ventanaUsuarios.setLocationRelativeTo(this); 
         
@@ -166,7 +165,7 @@ public class VentanaInicio extends JFrame {
             ArrayList<String> recuperadosArray = new ArrayList<>();
 
         for (Evento evento : eventosRecuperados) {
-            String clave = evento.getTitulo(); // Suponiendo que existe este método
+            String clave = evento.getTitulo(); 
             recuperadosArray.add(clave);
             System.out.println(recuperadosArray);
             System.out.println("Clave: " + clave);

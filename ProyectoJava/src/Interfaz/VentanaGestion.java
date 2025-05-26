@@ -7,6 +7,8 @@ package Interfaz;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -14,9 +16,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
 
@@ -113,7 +118,7 @@ public class VentanaGestion extends JFrame{
      
         
         
-        int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Cambio de contraseña", JOptionPane.OK_CANCEL_OPTION);
+        int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Añadir evento", JOptionPane.OK_CANCEL_OPTION);
         String titulo = campoAnadirTitulo.getText();
         String tipo = campoAnadirCiudad.getText();
         String calle = campoAnadirCalle.getText();
@@ -155,16 +160,84 @@ public class VentanaGestion extends JFrame{
             System.out.println(recuperadosArrayEventos);
             
             
-          
-        //  System.out.println(ProyectoJava.recuperados);
         } else if(resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())){
         JOptionPane.showMessageDialog(this,"Datos no introducidos", "Por favor, rellene los datos", JOptionPane.INFORMATION_MESSAGE);}
 
         });
     
+        eliminarEvento.addActionListener(e -> {
+            JFrame panelEliminarEvento = new JFrame("Eliminar evento");
+            panelEliminarEvento.setSize(300, 200);
+            panelEliminarEvento.setLocationRelativeTo(this); 
+        
+            ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
+            ArrayList<String> recuperadosArray = new ArrayList<>();
+
+        for (Evento evento : eventosRecuperados) {
+            String clave = evento.getTitulo(); 
+            recuperadosArray.add(clave);
+            System.out.println(recuperadosArray);
+            System.out.println("Clave: " + clave);
+        }
+
+        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
+       // eventosRecuperados.toArray(new Evento[0]);
+        JScrollPane scroll = new JScrollPane(lista);
+        lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        lista.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    int index = lista.locationToIndex(evt.getPoint());
+                    if (index >= 0) {
+                        Evento seleccionado = eventosRecuperados.get(index);
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Nombre: " + seleccionado.getTitulo() + "\nDescripción: ",
+                            "Detalles del Evento",
+                            JOptionPane.INFORMATION_MESSAGE
+                        );
+                    }
+                }
+            }
+        });
+
+            panelEliminarEvento.add(scroll);
+            panelEliminarEvento.setVisible(true);
+
+          });
+        
+        modificarEvento.addActionListener(e -> {
+            JFrame panelModificarEvento = new JFrame("Modificar evento");
+            panelModificarEvento.setSize(300, 200);
+            panelModificarEvento.setLocationRelativeTo(this); 
+        
+            ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
+            ArrayList<String> recuperadosArray = new ArrayList<>();
+
+        for (Evento evento : eventosRecuperados) {
+            String clave = evento.getTitulo(); 
+            recuperadosArray.add(clave);
+            System.out.println(recuperadosArray);
+            System.out.println("Clave: " + clave);
+        }
+
+        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
+        JScrollPane scroll = new JScrollPane(lista);
+
+            panelModificarEvento.add(scroll);
+            panelModificarEvento.setVisible(true);
+
+          });
     
         
     }
+    
+    
+    
+    
+    
+    
     public Evento registrarEvento(){
         String titulo = campoAnadirTitulo.getText();
         String tipo = campoAnadirCiudad.getText();
