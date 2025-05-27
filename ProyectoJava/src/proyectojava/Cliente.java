@@ -18,7 +18,7 @@ public class Cliente implements Serializable {
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
     
-    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
+    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
         this.correo = correo;
         this.contrasena = contrasena;
         this.nombre = nombre; 
