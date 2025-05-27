@@ -65,7 +65,7 @@ public class Ventana_in_sesion extends JFrame {
         
         
         boton3.addActionListener(e -> {
-            
+            /*
             GestionClientes.leerCorreo(campoCorreo, this);
             GestionClientes.leerContraseñaSesion(campoContrasena, this);
             if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText())){
@@ -81,7 +81,22 @@ public class Ventana_in_sesion extends JFrame {
                 "Usuario o Contraseña Incorrectos",
                 "Inicio de sesion incorrecto ", 
                 JOptionPane.INFORMATION_MESSAGE);
+            } */
+            if (GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaSesion(campoContrasena, this)) {
+                if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText())) {
+                    JOptionPane.showMessageDialog(this,
+                    "Has iniciado sesión.",
+                    "Inicio de sesión correcto",
+                    JOptionPane.INFORMATION_MESSAGE);
+                new VentanaInicio().setVisible(true);
+                dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                    "Usuario o Contraseña Incorrectos",
+                    "Inicio de sesión incorrecto",
+                    JOptionPane.INFORMATION_MESSAGE);
             }
+}
                 
         });
         boton4.addActionListener(e -> {

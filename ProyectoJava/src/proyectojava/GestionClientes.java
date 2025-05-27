@@ -4,7 +4,6 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import javax.swing.*;
 
 public class GestionClientes {
@@ -177,6 +176,12 @@ public class GestionClientes {
     
     // Varios 
     
+    public static void agregarClienteArchivo(Cliente cliente){
+        HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
+        lista.put(cliente.getCorreo(), cliente);
+        GestionClientes.guardarClientes(lista);
+    }
+    
     public static String[] clientesToArray(){
         HashMap<String, Cliente> clientes = GestionClientes.cargarClientes();
         ArrayList<String> clientesArray = new ArrayList<>();
@@ -223,12 +228,63 @@ public class GestionClientes {
         }
     }
     
+    public static boolean leerNumero(JTextField campo, Component parent){
+        Integer aux = leerEntero(campo, parent, "Porfavor Introduzca un numero válido");
+        if (aux == null){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean leerContraseñaRegistro(JTextField campo, Component parent){
+        if (GestionClientes.leerContraseñaSesion(campo, parent)){
+            if (campo.getText().length() < 8){
+                JOptionPane.showMessageDialog(parent,
+                "La contraseña debe ser mayor de ocho caracteres",
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean leerTelefono(JTextField campo, Component parent){
+        Integer aux = leerEntero(campo, parent, "El número de teléfono debe incluir solo números");
+        if (aux == null){
+            return false;
+        }
+        if (campo.getText().length() != 9){
+                JOptionPane.showMessageDialog(parent,
+                "Formato del Numero de Teléfono inválido",
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+                return false;
+        }
+        return true;
+    }
+    
+    public static boolean leerNumeroTarjeta(JTextField campo, Component parent){
+        Integer aux = leerEntero(campo, parent, "El número de Tarjeta debe incluir solo números");
+        if (aux == null){
+            return false;
+        }
+        if (campo.getText().length() != 16){
+                JOptionPane.showMessageDialog(parent,
+                "Formato del Numero de Tarjeta inválido",
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+                return false;
+        }
+        return true;
+    }
+    
     // Tratado de Datos INICIO DE SESION
     
     public static boolean leerCorreo(JTextField campo, Component parent){
         if (campo.getText().equals("")){
             JOptionPane.showMessageDialog(parent,
-                "Por favor, introduce los datos.",
+                "Por favor, introduce un correo.",
                 "Correo no introducido", 
                 JOptionPane.INFORMATION_MESSAGE);
             return false;

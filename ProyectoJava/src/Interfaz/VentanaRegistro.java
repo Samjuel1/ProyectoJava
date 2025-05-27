@@ -14,7 +14,6 @@ import java.awt.*;
 import proyectojava.Cliente;
 
 
-import java.util.HashMap;
 import proyectojava.GestionClientes;
 
 public class VentanaRegistro extends JFrame{
@@ -87,92 +86,33 @@ public class VentanaRegistro extends JFrame{
         });
         
         registrar.addActionListener(e -> {
-            String contrasena = campoContrasena.getText();
-            String telefono = campoTelefono.getText();
-            String numero_tarjeta = campoNumeroT.getText();
-            if (contrasena.length() < 8){
-            JOptionPane.showMessageDialog(this, 
-            "Contraseña inválida",
-            "Por favor introduce una contraseña con al menos 8 caracteres.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}
-            if (telefono.length() != 9){
-            JOptionPane.showMessageDialog(this, 
-            "Teléfono inválido",
-            "Por favor introduce una teléfono válido.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}
-            try{
-             int numero = Integer.parseInt(campoNumero.getText());
-            } catch(NumberFormatException i){
-            JOptionPane.showMessageDialog(this, 
-            "Número de puerta",
-            "Por favor introduce un número de puerta válido.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}    
-            try{
-             int codigo = Integer.parseInt(campoNumero.getText());
-            } catch(NumberFormatException i){
-            JOptionPane.showMessageDialog(this, 
-            "Número de código postal",
-            "Por favor introduce un número de código postal válido.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}
-            if(numero_tarjeta.length() != 16){
-            JOptionPane.showMessageDialog(this, 
-            "Número de tarjeta inválido",
-            "Por favor introduce un número de tarjeta válido.",
-            JOptionPane.INFORMATION_MESSAGE);}
+
+            if(GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaRegistro(campoContrasena, this) 
+            && GestionClientes.leerTelefono(campoTelefono, this) && GestionClientes.leerNumero(campoNumero, this) && GestionClientes.leerNumeroTarjeta(campoNumeroT, this)){
+                
+                GestionClientes.agregarClienteArchivo(registrarCliente());
+
+                JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
+                new VentanaInicio().setVisible(true);
+                dispose();
+            }});
             
-            Cliente cliente = registrarCliente();
-            HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
-
-    // Agregar el nuevo
-            lista.put(cliente.getCorreo(), cliente);
-
-    // Guardar lista actualizada
-            GestionClientes.guardarClientes(lista);
-            System.out.println(lista);
-
-            JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
-            new VentanaInicio().setVisible(true);
-            dispose();
             
-
-            
-        });
-        
- //       public guardarCliente()  {
- //           FileOutputStream fileOutputStream = new FileOutputStream("datos.txt");
- //           ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
- //           objectOutputStream.writeObject(cliente);
- //           objectOutputStream.close();}
-
-            
-}
-    
+    }
     
         public Cliente registrarCliente() {
-    String nombre = campoNombre.getText();
-    String correo = campoCorreo.getText();
-    String contrasena = new String(campoContrasena.getPassword());
-    String telefono = campoTelefono.getText();
-    String calle = campoCalle.getText();
-    int numero = Integer.parseInt(campoNumero.getText());
-    String ciudad = campoCiudad.getText();
-    int codigo = Integer.parseInt(campoCodigo.getText());
-    String titular_tarjeta = campoNombreT.getText();
-    String numero_tarjeta = campoNumeroT.getText();
-    String fecha_caducidad = campoFechaT.getText();
-    return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo,false);
-}
-     //   public guardarCliente(){
-       // ArrayLis
-        //}
-    
+            String nombre = campoNombre.getText();
+            String correo = campoCorreo.getText();
+            String contrasena = new String(campoContrasena.getPassword());
+            String telefono = campoTelefono.getText();
+            String calle = campoCalle.getText();
+            int numero = Integer.parseInt(campoNumero.getText());
+            String ciudad = campoCiudad.getText();
+            int codigo = Integer.parseInt(campoCodigo.getText());
+            String titular_tarjeta = campoNombreT.getText();
+            String numero_tarjeta = campoNumeroT.getText();
+            String fecha_caducidad = campoFechaT.getText();
+            return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo);
+        }
 
-
-    
-    
-    
 }
