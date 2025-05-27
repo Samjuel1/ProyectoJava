@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import javax.swing.*;
 
 public class GestionClientes {
@@ -169,6 +170,7 @@ public class GestionClientes {
         GestionClientes.admin = comprobarAdmin(correo, contraseña);
         if (!GestionClientes.admin){
             resultado = GestionClientes.comprobarUsuario(correo, contraseña);
+            GestionClientes.setUsuarioActivo(GestionClientes.cargarClientes().get(correo));
         }
         return resultado;
     }
@@ -223,26 +225,31 @@ public class GestionClientes {
     
     // Tratado de Datos INICIO DE SESION
     
-    public static void leerCorreo(JTextField campo, Component parent){
+    public static boolean leerCorreo(JTextField campo, Component parent){
         if (campo.getText().equals("")){
             JOptionPane.showMessageDialog(parent,
                 "Por favor, introduce los datos.",
                 "Correo no introducido", 
                 JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }else if (!campo.getText().endsWith("@gmail.com")&&!campo.getText().endsWith("@gmail.es")&&!campo.getText().endsWith("@hotmail.com")){
             JOptionPane.showMessageDialog(parent,
                 "Formato del correo invalido.",
                 "Formato correo invalido", 
                 JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }
+        return true;
     }
         
-    public static void leerContraseñaSesion(JTextField campo, Component parent){
+    public static boolean leerContraseñaSesion(JTextField campo, Component parent){
         if (campo.getText().equals("")){
             JOptionPane.showMessageDialog(parent,
                 "Por favor, introduce los datos.",
                 "Contraseña no introducida", 
                 JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }
+        return true;
     }
 }
