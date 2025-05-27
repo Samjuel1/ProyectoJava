@@ -307,6 +307,7 @@ public class VentanaInicio extends JFrame {
             JTextField campoCorreo = new JTextField(10);
             JTextField campoContrasena = new JTextField(10);
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
+
             
 
             JPanel panelCambioContrasena = new JPanel();
@@ -325,8 +326,19 @@ public class VentanaInicio extends JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
         //  System.out.println(ProyectoJava.recuperados);
             } else if(resultado == JOptionPane.OK_OPTION && !usuario.isEmpty() && !contrasena.isEmpty()){
-                if (contrasena.length() < 8 && usuario.contains("@gmail.com")){
-                JOptionPane.showMessageDialog(this,"Contraseña demasiado corta, por favor introduce una con al menos 8 caracteres");}
+                if (contrasena.equals(usuarioActivo.getContrasena()) && (usuarioActivo.getCorreo().endsWith("@gmail.com") || usuarioActivo.getCorreo().endsWith("@hotmail.com"))){
+                    recuperados.get(usuarioActivo.getCorreo()).setCorreo(usuario);
+                    Cliente cliente = recuperados.get(usuarioActivo.getCorreo());
+                    recuperados.remove(usuarioActivo.getCorreo());
+                    recuperados.put(usuario, cliente);
+                    GestionClientes.guardarClientes(recuperados);
+                    System.out.println(usuario);
+                    System.out.println(recuperados);
+
+                    JOptionPane.showMessageDialog(this, "Cambio de correo", "Has actualizado tu direccion de correo correctamente", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                else if(!contrasena.equals(usuarioActivo.getContrasena())){
+                JOptionPane.showMessageDialog(this, "La contraseña es incorrecta, por favor, vuelve a introducir los datos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);}
                 
             }
 
@@ -337,6 +349,7 @@ public class VentanaInicio extends JFrame {
             JTextField campoContrasena = new JTextField(10);
             JTextField campoCambioContrasena = new JTextField(10);
             JTextField campoCambioContrasenaV = new JTextField(10);
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
             
             JPanel panelCambioContrasena = new JPanel();
             panelCambioContrasena.setLayout(new BoxLayout(panelCambioContrasena, BoxLayout.Y_AXIS));
@@ -355,10 +368,25 @@ public class VentanaInicio extends JFrame {
             String nuevaContrasenaV = campoCambioContrasenaV.getText();
             
             if (resultadoC == JOptionPane.OK_OPTION && (contrasena.isEmpty() || nuevaContrasena.isEmpty() || nuevaContrasenaV.isEmpty())) {
-            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
-            } else{
+            JOptionPane.showMessageDialog(this, "Datos no introducidos","Por favor vuelve a introducir los datos", JOptionPane.INFORMATION_MESSAGE);
+            } else if (resultadoC == JOptionPane.OK_OPTION && (!contrasena.isEmpty() && !nuevaContrasena.isEmpty() && !nuevaContrasenaV.isEmpty())){
+                if (contrasena.equals(usuarioActivo.getContrasena())){
+                    if(nuevaContrasena.equals(nuevaContrasenaV) && (nuevaContrasena.length() > 7 && nuevaContrasena.length() > 7)){
+                        recuperados.get(usuarioActivo.getCorreo()).setContrasena(contrasena);
+                        GestionClientes.guardarClientes(recuperados);
+                        System.out.println(recuperados);
+                        JOptionPane.showMessageDialog(this, "Cambio de contraseña", "Has actualizado tu contraseña", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                        
+                    } if (nuevaContrasena.length() > 7 && nuevaContrasenaV.length() > 7){
+                        if (!nuevaContrasena.equals(nuevaContrasenaV)){
+                            JOptionPane.showMessageDialog(this, "Contraseñas desiguales", "La nueva contraseña no coincide, por favor, vuelve a introducirlas", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                            
+                }
+            }if(nuevaContrasena.length() < 8 || nuevaContrasenaV.length() < 8){ JOptionPane.showMessageDialog(this, "Formato de contraseña inválido", "La nueva contraseña tiene que contener al menos 8 caracteres, por favor, vuelve a introducirlas", JOptionPane.ERROR_MESSAGE);}
+            }else {JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);}
             }
-            
             
             
         
@@ -369,6 +397,7 @@ public class VentanaInicio extends JFrame {
             JTextField campoCambioNumeroT = new JTextField(10);
             JTextField campoCambioFechaT = new JTextField(10);
             JTextField campoCambioContrasenaT = new JTextField(10);
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
 
             JPanel panelCambioTarjeta = new JPanel();
             panelCambioTarjeta.setLayout(new BoxLayout(panelCambioTarjeta, BoxLayout.Y_AXIS)); 
@@ -394,8 +423,19 @@ public class VentanaInicio extends JFrame {
             String contrasenaT = campoCambioContrasenaT.getText();
             
             if (resultadoT == JOptionPane.OK_OPTION && (nombreT.isEmpty() || numeroT.isEmpty() || fechaT.isEmpty() || contrasenaT.isEmpty())) {
-            JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
-            } else { 
+            JOptionPane.showMessageDialog(this, "Datos no introducidos","Por favor, introduce los datos",JOptionPane.INFORMATION_MESSAGE);
+            } else if (resultadoT == JOptionPane.OK_OPTION && (!nombreT.isEmpty() && !numeroT.isEmpty() && !fechaT.isEmpty() && !contrasenaT.isEmpty())){ 
+                if (contrasenaT.equals(usuarioActivo.getContrasena())){
+                    System.out.println(recuperados);
+                    recuperados.get(usuarioActivo.getCorreo()).getTarjeta().setNombre_titular(nombreT);
+                    recuperados.get(usuarioActivo.getCorreo()).getTarjeta().setNumero_tarjeta(numeroT);
+                    recuperados.get(usuarioActivo.getCorreo()).getTarjeta().setFecha_caducidad(fechaT);
+                    GestionClientes.guardarClientes(recuperados);
+                    System.out.println(recuperados);
+                    JOptionPane.showMessageDialog(this, "Cambio de tarjeta", "La tarjeta se ha guardado correctamente", JOptionPane.INFORMATION_MESSAGE);
+                
+                } else if (numeroT.length() > 16){JOptionPane.showMessageDialog(this, "Formato de tarjeta inválido", "El número de tarjeta tiene que contener 16 dígitos, por favor, vuelve a introducirla", JOptionPane.ERROR_MESSAGE);}
+                else  {JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "Las contraseñas no coinciden, por favor, vuelve a introducirla", JOptionPane.ERROR_MESSAGE);}
             }
         });
             
@@ -405,6 +445,7 @@ public class VentanaInicio extends JFrame {
             JTextField campoCambioCiudad = new JTextField(10);
             JTextField campoCambioCodigo = new JTextField(10);
             JTextField campoContrasenaD = new JTextField(10);
+            HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
            
             JPanel panelCambioDireccion = new JPanel();
             panelCambioDireccion.setLayout(new BoxLayout(panelCambioDireccion,BoxLayout.Y_AXIS));
@@ -425,13 +466,25 @@ public class VentanaInicio extends JFrame {
             
             int resultadoD = JOptionPane.showConfirmDialog(null, panelCambioDireccion, "Cambio de dirección", JOptionPane.OK_CANCEL_OPTION);
             String calle = campoCambioCalle.getText();
-            String numeroD = campoCambioNumero.getText();
+            int numeroD = Integer.parseInt(campoCambioNumero.getText());
             String ciudadD = campoCambioCiudad.getText();
-            String codigo = campoCambioCodigo.getText();
+            int codigo = Integer.parseInt(campoCambioCodigo.getText());
             String contrasenaD = campoContrasenaD.getText();
             
-            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || numeroD.isEmpty() || ciudadD.isEmpty() || codigo.isEmpty() || contrasenaD.isEmpty())){
+            if (resultadoD == JOptionPane.OK_OPTION && (calle.isEmpty() || ciudadD.isEmpty() || contrasenaD.isEmpty())){
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos", "Datos no introducidos", HEIGHT);}
+            else if (resultadoD == JOptionPane.OK_OPTION && (!calle.isEmpty() && !ciudadD.isEmpty() && !contrasenaD.isEmpty())){
+                if (contrasenaD.equals(usuarioActivo.getContrasena())){
+                recuperados.get(usuarioActivo.getCorreo()).getDireccion().setCalle(calle);
+                recuperados.get(usuarioActivo.getCorreo()).getDireccion().setNumero(numeroD);
+                recuperados.get(usuarioActivo.getCorreo()).getDireccion().setCiudad(ciudadD);
+                recuperados.get(usuarioActivo.getCorreo()).getDireccion().setNumero(codigo);
+                GestionClientes.guardarClientes(recuperados);
+                System.out.println(recuperados);
+                JOptionPane.showMessageDialog(this, "Cambio de dirección", "Has actualizado dirección", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            } JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+            }
             
             });
             

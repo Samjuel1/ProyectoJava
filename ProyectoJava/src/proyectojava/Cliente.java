@@ -18,9 +18,9 @@ public class Cliente implements Serializable {
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
     
-    public Cliente(String correo, String contraseña, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean vip) {
+    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
         this.correo = correo;
-        this.contrasena = contraseña;
+        this.contrasena = contrasena;
         this.nombre = nombre; 
         this.telefono = telefono;
         this.tarjeta = new Tarjeta_credito(titular_tarjeta,numero_tarjeta, fecha_caducidad);
@@ -74,5 +74,11 @@ public class Cliente implements Serializable {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", direccion=" + direccion + '}';
+    }
+    
     
 }

@@ -27,12 +27,12 @@ public class ProyectoJava {
        /// SwingUtilities.invokeLater(() -> {
           ///  new VentanaMixta().setVisible(true);
         ///});
-  /*      SwingUtilities.invokeLater(() -> {
+   /*   SwingUtilities.invokeLater(() -> {
             new VentanaInicio().setVisible(true);
         });*/
         
         
-        SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
+       SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
      //SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
     
     }
