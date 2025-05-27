@@ -26,63 +26,83 @@ public class VentanaInicio extends JFrame {
         
         
         ImageIcon lupa = new ImageIcon(getClass().getResource("/resources/lupa.png"));
-
-        JButton botonlupa = new JButton(lupa);
+        Image lupaimagenredimensionada = lupa.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        ImageIcon iconoredimensionado = new ImageIcon(lupaimagenredimensionada);
+        JButton botonlupa = new JButton(iconoredimensionado);
+        
+        botonlupa.setBorderPainted(false);
+        botonlupa.setContentAreaFilled(false);
+        botonlupa.setFocusPainted(false);
+        botonlupa.setOpaque(false);
+        
+        ImageIcon filtros = new ImageIcon(getClass().getResource("/resources/filtros.png"));
+        Image filtrosimagenredimensionada = filtros.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        ImageIcon filtroiconoredimensionado = new ImageIcon(filtrosimagenredimensionada);
+        JButton botonfiltro = new JButton(filtroiconoredimensionado);
+        
+        botonfiltro.setBorderPainted(false);
+        botonfiltro.setContentAreaFilled(false);
+        botonfiltro.setFocusPainted(false);
+        botonfiltro.setOpaque(false);
 
         // Crear el JTabbedPane
         
         JTabbedPane pestañas = new JTabbedPane();
         
 
-        // === Pestaña 1: Texto simple ===
+        // panel principal busqueda
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.setLayout(new BoxLayout(panelBusqueda,BoxLayout.Y_AXIS));
         panelBusqueda.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelBusqueda.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        panelBusqueda.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
         
         JLabel buscar = new JLabel("Buscar eventos");
-        buscar.setFont(new Font("Arial", Font.BOLD, 40));
+        buscar.setFont(new Font("Arial", Font.LAYOUT_LEFT_TO_RIGHT, 40));
         panelBusqueda.add(buscar);
-        panelBusqueda.add(Box.createVerticalStrut(70)); 
+        panelBusqueda.add(Box.createVerticalStrut(50)); 
         campoBusqueda = new JTextField();
-        campoBusqueda.setMaximumSize(campoBusqueda.getPreferredSize());
         panelBusqueda.add(campoBusqueda);
-        panelBusqueda.add(Box.createVerticalStrut(70)); 
+        panelBusqueda.add(Box.createVerticalStrut(20)); 
+        panelBusqueda.add(botonlupa);
+        panelBusqueda.add(Box.createVerticalStrut(5)); 
+        panelBusqueda.add(botonfiltro);
+        
+        panelBusqueda.add(Box.createVerticalStrut(30));
         JLabel otros = new JLabel("Eventos destacados: ");
         otros.setFont(new Font("Arial", Font.BOLD,35));
         panelBusqueda.add(otros);
         panelBusqueda.add(Box.createVerticalStrut(30));
-        JButton botonevento1 = new JButton("Evento 1: Concierto bernabeu            Calificacion: 5");
-        botonevento1.setFont(new Font("Arial", Font.BOLD,30));
-        botonevento1.setBackground(Color.WHITE);
-        botonevento1.setHorizontalAlignment(SwingConstants.LEFT);
-        panelBusqueda.add(botonevento1);
-        JButton botonevento2 = new JButton("Evento 2: concierto en mi casa          Calificaion: 4");
-        botonevento2.setFont(new Font("Arial", Font.BOLD,30));
-        botonevento2.setBackground(Color.WHITE);
-        botonevento2.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        ArrayList<Evento> eventosRecuperados_botones = GestionClientes.cargarEventos();
+        GestionClientes.ordenacionPorCalificacion(eventosRecuperados_botones);
+        GestionClientes.crearBotonEventos(eventosRecuperados_botones, panelBusqueda);
+        
+        
 
-        panelBusqueda.add(botonevento2);
         
+        botonlupa.addActionListener(e -> {
+            
+            
+            new VentanaEventos().setVisible(true);
+
+        });
         
-        
-        
-         
+        botonfiltro.addActionListener(e -> {
+            
+            
+            
+
+        });
         
         buscar.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoBusqueda.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonlupa.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonfiltro.setAlignmentX(Component.CENTER_ALIGNMENT);
         otros.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botonevento1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botonevento2.setAlignmentX(Component.CENTER_ALIGNMENT);
-       
+        
         campoBusqueda.setMaximumSize(new Dimension(600, 40));
         campoBusqueda.setPreferredSize(new Dimension(600, 40));
-        
-        botonevento1.setMaximumSize(new Dimension(800, 70));
-        botonevento1.setPreferredSize(new Dimension(800, 70));
-        
-        botonevento2.setMaximumSize(new Dimension(800, 70));
-        botonevento2.setPreferredSize(new Dimension(800, 70));
+         
         
         
 
@@ -281,6 +301,36 @@ public class VentanaInicio extends JFrame {
         
         
         }
+        
+        // Pestaña mis reservas
+        JPanel panelMisReservas = new JPanel();
+        panelMisReservas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        panelMisReservas.setLayout(new BoxLayout(panelMisReservas, BoxLayout.Y_AXIS));
+        JLabel misReservas = new JLabel("Mis reservas");
+        misReservas.setFont(new Font("Times New Roman", Font.LAYOUT_LEFT_TO_RIGHT,50));
+        misReservas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelMisReservas.add(misReservas);
+        panelMisReservas.add(Box.createVerticalStrut(100));
+        
+        pestañas.addTab("Mis reservas", panelMisReservas);
+        add(pestañas);
+        
+        
+        // Pestaña mis reseñas
+        JPanel panelMisResenas = new JPanel();
+        panelMisResenas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        panelMisResenas.setLayout(new BoxLayout(panelMisResenas, BoxLayout.Y_AXIS));
+        JLabel misResenas = new JLabel("Mis reseñas");
+        misResenas.setFont(new Font("Times New Roman", Font.LAYOUT_LEFT_TO_RIGHT,50));
+        misResenas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelMisResenas.add(misResenas);
+        panelMisResenas.add(Box.createVerticalStrut(100));
+        
+        pestañas.addTab("Mis reseñas", panelMisResenas);
+        add(pestañas);
+        
+        
+        
         //pestaña ajustes usuario
         JPanel panelConfiguracion = new JPanel();
         panelConfiguracion.setLayout(new BoxLayout(panelConfiguracion,BoxLayout.Y_AXIS));
@@ -335,25 +385,7 @@ public class VentanaInicio extends JFrame {
         
         pestañas.addTab("Configuración usuario ",panelConfiguracion);
         
-        
-        
-        // === Pestaña 2: Imagen ===
-        JPanel panelImagen = new JPanel();
-
-        // Cargar imagen desde carpeta "imagenes"
-        ImageIcon imagen = new ImageIcon("resources/imagen_negra.png");
-
-        // Añadir imagen a un JLabel
-        JLabel etiquetaImagen = new JLabel(imagen);
-
-        // Añadir al panel
-        panelImagen.add(etiquetaImagen);
-
-        // Añadir pestaña
-        pestañas.addTab("Logo", panelImagen);
-
-        // Añadir JTabbedPane a la ventana
-        add(pestañas);
+          
         
         
         botonlupa.addActionListener(e -> {
