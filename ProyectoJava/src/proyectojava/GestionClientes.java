@@ -195,7 +195,7 @@ public class GestionClientes {
     
     
     
-    // Tratado de Datos
+    // Tratado de Datos REGISTRO
     
     public static Integer leerEntero(JTextField campo, Component parent, String mensajeError) {
         try {
@@ -221,4 +221,28 @@ public class GestionClientes {
         }
     }
     
+    // Tratado de Datos INICIO DE SESION
+    
+    public static void leerCorreo(JTextField campo, Component parent){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor, introduce los datos.",
+                "Correo no introducido", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }else if (!campo.getText().endsWith("@gmail.com")&&!campo.getText().endsWith("@gmail.es")&&!campo.getText().endsWith("@hotmail.com")){
+            JOptionPane.showMessageDialog(parent,
+                "Formato del correo invalido.",
+                "Formato correo invalido", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+        
+    public static void leerContraseñaSesion(JTextField campo, Component parent){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor, introduce los datos.",
+                "Contraseña no introducida", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

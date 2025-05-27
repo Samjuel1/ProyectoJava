@@ -6,8 +6,7 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import proyectojava.GestionClientes;
 
 public class Ventana_in_sesion extends JFrame {
 
@@ -66,28 +65,22 @@ public class Ventana_in_sesion extends JFrame {
         
         
         boton3.addActionListener(e -> {
-            String correo = campoCorreo.getText();
-            String contrasena = new String (campoContrasena.getText());
-            if (correo.equals("") || contrasena.equals("") || contrasena.length() < 8){
-                    JOptionPane.showMessageDialog(this,
-                    "Por favor, introduce los datos.",
-                    "Datos no introducidos", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            }else if(!correo.endsWith("@gmail.com") || correo.endsWith("@hotmail.com")){
-                JOptionPane.showMessageDialog(this, 
-                "Formato inválido",
-                "Por favor introduce un correo valido",
-                JOptionPane.INFORMATION_MESSAGE);
-            } 
-            else{
+            
+            GestionClientes.leerCorreo(campoCorreo, this);
+            GestionClientes.leerContraseñaSesion(campoContrasena, this);
+            if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText())){
                 JOptionPane.showMessageDialog(this,
                 "Has iniciado sesion.",
                 "Inicio de sesion correcto ", 
-                JOptionPane.INFORMATION_MESSAGE);
-                                
+                JOptionPane.INFORMATION_MESSAGE);            
             new VentanaInicio().setVisible(true);
             dispose();
-            
+            }
+            else{
+                JOptionPane.showMessageDialog(this,
+                "Usuario o Contraseña Incorrectos",
+                "Inicio de sesion incorrecto ", 
+                JOptionPane.INFORMATION_MESSAGE);
             }
                 
         });
@@ -95,20 +88,6 @@ public class Ventana_in_sesion extends JFrame {
             dispose();
             new VentanaRegistro().setVisible(true);
             
-        });
-        
-       
-        
-        
-        
-        
-        
-        boton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (campoCorreo.getText().equals("") || campoCorreo.getText().equals("")){
-                campoCorreo.setText("hola");}
-            }
         });
     }
 }
