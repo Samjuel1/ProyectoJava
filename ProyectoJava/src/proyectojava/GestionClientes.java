@@ -27,6 +27,8 @@ public class GestionClientes {
     
     // Serializacion de Clientes
     
+    
+    // Serializa los clientes en un archivo llamado clientes.dat
     public static void guardarClientes(HashMap<String, Cliente> lista) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo_clientes))) {
             out.writeObject(lista);
@@ -36,6 +38,7 @@ public class GestionClientes {
         }
     }
     
+    // recupera los clientes serializados del archivo clientes.dat
     public static HashMap<String, Cliente> cargarClientes() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo_clientes))) {
             return (HashMap<String, Cliente>) in.readObject();
@@ -48,6 +51,7 @@ public class GestionClientes {
     
     // Serializacion de Eventos
     
+    // Guarda los Eventos serializados en un archivo llamado Eventos.dat
     public static void guardarEventos(ArrayList<Evento> lista) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_EVENTOS))) {
             out.writeObject(lista);
@@ -57,6 +61,8 @@ public class GestionClientes {
         }
     }
     
+    
+    // recupera los eventos serializados del archivo eventos.dat
     public static ArrayList<Evento> cargarEventos() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_EVENTOS))) {
             return (ArrayList<Evento>) in.readObject();
@@ -69,6 +75,8 @@ public class GestionClientes {
     
     // Busqueda de Eventos 
     
+    // realiza una criba del ArrayList que se le pase utilizando la ciudad como referencia
+    
     public static ArrayList<Evento> busquedaEventoPorCiudad(String ciudad, ArrayList<Evento> EventosPorCiudad){
         for (Evento evento: EventosPorCiudad){
             if (!evento.getDireccion().getCiudad().equals(ciudad)){
@@ -77,6 +85,9 @@ public class GestionClientes {
         }
         return EventosPorCiudad;
     }
+    
+        // realiza una criba del ArrayList que se le pase utilizando el tipo como referencia
+
     
     public static ArrayList<Evento> busquedaEventoPorTipo(String tipo, ArrayList<Evento> EventosPorTipo){
         for (Evento evento: EventosPorTipo){
@@ -87,6 +98,9 @@ public class GestionClientes {
         return EventosPorTipo;
     }
     
+        // realiza una criba del ArrayList que se le pase utilizando el precio como referencia
+
+    
     public static ArrayList<Evento> busquedaEventoPorPrecio(long precio, ArrayList<Evento> EventosPorPrecio){
         for (Evento evento: EventosPorPrecio){
             if (evento.getPrecio() > precio) {
@@ -95,6 +109,9 @@ public class GestionClientes {
         }
         return EventosPorPrecio;
     }
+    
+        // realiza una criba del ArrayList que se le pase utilizando la calificacion como referencia
+
     
     public static ArrayList<Evento> busquedaEventoPorCalificacion(double calificacion, ArrayList<Evento> EventosPorCalificacion){
         for (Evento evento: EventosPorCalificacion){
@@ -106,6 +123,8 @@ public class GestionClientes {
     }
     
     // Ordenacion de Eventos
+    
+    // ordena los elementos del ArrayList en funcion de la calificacion
     
     public static ArrayList<Evento> ordenacionPorCalificacion(ArrayList<Evento> listaEventos){
         Evento temp;
@@ -126,6 +145,8 @@ public class GestionClientes {
         }
         return listaEventos;
     }
+    
+        // ordena los elementos del ArrayList en funcion del Precio
     
     public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
         Evento temp;
@@ -149,10 +170,14 @@ public class GestionClientes {
     
     // Inicio de Sesion
     
+    // Metodo que se usa en el inicio de sesion para comprobar si se meten los parametros de admin
+    
     public static boolean comprobarAdmin(String correo, String contraseña){
         boolean resultado = correo.equals("admin@javaevents.com") && contraseña.equals("admin");
         return resultado;
     }
+    
+    // metodo que se encarga de comprobar el usuario y la contraseña del inicio de sesion, comprobandolo con el archivo serializado
     
     public static boolean comprobarUsuario(String correo, String contraseña){
         HashMap<String, Cliente> usuarios = GestionClientes.cargarClientes();
@@ -165,6 +190,8 @@ public class GestionClientes {
         return resultado;
     }
     
+    // recoge los anteriores metodos y debuelve un true o un false en funcion de si se inicia sesion o no y establece el atrivuto admin.
+    
     public static boolean inicioDeSesion(String correo, String contraseña){
         boolean resultado = true;
         GestionClientes.admin = comprobarAdmin(correo, contraseña);
@@ -176,6 +203,8 @@ public class GestionClientes {
     }
     
     // Varios 
+    
+    // Metodo que se usa para recoger dos campos de texto y comprobar el cambio de correo del cliente en la pestaña modificar datos 
     
     public static void modificarClienteCorreo(int boton, JTextField correo, JTextField contraseña, Component parent){
         if (boton == JOptionPane.OK_OPTION && (correo.getText().isEmpty() || contraseña.getText().isEmpty())) {
@@ -203,6 +232,8 @@ public class GestionClientes {
                 }
         }  
     }
+    
+    // Metodo que se usa para recoger tres campos de texto y comprobar el cambio de contraseña del cliente en la pestaña modificar datos 
     
     public static void modificarClienteContraseña(int boton, JTextField contraseñaNueva, JTextField contraseñaNueva2, JTextField contraseña, Component parent){
         if (boton == JOptionPane.OK_OPTION && (contraseña.getText().isEmpty() || contraseñaNueva.getText().isEmpty() || contraseñaNueva2.getText().isEmpty())) {
@@ -233,6 +264,8 @@ public class GestionClientes {
         else {JOptionPane.showMessageDialog(parent, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);
         }    
     }
+    
+    // Metodo que se usa para recoger cuatro campos de texto y comprobar el cambio de informacion de la tarjeta en la pestaña modificar datos 
     
     public static void modificarClienteTarjeta(int boton, JTextField nombreT, JTextField numeroT, JTextField fechaT, JTextField contraseña, Component parent){
         if (boton == JOptionPane.OK_OPTION && ((GestionClientes.leerTexto(nombreT, parent, "Por favor introduzca un nombre"))&& (GestionClientes.leerNumero(numeroT, parent, "Introduzca un numero válido")) 
@@ -269,6 +302,8 @@ public class GestionClientes {
         }
     }
     
+    // Metodo que se usa para recoger cinco campos de texto y comprobar el cambio de la informacion de la direccion del cliente en la pestaña modificar datos 
+    
     public static void modificarClienteDireccion(int boton, JTextField calle, JTextField numero, JTextField ciudad, JTextField codigo, JTextField contraseña, Component parent){
         if (boton == JOptionPane.OK_OPTION && (GestionClientes.leerTexto(calle, parent, "Porfavor introduce una calle")&& 
                 GestionClientes.leerNumero(numero, parent, "Por favor introduce un número válido") && GestionClientes.leerTexto(ciudad, parent, "Porfavor introduce una ciudad") 
@@ -296,11 +331,15 @@ public class GestionClientes {
         
     }
     
+    // Agrega un objeto cliente al archivo serializado de clientes
+    
     public static void agregarClienteArchivoRegistro(Cliente cliente){
         HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
         lista.put(cliente.getCorreo(), cliente);
         GestionClientes.guardarClientes(lista);
     }
+    
+    // convierte el archivo serializado de clientes en un Array de tipo String[]
         
     public static String[] clientesToArray(){
         HashMap<String, Cliente> clientes = GestionClientes.cargarClientes();
@@ -311,6 +350,8 @@ public class GestionClientes {
         return clientesArray.toArray(new String[0]);
     }
     
+    // Metodo que crea un boton con un evento en funcion de la calificacion y la posicion que le llega
+    
     public static JButton crearBoton(int posicion){
         ArrayList<Evento> eventosOrdenados = ordenacionPorCalificacion(GestionClientes.cargarEventos());
         JButton boton = new JButton(eventosOrdenados.get(posicion+1).getTitulo() + "    Calificacion: " + eventosOrdenados.get(posicion+1).getCalificacion());
@@ -319,6 +360,8 @@ public class GestionClientes {
         boton.setHorizontalAlignment(SwingConstants.LEFT);
         return boton;
     }
+    
+    // funcion que permite crear automaticamente los botones presente en la pestaña reseñasy darles una funcion para mostrar su contenido
     
     public static void crearBotonReseñas(ArrayList<Reseña> listaReseñas, JPanel panel){
         if(listaReseñas != null){
@@ -343,6 +386,8 @@ public class GestionClientes {
         }
     }
     }
+    
+    // funcion que permite crera de forma automatica los botones presentes en la pestaña reservas y que les da utilidad permitiendo enseñar la informacion de la misma
     
     public static void crearBotonReservas(ArrayList<Reservas> listaReservas, JPanel panel){
         if(listaReservas != null){
@@ -371,6 +416,9 @@ public class GestionClientes {
         }
     }
     }
+    
+    // metodo que permite automatizar el proceso de crera los botones presentes en la venta eventos y que les da utilidad
+    // permitiendo reservar y pagar el evento ademas de dejar una reseña y una puntuacion que se guardaran en el usuario
     
     public static void crearBotonEventos(ArrayList<Evento> listaEventos, JPanel panel){
         for (Evento evento: listaEventos){
@@ -457,6 +505,8 @@ public class GestionClientes {
         }
     }
     
+    // metodo auxiliar para eliminar un objeto de un array lista y poder remplazarlo con uno modificaco
+    
     public static ArrayList<Evento> borrarIguales(Evento eventoABuscar){
         ArrayList<Evento> lista = GestionClientes.cargarEventos();
         for (Evento evento : lista){
@@ -471,6 +521,8 @@ public class GestionClientes {
     
     // Tratado de Datos REGISTRO
     
+    // metodo que se encarga de comprobar el formato de los numero enteros
+    
     public static Integer leerEntero(JTextField campo, Component parent, String mensajeError) {
         try {
             return Integer.parseInt(campo.getText());
@@ -482,6 +534,9 @@ public class GestionClientes {
             return null;
         }
     }
+    
+        // metodo que se encarga de comprobar el formato de los numero de tipo Long
+
     
     public static Long leerLong(JTextField campo, Component parent, String mensajeError) {
         try {
@@ -495,6 +550,9 @@ public class GestionClientes {
         }
     }
     
+     // metodo que se encarga de comprobar el formato de los textos para que no esten vacios 
+
+    
     public static boolean leerTexto(JTextField campo, Component parent, String mensajeError){
         if (campo.getText().equals("")){
             JOptionPane.showMessageDialog(parent,
@@ -506,6 +564,9 @@ public class GestionClientes {
         return true;
     }
     
+        // metodo que se encarga de comprobar el formato de los numeros en los campos de informacion para asegurarse de que son unicamente numeros
+
+    
     public static boolean leerNumero(JTextField campo, Component parent, String mensajeError){
         Integer aux = leerEntero(campo, parent, mensajeError);
         if (aux == null){
@@ -513,6 +574,8 @@ public class GestionClientes {
         }
         return true;
     }
+    
+    // metodo que se encarga de comprobar el formato de la contraseña para que tenga un minimo de longitud 
     
     public static boolean leerContraseñaRegistro(JTextField campo, Component parent){
         if (GestionClientes.leerContraseñaSesion(campo, parent)){
@@ -526,6 +589,8 @@ public class GestionClientes {
         }
         return true;
     }
+    
+    // metodo que se encarga de leer el formato de los campos de texto para los numeros de telefono y que tengan una longitud especifica
     
     public static boolean leerTelefono(JTextField campo, Component parent){
         Integer aux = leerEntero(campo, parent, "El número de teléfono debe incluir solo números");
@@ -541,6 +606,8 @@ public class GestionClientes {
         }
         return true;
     }
+    
+    // metodo que se encarga de leer el campo de texto asociado al numero de tarjeta y asegurarse de que tiene una longitud determinada
     
     public static boolean leerNumeroTarjeta(JTextField campo, Component parent){
         Long aux = leerLong(campo, parent, "El número de Tarjeta debe incluir solo números");
@@ -559,6 +626,8 @@ public class GestionClientes {
     
     // Tratado de Datos INICIO DE SESION
     
+    // metodo que se asegura del formato del correo y de la existencia de caracteres en el campo del correo a la hora de iniciar sesion
+    
     public static boolean leerCorreo(JTextField campo, Component parent){
         if (campo.getText().equals("")){
             JOptionPane.showMessageDialog(parent,
@@ -575,6 +644,8 @@ public class GestionClientes {
         }
         return true;
     }
+    
+    // metodo que se encarga de comprobar el contenido del campo de texto de la contraseña para que no este vacio o que se haya puesto la clave admin
         
     public static boolean leerContraseñaSesion(JTextField campo, Component parent){
         if (campo.getText().equals("")){
