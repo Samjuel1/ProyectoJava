@@ -103,7 +103,7 @@ public class VentanaInicio extends JFrame {
         }
 
         //pestaña gestion admin
-        
+        if (admin){
         JPanel panelConfiguracionAdmin = new JPanel();
         panelConfiguracionAdmin.setLayout( new BoxLayout(panelConfiguracionAdmin,BoxLayout.Y_AXIS));
         panelConfiguracionAdmin.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -187,9 +187,6 @@ public class VentanaInicio extends JFrame {
                                    + "Calle: " + seleccionado.getDireccion().getCalle() + "\nNúmero: " + seleccionado.getDireccion().getNumero() + "\n"
                                    + "Código postal: " + seleccionado.getDireccion().getCp() + "\nPrecio: " + seleccionado.getPrecio() + "\n"
                                    + "Calificación: " + seleccionado.getCalificacion(),"Consultar evento: " + seleccionado.getTitulo() ,JOptionPane.INFORMATION_MESSAGE);
-                           
-                           
-
             }
         }
     }
@@ -244,9 +241,11 @@ public class VentanaInicio extends JFrame {
                
         
         consultarReservas.addActionListener(e -> {
-            JFrame ventanaUsuarios = new JFrame("Reservas");
-            ventanaUsuarios.setSize(300, 200);
-            ventanaUsuarios.setLocationRelativeTo(this); 
+            JFrame panelConsultarReservas = new JFrame("Reservas");
+            JPanel panelPantallaConsultarReservas = new JPanel();
+            panelPantallaConsultarReservas.setLayout(new BoxLayout(panelPantallaConsultarReservas, BoxLayout.Y_AXIS));
+            panelConsultarReservas.setSize(300, 200);
+            panelConsultarReservas.setLocationRelativeTo(this); 
         
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
             ArrayList<String> recuperadosArray = new ArrayList<>();
@@ -255,12 +254,26 @@ public class VentanaInicio extends JFrame {
             System.out.println(recuperadosArray);
             System.out.println("Clave: " + clave);
             }
+            
            JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
-
            JScrollPane scroll = new JScrollPane(lista);
+           lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+           
+           lista.addMouseListener(new MouseAdapter() {
+                 public void mouseClicked(MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+                      int index = lista.locationToIndex(event.getPoint());
+                        if (index >= 0) {
+                           //Cliente seleccionado = recuperadosArray.get(index);
+                           
+                           JOptionPane.showMessageDialog(null,"Nombre: ","titulo",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+});
 
-            ventanaUsuarios.add(scroll);
-            ventanaUsuarios.setVisible(true);
+            panelConsultarReservas.add(scroll);
+            panelConsultarReservas.setVisible(true);
 
         });
         
@@ -268,7 +281,8 @@ public class VentanaInicio extends JFrame {
         
         
         
-        
+        }
+        if(!admin){
         //pestaña ajustes usuario
         JPanel panelConfiguracion = new JPanel();
         panelConfiguracion.setLayout(new BoxLayout(panelConfiguracion,BoxLayout.Y_AXIS));
@@ -534,5 +548,5 @@ public class VentanaInicio extends JFrame {
             
         
         
-    }}
+    }}}
 

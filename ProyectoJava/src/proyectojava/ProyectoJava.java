@@ -34,6 +34,7 @@ public class ProyectoJava {
         
        SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
      //SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
+     
     
     }
     
