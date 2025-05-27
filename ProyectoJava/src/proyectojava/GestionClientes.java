@@ -228,8 +228,19 @@ public class GestionClientes {
         }
     }
     
-    public static boolean leerNumero(JTextField campo, Component parent){
-        Integer aux = leerEntero(campo, parent, "Porfavor Introduzca un numero válido");
+    public static boolean leerTexto(JTextField campo, Component parent, String mensajeError){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                mensajeError,
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+                return false;
+        }
+        return true;
+    }
+    
+    public static boolean leerNumero(JTextField campo, Component parent, String mensajeError){
+        Integer aux = leerEntero(campo, parent, mensajeError);
         if (aux == null){
             return false;
         }
