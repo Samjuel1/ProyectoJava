@@ -441,21 +441,31 @@ public class GestionClientes {
                                 Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
                                 Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
                                 HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
-                                ArrayList<Evento> lista_eventos = GestionClientes.cargarEventos();
                                 lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
                                 lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
-                                int index = lista_eventos.indexOf(evento);
+                                ArrayList<Evento> listaSinEvento = GestionClientes.borrarIguales(evento);
                                 evento.añadirReseña(reseña);
-                                lista_eventos.set(index, evento);
+                                
                                 
                                 GestionClientes.guardarClientes(lista);
-                                GestionClientes.guardarEventos(lista_eventos);
+                                GestionClientes.guardarEventos(listaSinEvento);
                                 
                             JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
                 });
         }
+    }
+    
+    public static ArrayList<Evento> borrarIguales(Evento eventoABuscar){
+        ArrayList<Evento> lista = GestionClientes.cargarEventos();
+        for (Evento evento : lista){
+            if(evento.getTitulo().equals(eventoABuscar)){
+                lista.remove(evento);
+                break;
+            }
+        }
+        return lista;
     }
     
     
