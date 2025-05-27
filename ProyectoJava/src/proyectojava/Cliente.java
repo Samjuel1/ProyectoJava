@@ -5,6 +5,7 @@
 package proyectojava;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Cliente implements Serializable {
     private String telefono;
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
+    private ArrayList<Reseña> listaReseñas;
     
     public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
         this.correo = correo;
@@ -74,6 +76,9 @@ public class Cliente implements Serializable {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+    public void añadirReseña(Reseña reseña){
+        if (!this.listaReseñas.contains(reseña)){
+        this.listaReseñas.add(reseña);}}
 
     @Override
     public String toString() {

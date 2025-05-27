@@ -1,6 +1,7 @@
 package proyectojava;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Evento implements Serializable{
     private String titulo;
@@ -9,6 +10,7 @@ public class Evento implements Serializable{
     private String fecha;
     private long precio;
     private double calificacion;
+    private ArrayList<Reseña> listaReseñas;
 
     public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, String fecha) {
         this.titulo = titulo;
@@ -66,6 +68,9 @@ public class Evento implements Serializable{
     public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
+    public void añadirReseña(Reseña reseña){
+        if (!this.listaReseñas.contains(reseña)){
+        this.listaReseñas.add(reseña);}}
     
 
     @Override

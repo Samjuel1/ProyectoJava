@@ -384,6 +384,8 @@ public class GestionClientes {
                             panelReseña.add(puntuacion);
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                             if (resultado == JOptionPane.OK_OPTION){
+                                evento.añadirReseña(campoReseña.getText());
+                                evento.
                             JOptionPane.showMessageDialog(null, "Ha puesto una reseña, gracias por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
