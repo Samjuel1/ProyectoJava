@@ -2,9 +2,12 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import proyectojava.Cliente;
+import proyectojava.Evento;
 import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.*;
 
@@ -154,10 +157,12 @@ public class VentanaInicio extends JFrame {
         });
         
         consultarEvento.addActionListener(e -> {
-            JFrame ventanaUsuarios = new JFrame("Consultar eventos");
-            ventanaUsuarios.setSize(300, 200);
-            ventanaUsuarios.setLocationRelativeTo(this); 
-        /*
+            JFrame panelConsultarEvento = new JFrame("Consultar eventos");
+            JPanel panelPantallaConsultarEvento = new JPanel();
+            panelPantallaConsultarEvento.setLayout(new BoxLayout(panelPantallaConsultarEvento, BoxLayout.Y_AXIS));
+            panelConsultarEvento.setSize(300, 200);
+            panelConsultarEvento.setLocationRelativeTo(this); 
+
             ArrayList<Evento> eventosRecuperados = GestionClientes.cargarEventos();
             ArrayList<String> recuperadosArray = new ArrayList<>();
 
@@ -168,36 +173,75 @@ public class VentanaInicio extends JFrame {
             System.out.println("Clave: " + clave);
         }
 
-        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));*/
-        JList<String> lista = new JList<>(clientesToArray());
+        JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
         JScrollPane scroll = new JScrollPane(lista);
+        lista.addMouseListener(new MouseAdapter() {
+                 public void mouseClicked(MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+                      int index = lista.locationToIndex(event.getPoint());
+                        if (index >= 0) {
+                           Evento seleccionado = eventosRecuperados.get(index);
+                           
+                           JOptionPane.showMessageDialog(null,"Nombre: " + seleccionado.getTitulo() + "\n"
+                                   + "Tipo: " + seleccionado.getTipo() + "\nCiudad: " + seleccionado.getDireccion().getCiudad() + "\n"
+                                   + "Calle: " + seleccionado.getDireccion().getCalle() + "\nNúmero: " + seleccionado.getDireccion().getNumero() + "\n"
+                                   + "Código postal: " + seleccionado.getDireccion().getCp() + "\nPrecio: " + seleccionado.getPrecio() + "\n"
+                                   + "Calificación: " + seleccionado.getCalificacion(),"Consultar evento: " + seleccionado.getTitulo() ,JOptionPane.INFORMATION_MESSAGE);
+                           
+                           
 
-            ventanaUsuarios.add(scroll);
-            ventanaUsuarios.setVisible(true);
+            }
+        }
+    }
+});
+
+            panelConsultarEvento.add(scroll);
+            panelConsultarEvento.setVisible(true);
 
         });
         
         consultarUsuarios.addActionListener(e -> {
-            JFrame ventanaUsuarios = new JFrame("Usuarios");
-           // ventanaUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            ventanaUsuarios.setSize(300, 200);
-            ventanaUsuarios.setLocationRelativeTo(this); 
-        
+            JFrame panelConsultarUsuarios = new JFrame("Usuarios");
+            JPanel panelPantallaConsultarUsuarios = new JPanel();
+            panelPantallaConsultarUsuarios.setLayout(new BoxLayout(panelPantallaConsultarUsuarios, BoxLayout.Y_AXIS));
+            panelConsultarUsuarios.setSize(300, 200);
+            panelConsultarUsuarios.setLocationRelativeTo(this); 
+
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
-            ArrayList<String> recuperadosArray = new ArrayList<>();
-            for (String clave : recuperados.keySet()) {
-            recuperadosArray.add(clave);
-            System.out.println(recuperadosArray);
-            System.out.println("Clave: " + clave);
+            ArrayList<Cliente> recuperadosArray = new ArrayList<>(recuperados.values());
+
+            String[] nombresClientes = recuperadosArray.stream()
+            .map(cliente -> cliente.getCorreo()) 
+            .toArray(String[]::new);
+
+            JList<String> lista = new JList<>(nombresClientes);
+            JScrollPane scroll = new JScrollPane(lista);
+            lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
+            lista.addMouseListener(new MouseAdapter() {
+                 public void mouseClicked(MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+                      int index = lista.locationToIndex(event.getPoint());
+                        if (index >= 0) {
+                           Cliente seleccionado = recuperadosArray.get(index);
+                           
+                           JOptionPane.showMessageDialog(null,"Nombre: " + seleccionado.getNombre() + "\nCorreo: " + seleccionado.getCorreo() + "\n"
+                                   + "Teléfono: " + seleccionado.getTelefono() + "\nCiudad: " + seleccionado.getDireccion().getCiudad() + "\n"
+                                   + "Calle: " + seleccionado.getDireccion().getCalle() + "\nNúmero: " + seleccionado.getDireccion().getNumero() + "\n"
+                                   + "Código postal: " + seleccionado.getDireccion().getCp(), "Consultar: " + seleccionado.getNombre(), JOptionPane.INFORMATION_MESSAGE);
+
             }
-           JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));  //cambiar
+        }
+    }
+});
 
-           JScrollPane scroll = new JScrollPane(lista);
-
-            ventanaUsuarios.add(scroll);
-            ventanaUsuarios.setVisible(true);
-
+                           panelConsultarUsuarios.add(scroll);
+                           panelConsultarUsuarios.setVisible(true);
+        
         });
+
+               
         
         consultarReservas.addActionListener(e -> {
             JFrame ventanaUsuarios = new JFrame("Reservas");

@@ -160,6 +160,10 @@ public class VentanaGestion extends JFrame{
             "Por favor vuelva a introducir los datos.",
             JOptionPane.INFORMATION_MESSAGE);
             return;}*/ 
+            JOptionPane.showMessageDialog(this, 
+            "Evento registrado correctamente",
+            "Evento registrado",
+            JOptionPane.INFORMATION_MESSAGE);
             
             Evento evento = registrarEvento();
             ArrayList<Evento> recuperadosArrayEventos = GestionClientes.cargarEventos();
@@ -201,7 +205,7 @@ public class VentanaGestion extends JFrame{
                     int index = lista.locationToIndex(event.getPoint());
                     if (index >= 0) {
                         Evento seleccionado = eventosRecuperados.get(index);
-                        
+                                              
                         panelPantallaEliminarEvento.add(new JLabel("¿Estás seguro que deseas eliminar el evento " + seleccionado.getTitulo() + '?'));
                         
                         int resultado = JOptionPane.showConfirmDialog(null, panelPantallaEliminarEvento, "Eliminar evento", JOptionPane.OK_CANCEL_OPTION);
@@ -248,6 +252,8 @@ public class VentanaGestion extends JFrame{
                     int index = lista.locationToIndex(event.getPoint());
                     if (index >= 0) {
                         Evento seleccionado = eventosRecuperados.get(index);
+                        
+                        panelPantallaModificarEvento.removeAll();
 
                         JTextField campoModificarTitulo = new JTextField(seleccionado.getTitulo());
                         JTextField campoModificarTipo = new JTextField(seleccionado.getTipo());
