@@ -87,10 +87,12 @@ public class VentanaRegistro extends JFrame{
         
         registrar.addActionListener(e -> {
 
-            if(GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaRegistro(campoContrasena, this) 
-            && GestionClientes.leerTelefono(campoTelefono, this) && GestionClientes.leerNumero(campoNumero, this) && GestionClientes.leerNumeroTarjeta(campoNumeroT, this)){
+            if(GestionClientes.leerTexto(campoNombre, this, "Por favor Introduzca un nombre") && GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaRegistro(campoContrasena, this) 
+            && GestionClientes.leerTelefono(campoTelefono, this) && GestionClientes.leerTexto(campoCalle, this, "Por favor Introduzca una Calle") && GestionClientes.leerNumero(campoNumero, this,"Porfavor Introduzca un numero válido") 
+            && GestionClientes.leerTexto(campoCiudad, this, "Por favor Introduzca un Ciudad") && GestionClientes.leerNumero(campoCodigo, this,"Porfavor Introduzca un Codigo Postal válido") 
+            && GestionClientes.leerTexto(campoNombreT, this, "Por favor Introduzca un nombre") && GestionClientes.leerNumeroTarjeta(campoNumeroT, this) && GestionClientes.leerTexto(campoFechaT, this, "Por favor Introduzca una Fecha válida")){
                 
-                GestionClientes.agregarClienteArchivo(registrarCliente());
+                GestionClientes.agregarClienteArchivoRegistro(registrarCliente());
 
                 JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
                 new VentanaInicio().setVisible(true);
