@@ -1,3 +1,12 @@
+/*
+VentanaInicio representa la ventana que usa el cliente para poder navegar por la página.
+
+Está formada por fichas, por las que el cliente puede moverse para buscar eventos, así como comprar sus entradas,
+publicar reseñas, ver estas mismas, y consultar sus reservas. 
+El usuario también puede realizar cambios en sus datos de perfil.
+
+
+*/
 package Interfaz;
 
 import javax.swing.*;
@@ -10,15 +19,15 @@ import proyectojava.Cliente;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.*;
+import proyectojava.Reservas;
+import proyectojava.Reseña;
 
 public class VentanaInicio extends JFrame {
 
     private JTextField campoBusqueda;
     private boolean prueba;
-    //fsvareogbmepig
 
     public VentanaInicio() {
-        // Configurar ventana
         setTitle("Gestión de eventos");
         setSize(1300, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -44,13 +53,9 @@ public class VentanaInicio extends JFrame {
         botonfiltro.setContentAreaFilled(false);
         botonfiltro.setFocusPainted(false);
         botonfiltro.setOpaque(false);
-
-        // Crear el JTabbedPane
         
         JTabbedPane pestañas = new JTabbedPane();
-        
 
-        // panel principal busqueda
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.setLayout(new BoxLayout(panelBusqueda,BoxLayout.Y_AXIS));
         panelBusqueda.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -76,21 +81,14 @@ public class VentanaInicio extends JFrame {
         ArrayList<Evento> eventosRecuperados_botones = GestionClientes.cargarEventos();
         GestionClientes.ordenacionPorCalificacion(eventosRecuperados_botones);
         GestionClientes.crearBotonEventos(eventosRecuperados_botones, panelBusqueda);
-        
-        
-
-        
+    
         botonlupa.addActionListener(e -> {
-            
-            
             new VentanaEventos().setVisible(true);
 
         });
         
         botonfiltro.addActionListener(e -> {
-            
-            
-            
+            new VentanaEventos().setVisible(true);
 
         });
         
@@ -102,13 +100,7 @@ public class VentanaInicio extends JFrame {
         
         campoBusqueda.setMaximumSize(new Dimension(600, 40));
         campoBusqueda.setPreferredSize(new Dimension(600, 40));
-         
-        
-        
 
-        
-        
-      //  panelBuscarEvento.add(botonlupa);
         pestañas.addTab("Buscar eventos", panelBusqueda);
         
         
@@ -122,7 +114,6 @@ public class VentanaInicio extends JFrame {
         pestañas.addTab("Buscar eventos", panelTexto2);
         }
 
-        //pestaña gestion admin
         if(admin){
         JPanel panelConfiguracionAdmin = new JPanel();
         panelConfiguracionAdmin.setLayout( new BoxLayout(panelConfiguracionAdmin,BoxLayout.Y_AXIS));
@@ -256,9 +247,7 @@ public class VentanaInicio extends JFrame {
                            panelConsultarUsuarios.setVisible(true);
         
         });
-
-               
-        
+ 
         consultarReservas.addActionListener(e -> {
             JFrame panelConsultarReservas = new JFrame("Reservas");
             JPanel panelPantallaConsultarReservas = new JPanel();
@@ -290,19 +279,13 @@ public class VentanaInicio extends JFrame {
         }
     }
 });
-
             panelConsultarReservas.add(scroll);
             panelConsultarReservas.setVisible(true);
 
         });
-        
-        
-        
-        
-        
+             
         }
         
-        // Pestaña mis reservas
         JPanel panelMisReservas = new JPanel();
         panelMisReservas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
         panelMisReservas.setLayout(new BoxLayout(panelMisReservas, BoxLayout.Y_AXIS));
@@ -312,11 +295,14 @@ public class VentanaInicio extends JFrame {
         panelMisReservas.add(misReservas);
         panelMisReservas.add(Box.createVerticalStrut(100));
         
+
+        ArrayList<Reservas> listaReservas = usuarioActivo.getListaReservas();
+        crearBotonReservas(listaReservas,panelMisReservas);
+        
+           
         pestañas.addTab("Mis reservas", panelMisReservas);
         add(pestañas);
         
-        
-        // Pestaña mis reseñas
         JPanel panelMisResenas = new JPanel();
         panelMisResenas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
         panelMisResenas.setLayout(new BoxLayout(panelMisResenas, BoxLayout.Y_AXIS));
@@ -326,24 +312,21 @@ public class VentanaInicio extends JFrame {
         panelMisResenas.add(misResenas);
         panelMisResenas.add(Box.createVerticalStrut(100));
         
+        ArrayList<Reseña> listaReseñas = usuarioActivo.getListaReseñas();
+        crearBotonReseñas(listaReseñas,panelMisResenas);
+        
         pestañas.addTab("Mis reseñas", panelMisResenas);
         add(pestañas);
         
-        
-        
-        //pestaña ajustes usuario
         JPanel panelConfiguracion = new JPanel();
         panelConfiguracion.setLayout(new BoxLayout(panelConfiguracion,BoxLayout.Y_AXIS));
         panelConfiguracion.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        //crear botones ajustando el tamaño de las letras
         JButton cambioCorreo = new JButton("Cambiar correo");
-        cambioCorreo.setFont(new Font("Arial", Font.BOLD, 25));  // Arial, negrita, tamaño 16
-    //    cambioCorreo.setForeground(Color.RED);
-    //    cambioCorreo.setBackground(Color.BLACK);
-        
+        cambioCorreo.setFont(new Font("Arial", Font.BOLD, 25));  
+
         JButton cambioContrasena = new JButton("Cambiar contraseña");
-        cambioContrasena.setFont(new Font("Arial", Font.BOLD, 21));  // Arial, negrita, tamaño 16
+        cambioContrasena.setFont(new Font("Arial", Font.BOLD, 21));  
         
         JButton cambioTarjeta = new JButton("Cambiar datos de la tarjeta");
         cambioTarjeta.setFont(new Font("Arial", Font.BOLD,15));
@@ -351,14 +334,11 @@ public class VentanaInicio extends JFrame {
         JButton cambioDireccion = new JButton("Cambiar dirección");
         cambioDireccion.setFont(new Font("Arial", Font.BOLD,20));
         
-
-        //alinearlos en el centro de la ventana
         cambioCorreo.setAlignmentX(Component.CENTER_ALIGNMENT);
         cambioContrasena.setAlignmentX(Component.CENTER_ALIGNMENT);
         cambioTarjeta.setAlignmentX(Component.CENTER_ALIGNMENT);
         cambioDireccion.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        //ajustar el tamaño de los botones
         cambioCorreo.setMaximumSize(new Dimension(300, 100));
         cambioCorreo.setPreferredSize(new Dimension(300, 100));
         
@@ -371,8 +351,6 @@ public class VentanaInicio extends JFrame {
         cambioDireccion.setMaximumSize(new Dimension(300, 100));
         cambioDireccion.setPreferredSize(new Dimension(300, 100));
 
-
-        //ajustar espacios entre boton y boton, la primera y la ultima ajustan flexiblemente al borde superior e inferior
         panelConfiguracion.add(Box.createVerticalGlue());       
         panelConfiguracion.add(cambioCorreo);
         panelConfiguracion.add(Box.createVerticalStrut(30));  
@@ -384,20 +362,14 @@ public class VentanaInicio extends JFrame {
         panelConfiguracion.add(Box.createVerticalGlue()); 
         
         pestañas.addTab("Configuración usuario ",panelConfiguracion);
-        
-          
-        
-        
+               
         botonlupa.addActionListener(e -> {
-            dispose();
         });
         if(!admin){
         cambioCorreo.addActionListener(e -> {
             JTextField campoCorreo = new JTextField(10);
             JTextField campoContrasena = new JTextField(10);
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
-
-            
 
             JPanel panelCambioContrasena = new JPanel();
             panelCambioContrasena.setLayout(new BoxLayout(panelCambioContrasena, BoxLayout.Y_AXIS)); 
@@ -413,7 +385,7 @@ public class VentanaInicio extends JFrame {
 
             if (resultado == JOptionPane.OK_OPTION && (usuario.isEmpty() || contrasena.isEmpty())) {
             JOptionPane.showMessageDialog(this, "Por favor, introduce los datos");
-        //  System.out.println(ProyectoJava.recuperados);
+
             } else if(resultado == JOptionPane.OK_OPTION && !usuario.isEmpty() && !contrasena.isEmpty()){
                 if (contrasena.equals(usuarioActivo.getContrasena()) && (usuarioActivo.getCorreo().endsWith("@gmail.com") || usuarioActivo.getCorreo().endsWith("@hotmail.com"))){
                     recuperados.get(usuarioActivo.getCorreo()).setCorreo(usuario);
@@ -430,8 +402,6 @@ public class VentanaInicio extends JFrame {
                 JOptionPane.showMessageDialog(this, "La contraseña es incorrecta, por favor, vuelve a introducir los datos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);}
                 
             }
-
-
         });
         } if(!admin){
         cambioContrasena.addActionListener(e -> {
@@ -476,8 +446,6 @@ public class VentanaInicio extends JFrame {
             }if(nuevaContrasena.length() < 8 || nuevaContrasenaV.length() < 8){ JOptionPane.showMessageDialog(this, "Formato de contraseña inválido", "La nueva contraseña tiene que contener al menos 8 caracteres, por favor, vuelve a introducirlas", JOptionPane.ERROR_MESSAGE);}
             }else {JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);}
             }
-            
-        
         
         });}
         
@@ -504,8 +472,7 @@ public class VentanaInicio extends JFrame {
             panelCambioTarjeta.add(Box.createVerticalStrut(10));
             panelCambioTarjeta.add(new JLabel("Contraseña: "));
             panelCambioTarjeta.add(campoCambioContrasenaT);
-            
-            
+                       
             int resultadoT = JOptionPane.showConfirmDialog(null, panelCambioTarjeta, "Cambio de tarjeta", JOptionPane.OK_CANCEL_OPTION);
             String nombreT = campoCambioNombreT.getText();
             String numeroT = campoCambioNombreT.getText();
@@ -576,9 +543,6 @@ public class VentanaInicio extends JFrame {
             } JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);
             }
             
-            });
-            
-        
-        
+            });     
     }}}
 

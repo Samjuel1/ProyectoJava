@@ -1,13 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Tarjeta_credito representa la clase con la que los clientes registran sus datos para poder realizar compras en los eventos.
+Es una clase serializada para poder guardar sus datos cuando la aplicación se cierra.
  */
 package proyectojava;
 
-/**
- *
- * @author icesa
- */
 import java.io.Serializable;
 
 public class Tarjeta_credito implements Serializable{
