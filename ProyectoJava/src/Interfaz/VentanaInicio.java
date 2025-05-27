@@ -1,3 +1,12 @@
+/*
+VentanaInicio representa la ventana que usa el cliente para poder navegar por la página.
+
+Está formada por fichas, por las que el cliente puede moverse para buscar eventos, así como comprar sus entradas,
+publicar reseñas, ver estas mismas, y consultar sus reservas. 
+El usuario también puede realizar cambios en sus datos de perfil.
+
+
+*/
 package Interfaz;
 
 import javax.swing.*;
@@ -10,6 +19,8 @@ import proyectojava.Cliente;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.*;
+import proyectojava.Reservas;
+import proyectojava.Reseña;
 
 public class VentanaInicio extends JFrame {
 
@@ -312,6 +323,12 @@ public class VentanaInicio extends JFrame {
         panelMisReservas.add(misReservas);
         panelMisReservas.add(Box.createVerticalStrut(100));
         
+        if (GestionClientes.inicio){
+        ArrayList<Reservas> listaReservas = usuarioActivo.getListaReservas();
+        crearBotonReservas(listaReservas,panelMisReservas);
+        }
+        
+        
         pestañas.addTab("Mis reservas", panelMisReservas);
         add(pestañas);
         
@@ -325,6 +342,10 @@ public class VentanaInicio extends JFrame {
         misResenas.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelMisResenas.add(misResenas);
         panelMisResenas.add(Box.createVerticalStrut(100));
+        
+        if(GestionClientes.inicio){
+        ArrayList<Reseña> listaReseñas = usuarioActivo.getListaReseñas();
+        crearBotonReseñas(listaReseñas,panelMisResenas);}
         
         pestañas.addTab("Mis reseñas", panelMisResenas);
         add(pestañas);
