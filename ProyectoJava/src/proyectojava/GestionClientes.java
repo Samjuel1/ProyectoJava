@@ -1,3 +1,7 @@
+/*
+GestionClientes es la clase en la que se guardan la mayoría de los métodos pudiendo acceder a ellos desde cualquier clase.
+*/
+
 package proyectojava;
 
 import java.awt.*;
@@ -392,7 +396,7 @@ public class GestionClientes {
     public static void crearBotonReservas(ArrayList<Reservas> listaReservas, JPanel panel){
         if(listaReservas != null){
         for(Reservas reserva : listaReservas){
-            JButton boton = new JButton(reserva.getEvento().getTitulo() + reserva.getPrecio());
+            JButton boton = new JButton(reserva.getEvento().getTitulo() + ". Precio: " + reserva.getPrecio() + "euros.");
             boton.setFont(new Font("Arial", Font.BOLD,20));
             boton.setBackground(Color.WHITE);
             boton.setHorizontalAlignment(SwingConstants.LEFT);

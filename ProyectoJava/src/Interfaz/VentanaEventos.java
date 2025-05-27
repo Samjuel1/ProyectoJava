@@ -1,7 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+VentanaEventos representa la ventana de eventos después de realizar la búsqueda.
+
+Esta clase se encarga de manejar los eventos. 
+Puede ser utilizada para posteriormente realizar las reservas de dichos eventos.
+
+
+*/
 package Interfaz;
 
 import java.awt.Component;
@@ -18,10 +22,6 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
 
-/**
- *
- * @author icesa
- */
 public class VentanaEventos extends JFrame{
     
         

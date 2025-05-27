@@ -1,8 +1,15 @@
+/*
+Reseña representa la clase con la que los clientes pueden calificar los eventos de los que realizan una compra,
+asignándoles una puntuación y un comentario.
+Es una clase serializada para poder guardar sus datos cuando la aplicación se cierra.
+*/
+
+
 package proyectojava;
 
 import java.io.Serializable;
 
-public class Reseña {
+public class Reseña implements Serializable{
     private String textoReseña;
     private int estrellas;
     private Evento evento;

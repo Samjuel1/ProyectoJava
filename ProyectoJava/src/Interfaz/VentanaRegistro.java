@@ -1,13 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+VentanaRegistro representa la ventana que usa el cliente para poder registrarse en la aplicación.
+
+Está formada por varios campos de texto en los que el cliente puede rellenar con sus datos personales,
+para poder acceder a la aplicación.
+
+*/
 package Interfaz;
 
-/**
- *
- * @author icesa
- */
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +38,7 @@ public class VentanaRegistro extends JFrame{
         JButton cancelar = new JButton("Cancelar");
         JButton registrar = new JButton("Registrarse");
         
-        add(new JLabel("Nombre: ",SwingConstants.CENTER));
+        add(new JLabel("Nombre ",SwingConstants.CENTER));
         campoNombre = new JTextField(10);
         add(campoNombre);
         add(new JLabel("Correo: "));
@@ -51,7 +50,7 @@ public class VentanaRegistro extends JFrame{
         add(new JLabel ("Teléfono: "));
         campoTelefono = new JTextField();
         add(campoTelefono);
-        add(new JLabel("Direccion"));
+        add(new JLabel("Direccion",SwingConstants.CENTER));
         add(new JLabel(""));
         add(new JLabel("Calle"));
         campoCalle = new JTextField(10);
@@ -66,9 +65,9 @@ public class VentanaRegistro extends JFrame{
         add(new JLabel("Codigo:"));
         campoCodigo = new JTextField(10);
         add(campoCodigo);
-        add(new JLabel("Tarjeta"));
+        add(new JLabel("Tarjeta",SwingConstants.CENTER));
         add(new JLabel(""));
-        add(new JLabel("NombreT"));
+        add(new JLabel("Nombre del titular"));
         campoNombreT = new JTextField(10);
         add(campoNombreT);
         add(new JLabel("Número de la tarjeta: "));
@@ -95,7 +94,7 @@ public class VentanaRegistro extends JFrame{
                 GestionClientes.agregarClienteArchivoRegistro(registrarCliente());
 
                 JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
-                new VentanaInicio().setVisible(true);
+                new Ventana_in_sesion().setVisible(true);
                 dispose();
             }});
             

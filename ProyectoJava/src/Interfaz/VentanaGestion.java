@@ -1,7 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+VentanaGestión representa la ventana que usa el usuario administrados.
+
+Esta clase puede ser utilizada para que el administrador añada, elimine, y modifique eventos,
+así como consultar los usuarios, las reservas y los eventos.
+
+
+*/
 package Interfaz;
 
 import java.awt.Component;
@@ -26,10 +30,6 @@ import proyectojava.Evento;
 import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.*;
 
-/**
- *
- * @author icesa
- */
 public class VentanaGestion extends JFrame{
     private JTextField campoAnadirTitulo;
     private JTextField campoAnadirTipo;
@@ -44,7 +44,6 @@ public class VentanaGestion extends JFrame{
     setTitle("Gestión de eventos");
     setSize(1100, 700);
     setLocationRelativeTo(null); 
- //   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     JPanel panelVentanaGestion = new JPanel();
     panelVentanaGestion.setLayout(new BoxLayout(panelVentanaGestion,BoxLayout.X_AXIS));
@@ -136,36 +135,11 @@ public class VentanaGestion extends JFrame{
         if (resultado == JOptionPane.OK_OPTION) {
             Integer numero = leerEntero(campoAnadirNumero, this, " Error en el formato del Numero\nPor favor vuelva a introducir los datos.");
             if (numero == null) return;
-            /*try{
-             int numero = Integer.parseInt(campoAnadirNumero.getText());
-            } catch(NumberFormatException i){
-            JOptionPane.showMessageDialog(this, 
-            "Error en el formato de número",
-            "Por favor vuelva a introducir los datos.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;} */
             numero = leerEntero(campoAnadirCp, this, " Error en el formato del Codigo Postal\nPor favor vuelva a introducir los datos.");
             if (numero == null) return;
-            /*
-            try{
-             int cp = Integer.parseInt(campoAnadirCp.getText());
-            } catch(NumberFormatException i){
-            JOptionPane.showMessageDialog(this, 
-            "Error en el formato de código postal",
-            "Por favor vuelva a introducir los datos.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}*/
             Long numero2 = leerLong(campoAnadirPrecio, this, " Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
             if (numero2 == null) return;
-            /*
-            try{
-             long precio = Long.parseLong(campoAnadirPrecio.getText());
-            } catch(NumberFormatException i){
-            JOptionPane.showMessageDialog(this, 
-            "Error en el formato de precio",
-            "Por favor vuelva a introducir los datos.",
-            JOptionPane.INFORMATION_MESSAGE);
-            return;}*/ 
+
             JOptionPane.showMessageDialog(this, 
             "Evento registrado correctamente",
             "Evento registrado",
@@ -331,11 +305,6 @@ public class VentanaGestion extends JFrame{
     
         
     }
-    
-    
-    
-    
-    
     
     public Evento registrarEvento(){
         String titulo = campoAnadirTitulo.getText();

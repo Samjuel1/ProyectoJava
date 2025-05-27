@@ -285,7 +285,7 @@ public class VentanaInicio extends JFrame {
         });
              
         }
-        
+        if (!admin){
         JPanel panelMisReservas = new JPanel();
         panelMisReservas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
         panelMisReservas.setLayout(new BoxLayout(panelMisReservas, BoxLayout.Y_AXIS));
@@ -316,7 +316,7 @@ public class VentanaInicio extends JFrame {
         crearBotonReseñas(listaReseñas,panelMisResenas);
         
         pestañas.addTab("Mis reseñas", panelMisResenas);
-        add(pestañas);
+        add(pestañas);}
         
         JPanel panelConfiguracion = new JPanel();
         panelConfiguracion.setLayout(new BoxLayout(panelConfiguracion,BoxLayout.Y_AXIS));

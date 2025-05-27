@@ -9,10 +9,6 @@ package proyectojava;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- *
- * @author icesa
- */
 public class Cliente implements Serializable {
     private String correo;
     private String contrasena;
@@ -30,6 +26,9 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.tarjeta = new Tarjeta_credito(titular_tarjeta,numero_tarjeta, fecha_caducidad);
         this.direccion = new Direccion(calle,numero,ciudad,cp);
+        this.listaReservas = new ArrayList<Reservas>();
+        this.listaReseñas = new ArrayList<Reseña>();
+
     }
 
     public String getCorreo() {
@@ -80,7 +79,7 @@ public class Cliente implements Serializable {
         this.direccion = direccion;
     }
     public void añadirReseña(Reseña reseña){
-        if (!this.listaReseñas.contains(reseña)){
+        if (!this.listaReseñas.contains(reseña) || this.listaReseñas == null){
         this.listaReseñas.add(reseña);}}
 
     public ArrayList<Reseña> getListaReseñas() {
@@ -92,9 +91,8 @@ public class Cliente implements Serializable {
     }
     
     public void añadirReserva(Reservas reserva){
-        if (!this.listaReservas.contains(reserva)){
         this.listaReservas.add(reserva);
-        }
+        
     }
 
     public ArrayList<Reservas> getListaReservas() {

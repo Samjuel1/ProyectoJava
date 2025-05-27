@@ -1,3 +1,9 @@
+/*
+Evento representa la clase con la que los usuarios interactúan pudiendo buscar, reservar y comprar plazas para estos,
+así como añadirles reseñas.
+Es una clase serializada para poder guardar sus datos cuando la aplicación se cierra.
+*/
+
 package proyectojava;
 
 import java.io.Serializable;
@@ -19,6 +25,7 @@ public class Evento implements Serializable{
         this.precio = precio;
         this.calificacion = calificacion;
         this.fecha = fecha;
+        this.listaReseñas = new ArrayList<Reseña>();
     }
 
     public String getTitulo() {

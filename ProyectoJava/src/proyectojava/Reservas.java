@@ -1,3 +1,8 @@
+/*
+Reservas representa la clase con la que los clientes compran entradas, y se mantienen guardadas en su perfil,
+que pueden ser visualizadas posteriormente.
+Es una clase serializada para poder guardar sus datos cuando la aplicación se cierra.
+*/
 package proyectojava;
 
 import java.io.Serializable;

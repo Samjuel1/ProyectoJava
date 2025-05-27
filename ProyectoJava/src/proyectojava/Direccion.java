@@ -1,14 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Direccion representa la clase con la que la clase Evento y la clase Cliente registran sus direcciones para
+poder guardarlas.
+Es una clase serializada para poder guardar sus datos cuando la aplicación se cierra.
  */
 package proyectojava;
 
 import java.io.Serializable;
-/**
- *
- * @author icesa
- */
 public class Direccion implements Serializable {
     
     public String calle;
