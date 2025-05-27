@@ -444,8 +444,9 @@ public class GestionClientes {
                                 ArrayList<Evento> lista_eventos = GestionClientes.cargarEventos();
                                 lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
                                 lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
+                                int index = lista_eventos.indexOf(evento);
                                 evento.añadirReseña(reseña);
-                                lista_eventos.set(lista_eventos.indexOf(evento), evento);
+                                lista_eventos.set(index, evento);
                                 
                                 GestionClientes.guardarClientes(lista);
                                 GestionClientes.guardarEventos(lista_eventos);
