@@ -1,6 +1,8 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Cliente representa la clase con la que los usuarios acceden a la aplicación y 
+
+Está formada por varios campos de texto en los que el cliente puede rellenar con sus datos personales,
+para poder acceder a la aplicación.
  */
 package proyectojava;
 
@@ -79,6 +81,15 @@ public class Cliente implements Serializable {
     public void añadirReseña(Reseña reseña){
         if (!this.listaReseñas.contains(reseña)){
         this.listaReseñas.add(reseña);}}
+
+    public ArrayList<Reseña> getListaReseñas() {
+        return listaReseñas;
+    }
+
+    public void setListaReseñas(ArrayList<Reseña> listaReseñas) {
+        this.listaReseñas = listaReseñas;
+    }
+    
 
     @Override
     public String toString() {
