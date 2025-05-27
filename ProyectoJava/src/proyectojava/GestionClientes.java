@@ -10,6 +10,7 @@ public class GestionClientes {
     
     public static Cliente usuarioActivo;
     public static boolean admin = false;
+    public static boolean inicio = false;
 
     public static Cliente getUsuarioActivo() {
         return usuarioActivo;
@@ -300,7 +301,7 @@ public class GestionClientes {
         lista.put(cliente.getCorreo(), cliente);
         GestionClientes.guardarClientes(lista);
     }
-    
+        
     public static String[] clientesToArray(){
         HashMap<String, Cliente> clientes = GestionClientes.cargarClientes();
         ArrayList<String> clientesArray = new ArrayList<>();
@@ -439,9 +440,16 @@ public class GestionClientes {
                                 int estrellas = (int) puntuacion.getValue();
                                 Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
                                 Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
+                                HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
+                                ArrayList<Evento> lista_eventos = GestionClientes.cargarEventos();
+                                lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
+                                lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
                                 evento.añadirReseña(reseña);
-                                GestionClientes.usuarioActivo.añadirReseña(reseña);
-                                GestionClientes.usuarioActivo.añadirReseña(reseña);
+                                lista_eventos.set(lista_eventos.indexOf(evento), evento);
+                                
+                                GestionClientes.guardarClientes(lista);
+                                GestionClientes.guardarEventos(lista_eventos);
+                                
                             JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
