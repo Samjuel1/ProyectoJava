@@ -92,7 +92,7 @@ public class VentanaRegistro extends JFrame{
             && GestionClientes.leerTexto(campoCiudad, this, "Por favor Introduzca un Ciudad") && GestionClientes.leerNumero(campoCodigo, this,"Porfavor Introduzca un Codigo Postal válido") 
             && GestionClientes.leerTexto(campoNombreT, this, "Por favor Introduzca un nombre") && GestionClientes.leerNumeroTarjeta(campoNumeroT, this) && GestionClientes.leerTexto(campoFechaT, this, "Por favor Introduzca una Fecha válida")){
                 
-                GestionClientes.agregarClienteArchivo(registrarCliente());
+                GestionClientes.agregarClienteArchivoRegistro(registrarCliente());
 
                 JOptionPane.showMessageDialog(this, "Cliente registrado y guardado.");
                 new VentanaInicio().setVisible(true);
