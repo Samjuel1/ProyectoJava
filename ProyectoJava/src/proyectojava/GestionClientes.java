@@ -383,6 +383,8 @@ public class GestionClientes {
                             ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
                             panelReseña.add(puntuacion);
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                            if (resultado == JOptionPane.OK_OPTION){
+                            JOptionPane.showMessageDialog(null, "Ha puesto una reseña, gracias por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
                 });
