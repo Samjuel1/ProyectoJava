@@ -38,6 +38,7 @@ public class VentanaGestion extends JFrame{
     private JTextField campoAnadirCiudad;
     private JTextField campoAnadirCp;
     private JTextField campoAnadirPrecio;
+    private JTextField campoAnadirFecha;
     
     public VentanaGestion(){
     setTitle("Gestión de eventos");
@@ -92,6 +93,7 @@ public class VentanaGestion extends JFrame{
         campoAnadirNumero = new JTextField(10);
         campoAnadirCp = new JTextField(10);
         campoAnadirPrecio = new JTextField(10);
+        campoAnadirFecha = new JTextField(10);
 
         JPanel panelAnadirEvento = new JPanel();
         panelAnadirEvento.setLayout(new BoxLayout(panelAnadirEvento, BoxLayout.Y_AXIS)); 
@@ -115,6 +117,9 @@ public class VentanaGestion extends JFrame{
         panelAnadirEvento.add(Box.createVerticalStrut(10)); 
         panelAnadirEvento.add(new JLabel("Precio:"));
         panelAnadirEvento.add(campoAnadirPrecio);
+        panelAnadirEvento.add(Box.createVerticalStrut(10));
+        panelAnadirEvento.add(new JLabel("Fecha:"));
+        panelAnadirEvento.add(campoAnadirFecha);
   
      
         
@@ -123,7 +128,8 @@ public class VentanaGestion extends JFrame{
         String titulo = campoAnadirTitulo.getText();
         String tipo = campoAnadirTipo.getText();
         String calle = campoAnadirCalle.getText();
-        String ciudad = campoAnadirCiudad.getText();      
+        String ciudad = campoAnadirCiudad.getText();     
+        String fecha = campoAnadirFecha.getText();
 
 
         
@@ -172,7 +178,7 @@ public class VentanaGestion extends JFrame{
             System.out.println(recuperadosArrayEventos);
             
             
-        } else if(resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty())){
+        } else if(resultado == JOptionPane.OK_OPTION && (titulo.isEmpty() || tipo.isEmpty() || calle.isEmpty() || ciudad.isEmpty() || fecha.isEmpty())){
         JOptionPane.showMessageDialog(this,"Datos no introducidos", "Por favor, rellene los datos", JOptionPane.INFORMATION_MESSAGE);}
         });
     
@@ -262,6 +268,7 @@ public class VentanaGestion extends JFrame{
                         JTextField campoModificarCiudad = new JTextField(seleccionado.getDireccion().ciudad);
                         JTextField campoModificarCp = new JTextField(String.valueOf(seleccionado.getDireccion().cp));
                         JTextField campoModificarPrecio = new JTextField(String.valueOf(seleccionado.getPrecio()));
+                        JTextField campoModificarFecha = new JTextField(seleccionado.getFecha());
                         panelPantallaModificarEvento.add(new JLabel("Título: "));
                         panelPantallaModificarEvento.add(campoModificarTitulo);
                         panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
@@ -282,6 +289,9 @@ public class VentanaGestion extends JFrame{
                         panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
                         panelPantallaModificarEvento.add(new JLabel("Precio: "));
                         panelPantallaModificarEvento.add(campoModificarPrecio);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
+                        panelPantallaModificarEvento.add(new JLabel("Fecha: "));
+                        panelPantallaModificarEvento.add(campoModificarFecha);
                         
                         int resultado = JOptionPane.showConfirmDialog(null, panelPantallaModificarEvento, "Modificar evento", JOptionPane.OK_CANCEL_OPTION);
                         
@@ -293,6 +303,7 @@ public class VentanaGestion extends JFrame{
                         String ciudadModificada = campoModificarCiudad.getText();
                         int cpModificado = Integer.parseInt(campoModificarCp.getText());
                         long precioModificado = Long.parseLong(campoModificarPrecio.getText());
+                        String fechaModificada = campoModificarFecha.getText();
                         
                         
                         seleccionado.setTitulo(tituloModificado);
@@ -302,10 +313,10 @@ public class VentanaGestion extends JFrame{
                         seleccionado.getDireccion().setCiudad(ciudadModificada);
                         seleccionado.getDireccion().setCp(cpModificado);
                         seleccionado.setPrecio(precioModificado);
+                        seleccionado.setFecha(fechaModificada);
 
                         
                         GestionClientes.guardarEventos(eventosRecuperados);
-                        panelPantallaModificarEvento.removeAll();
 
                         }else if(resultado == JOptionPane.CANCEL_OPTION){panelPantallaModificarEvento.removeAll();}
                     }
@@ -334,7 +345,8 @@ public class VentanaGestion extends JFrame{
         String ciudad = campoAnadirCiudad.getText();
         int cp = Integer.parseInt(campoAnadirCp.getText());
         long precio = Long.parseLong(campoAnadirPrecio.getText());
-        return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0);
+        String fecha = campoAnadirFecha.getText();
+        return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha);
         
         }
     

@@ -8,17 +8,17 @@ public class Evento implements Serializable{
     private String titulo;
     private String tipo;
     private Direccion direccion;
-    private ArrayList<LocalDate> ListaFechas;
+    private String fecha;
     private long precio;
     private double calificacion;
 
-    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, LocalDate fecha) {
+    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, String fecha) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.direccion = new Direccion(calle,numero,ciudad,cp);
         this.precio = precio;
         this.calificacion = calificacion;
-        this.ListaFechas.add(fecha);
+        this.fecha = fecha;
     }
 
     public String getTitulo() {
@@ -41,9 +41,15 @@ public class Evento implements Serializable{
     public double getCalificacion() {
         return calificacion;
     }
+    public String getFecha(){
+        return fecha;
+    }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+    public void setFecha(String fecha){
+        this.fecha = fecha;
     }
 
     public void setTipo(String tipo) {
@@ -63,11 +69,6 @@ public class Evento implements Serializable{
         this.calificacion = calificacion;
     }
     
-    public void añadirFecha(LocalDate fecha){
-        if (!this.ListaFechas.contains(fecha)){
-            this.ListaFechas.add(fecha);
-        }
-    }
     
   /*  
     
