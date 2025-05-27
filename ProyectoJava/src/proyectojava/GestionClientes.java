@@ -326,8 +326,9 @@ public class GestionClientes {
             boton.setFont(new Font("Arial", Font.BOLD,20));
             boton.setBackground(Color.WHITE);
             boton.setHorizontalAlignment(SwingConstants.LEFT);
-            boton.setMaximumSize(new Dimension(300, 100));
-            boton.setPreferredSize(new Dimension(300, 100));
+            boton.setMaximumSize(new Dimension(800, 80));
+            boton.setPreferredSize(new Dimension(800, 80));
+            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(boton);
         }
     }

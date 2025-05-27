@@ -103,7 +103,7 @@ public class VentanaInicio extends JFrame {
         }
 
         //pestaña gestion admin
-        if (admin){
+        if(admin){
         JPanel panelConfiguracionAdmin = new JPanel();
         panelConfiguracionAdmin.setLayout( new BoxLayout(panelConfiguracionAdmin,BoxLayout.Y_AXIS));
         panelConfiguracionAdmin.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -150,7 +150,6 @@ public class VentanaInicio extends JFrame {
         pestañas.addTab("Gestionar eventos", panelConfiguracionAdmin);
         
         //botones del admin
-        
         gestionarEvento.addActionListener(e -> {
             new VentanaGestion().setVisible(true);
 
@@ -282,7 +281,6 @@ public class VentanaInicio extends JFrame {
         
         
         }
-        if(!admin){
         //pestaña ajustes usuario
         JPanel panelConfiguracion = new JPanel();
         panelConfiguracion.setLayout(new BoxLayout(panelConfiguracion,BoxLayout.Y_AXIS));
@@ -338,6 +336,7 @@ public class VentanaInicio extends JFrame {
         pestañas.addTab("Configuración usuario ",panelConfiguracion);
         
         
+        
         // === Pestaña 2: Imagen ===
         JPanel panelImagen = new JPanel();
 
@@ -360,7 +359,7 @@ public class VentanaInicio extends JFrame {
         botonlupa.addActionListener(e -> {
             dispose();
         });
-        
+        if(!admin){
         cambioCorreo.addActionListener(e -> {
             JTextField campoCorreo = new JTextField(10);
             JTextField campoContrasena = new JTextField(10);
@@ -402,7 +401,7 @@ public class VentanaInicio extends JFrame {
 
 
         });
-        
+        } if(!admin){
         cambioContrasena.addActionListener(e -> {
             JTextField campoContrasena = new JTextField(10);
             JTextField campoCambioContrasena = new JTextField(10);
@@ -446,10 +445,11 @@ public class VentanaInicio extends JFrame {
             }else {JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "La contraseña no coincide", JOptionPane.ERROR_MESSAGE);}
             }
             
-            
         
-        });
         
+        });}
+        
+        if(!admin){
         cambioTarjeta.addActionListener(e -> {
             JTextField campoCambioNombreT = new JTextField(10);
             JTextField campoCambioNumeroT = new JTextField(10);
@@ -496,7 +496,7 @@ public class VentanaInicio extends JFrame {
                 else  {JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "Las contraseñas no coinciden, por favor, vuelve a introducirla", JOptionPane.ERROR_MESSAGE);}
             }
         });
-            
+        }if(!admin){
             cambioDireccion.addActionListener(e -> {
             JTextField campoCambioCalle = new JTextField(10);
             JTextField campoCambioNumero = new JTextField(10);
