@@ -1,7 +1,6 @@
 package proyectojava;
 
 import java.awt.*;
-import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -330,6 +329,63 @@ public class GestionClientes {
             boton.setPreferredSize(new Dimension(800, 80));
             boton.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(boton);
+                boton.addActionListener(e -> {
+                    JPanel panelBoton = new JPanel();
+                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    
+                    
+                    panelBoton.add(new JLabel("Titulo: " + evento.getTitulo()));
+                    panelBoton.add(new JLabel("Tipo: " + evento.getTipo()));
+                    panelBoton.add(new JLabel("Fecha: " + evento.getFecha()));
+                    panelBoton.add(new JLabel("Direccion:"));
+                    panelBoton.add(new JLabel("Ciudad: " + evento.getDireccion().getCiudad()));
+                    panelBoton.add(new JLabel("Codigo Postal: " + evento.getDireccion().getCp()));
+                    panelBoton.add(new JLabel("Calle y nº: " + evento.getDireccion().getCalle() + " " + evento.getDireccion().getNumero()));
+                    panelBoton.add(new JLabel("Calificacion: " + evento.getCalificacion()));
+                    panelBoton.add(new JLabel("Precio: " + evento.getPrecio()));
+                    panelBoton.add(Box.createVerticalStrut(5));
+                    panelBoton.add(new JLabel("Pulse Ok para proceder a la reserva y Cancel para volver   "));
+                    
+                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                    
+                    if (resultado == JOptionPane.OK_OPTION) {
+                        JPanel panelCompra = new JPanel();
+                        panelCompra.setLayout(new BoxLayout(panelCompra, BoxLayout.Y_AXIS));                         
+                        panelCompra.add(new JLabel("Precio: " + evento.getPrecio()));
+                        JSpinner entradas = new JSpinner();
+                        SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
+                        entradas.setModel(modelo);
+                        ((JSpinner.DefaultEditor) entradas.getEditor()).getTextField().setEditable(false);
+                        panelCompra.add(entradas);
+                        
+                        resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                        
+                        if (resultado == JOptionPane.OK_OPTION) {
+                            double cobro = (int) entradas.getValue()*evento.getPrecio();
+                            JPanel panelReseña = new JPanel();
+                            panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
+                            panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro+ "€"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            
+                            panelReseña.add(new JLabel("Deje aqui su reseña:"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            
+                            JTextField campoReseña = new JTextField(10);
+                            panelReseña.add(campoReseña);
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            panelReseña.add(new JLabel("Puntuenos aqui:"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+
+                            
+                            JSpinner puntuacion = new JSpinner();
+                            SpinnerNumberModel modeloPuntuacion = new SpinnerNumberModel(1,1,5,1);
+                            puntuacion.setModel(modeloPuntuacion);
+                            ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
+                            panelReseña.add(puntuacion);
+                            resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                        }
+                    }
+                });
         }
     }
     

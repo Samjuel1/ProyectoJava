@@ -1,8 +1,6 @@
 package proyectojava;
 
 import java.io.Serializable;
-import java.time.*;
-import java.util.ArrayList;
 
 public class Evento implements Serializable{
     private String titulo;
@@ -34,7 +32,7 @@ public class Evento implements Serializable{
     }
 
 
-    public long getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
@@ -69,25 +67,6 @@ public class Evento implements Serializable{
         this.calificacion = calificacion;
     }
     
-    
-  /*  
-    
-    public crearBoton(){
-        ArrayList<Evento> eventos = GestionClientes.cargarEventos();
-
-        // Verifica que haya al menos un evento
-        if (eventos.isEmpty()) {
-            return new JButton("Sin eventos disponibles");
-        }
-
-        Evento evento = eventos.get(0); // primer evento
-        JButton boton = new JButton("Evento: " + evento.getTitulo() + " - Calificación: 0");
-        
-        boton.setFont(new Font("Arial", Font.BOLD, 30));
-        boton.setBackground(Color.WHITE);
-
-        return boton;
-    } */
 
     @Override
     public String toString() {
