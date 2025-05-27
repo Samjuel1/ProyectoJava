@@ -1,6 +1,7 @@
 package proyectojava;
 
 import java.awt.*;
+import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -268,6 +269,33 @@ public class GestionClientes {
         }
     }
     
+    public static void modificarClienteDireccion(int boton, JTextField calle, JTextField numero, JTextField ciudad, JTextField codigo, JTextField contraseña, Component parent){
+        if (boton == JOptionPane.OK_OPTION && (GestionClientes.leerTexto(calle, parent, "Porfavor introduce una calle")&& 
+                GestionClientes.leerNumero(numero, parent, "Por favor introduce un número válido") && GestionClientes.leerTexto(ciudad, parent, "Porfavor introduce una ciudad") 
+                && GestionClientes.leerNumero(codigo, parent, "Porfavor introduce un código válido") && GestionClientes.leerContraseñaRegistro(contraseña, parent))){
+            if (contraseña.getText().equals(usuarioActivo.getContrasena())){
+                HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
+                lista.get(usuarioActivo.getCorreo()).getDireccion().setCalle(calle.getText());
+                lista.get(usuarioActivo.getCorreo()).getDireccion().setNumero(Integer.parseInt(numero.getText()));
+                lista.get(usuarioActivo.getCorreo()).getDireccion().setCiudad(ciudad.getText());
+                lista.get(usuarioActivo.getCorreo()).getDireccion().setNumero(Integer.parseInt(codigo.getText()));
+                GestionClientes.guardarClientes(lista);
+                JOptionPane.showMessageDialog(parent, 
+                        "Cambio de dirección", 
+                        "Has actualizado dirección", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }    
+        }
+        else{
+            JOptionPane.showMessageDialog(parent, 
+                    "Contraseña incorrecta", 
+                    "La contraseña no coincide", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
     public static void agregarClienteArchivoRegistro(Cliente cliente){
         HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
         lista.put(cliente.getCorreo(), cliente);
@@ -290,6 +318,18 @@ public class GestionClientes {
         boton.setBackground(Color.WHITE);
         boton.setHorizontalAlignment(SwingConstants.LEFT);
         return boton;
+    }
+    
+    public static void crearBotonEventos(ArrayList<Evento> listaEventos, JPanel panel){
+        for (Evento evento: listaEventos){
+            JButton boton = new JButton(evento.getTitulo() + "    Calificacion: " + evento.getCalificacion());
+            boton.setFont(new Font("Arial", Font.BOLD,20));
+            boton.setBackground(Color.WHITE);
+            boton.setHorizontalAlignment(SwingConstants.LEFT);
+            boton.setMaximumSize(new Dimension(300, 100));
+            boton.setPreferredSize(new Dimension(300, 100));
+            panel.add(boton);
+        }
     }
     
     
