@@ -21,6 +21,7 @@ public class Cliente implements Serializable {
     private Tarjeta_credito tarjeta;
     private Direccion direccion;
     private ArrayList<Reseña> listaReseñas;
+    private ArrayList<Reservas> listaReservas;
     
     public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
         this.correo = correo;
@@ -90,7 +91,16 @@ public class Cliente implements Serializable {
         this.listaReseñas = listaReseñas;
     }
     
+    public void añadirReserva(Reservas reserva){
+        if (!this.listaReservas.contains(reserva)){
+        this.listaReservas.add(reserva);
+        }
+    }
 
+    public ArrayList<Reservas> getListaReservas() {
+        return listaReservas;
+    }
+    
     @Override
     public String toString() {
         return "Cliente{" + "correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", direccion=" + direccion + '}';

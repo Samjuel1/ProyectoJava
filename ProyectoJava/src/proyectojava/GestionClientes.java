@@ -319,6 +319,54 @@ public class GestionClientes {
         return boton;
     }
     
+    public static void crearBotonReseñas(ArrayList<Reseña> listaReseñas, JPanel panel){
+        for(Reseña reseña : listaReseñas){
+            JButton boton = new JButton(reseña.getEvento().getTitulo() + "    Estrellas: " + reseña.getEstrellas());
+            boton.setFont(new Font("Arial", Font.BOLD,20));
+            boton.setBackground(Color.WHITE);
+            boton.setHorizontalAlignment(SwingConstants.LEFT);
+            boton.setMaximumSize(new Dimension(800, 80));
+            boton.setPreferredSize(new Dimension(800, 80));
+            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(boton);
+            boton.addActionListener(e -> {
+                    JPanel panelBoton = new JPanel();
+                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    panelBoton.add(new JLabel("Evento: " + reseña.getEvento().getTitulo()));
+                    panelBoton.add(new JLabel("Autor: " + reseña.getAutor()));
+                    panelBoton.add(new JLabel("Reseña: " + reseña.getTextoReseña()));
+                    panelBoton.add(new JLabel("Estrellas : " + reseña.getEstrellas()));
+                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reseña.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+            });
+        }
+    }
+    
+    public static void crearBotonReservas(ArrayList<Reservas> listaReservas, JPanel panel){
+        for(Reservas reserva : listaReservas){
+            JButton boton = new JButton(reserva.getEvento().getTitulo() + reserva.getPrecio());
+            boton.setFont(new Font("Arial", Font.BOLD,20));
+            boton.setBackground(Color.WHITE);
+            boton.setHorizontalAlignment(SwingConstants.LEFT);
+            boton.setMaximumSize(new Dimension(800, 80));
+            boton.setPreferredSize(new Dimension(800, 80));
+            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(boton);
+            boton.addActionListener(e -> {
+                    JPanel panelBoton = new JPanel();
+                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    panelBoton.add(new JLabel("Evento: " + reserva.getEvento().getTitulo()));
+                    panelBoton.add(new JLabel("A nombre de: " + reserva.getReservante()));
+                    panelBoton.add(new JLabel("Direccion:"));
+                    panelBoton.add(new JLabel("Ciudad: " + reserva.getEvento().getDireccion().getCiudad()));
+                    panelBoton.add(new JLabel("Codigo Postal: " + reserva.getEvento().getDireccion().getCp()));
+                    panelBoton.add(new JLabel("Calle y nº: " + reserva.getEvento().getDireccion().getCalle() + " " + reserva.getEvento().getDireccion().getNumero()));
+                    panelBoton.add(new JLabel("Fecha: " + reserva.getFecha()));
+                    panelBoton.add(new JLabel("Precio Total: " + reserva.getPrecio()));
+                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+            });
+        }
+    }
+    
     public static void crearBotonEventos(ArrayList<Evento> listaEventos, JPanel panel){
         for (Evento evento: listaEventos){
             JButton boton = new JButton(evento.getTitulo() + "    Calificacion: " + evento.getCalificacion());
@@ -384,15 +432,18 @@ public class GestionClientes {
                             panelReseña.add(puntuacion);
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                             if (resultado == JOptionPane.OK_OPTION){
-                                evento.añadirReseña(campoReseña.getText());
-                                evento.
-                            JOptionPane.showMessageDialog(null, "Ha puesto una reseña, gracias por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
+                                int estrellas = (int) puntuacion.getValue();
+                                Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
+                                Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
+                                evento.añadirReseña(reseña);
+                                GestionClientes.usuarioActivo.añadirReseña(reseña);
+                                GestionClientes.usuarioActivo.añadirReseña(reseña);
+                            JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
                 });
         }
     }
-    
     
     
     // Tratado de Datos REGISTRO

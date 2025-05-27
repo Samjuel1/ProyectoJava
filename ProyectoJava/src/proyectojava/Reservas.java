@@ -6,21 +6,26 @@ import java.time.LocalDate;
 public class Reservas {
 
     private String reservante;
-    private LocalDate fecha;
-    private Direccion direccion;
-    private String titulo;
+    private String fecha;
     private double precio;
+    private Evento evento;
 
-    public Reservas(String reservante, LocalDate fecha, String calle, int numero, String ciudad, int cp, String titulo, double precio) {
+    public Reservas(String reservante, String fecha, double precio, Evento evento) {
         this.reservante = reservante;
         this.fecha = fecha;
-        this.direccion = new Direccion(calle,numero,ciudad,cp);
-        this.titulo = titulo;
         this.precio = precio;
+        this.evento = evento;
+        
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
     
-    
-
     public String getReservante() {
         return reservante;
     }
@@ -29,37 +34,13 @@ public class Reservas {
         this.reservante = reservante;
     }
 
-    
-
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
-    
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    
 
     public double getPrecio() {
         return precio;
@@ -68,6 +49,5 @@ public class Reservas {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
     
 }
