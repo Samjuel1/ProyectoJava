@@ -1,9 +1,9 @@
 package proyectojava;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
 
-public class Reservas {
+public class Reservas implements Serializable{
 
     private String reservante;
     private String fecha;
