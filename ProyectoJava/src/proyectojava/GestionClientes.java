@@ -320,6 +320,7 @@ public class GestionClientes {
     }
     
     public static void crearBotonReseñas(ArrayList<Reseña> listaReseñas, JPanel panel){
+        if(listaReseñas != null){
         for(Reseña reseña : listaReseñas){
             JButton boton = new JButton(reseña.getEvento().getTitulo() + "    Estrellas: " + reseña.getEstrellas());
             boton.setFont(new Font("Arial", Font.BOLD,20));
@@ -340,8 +341,10 @@ public class GestionClientes {
             });
         }
     }
+    }
     
     public static void crearBotonReservas(ArrayList<Reservas> listaReservas, JPanel panel){
+        if(listaReservas != null){
         for(Reservas reserva : listaReservas){
             JButton boton = new JButton(reserva.getEvento().getTitulo() + reserva.getPrecio());
             boton.setFont(new Font("Arial", Font.BOLD,20));
@@ -365,6 +368,7 @@ public class GestionClientes {
                     int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.OK_OPTION);
             });
         }
+    }
     }
     
     public static void crearBotonEventos(ArrayList<Evento> listaEventos, JPanel panel){
