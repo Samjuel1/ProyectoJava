@@ -265,7 +265,7 @@ public class GestionClientes {
     }
     
     public static boolean leerNumeroTarjeta(JTextField campo, Component parent){
-        Integer aux = leerEntero(campo, parent, "El número de Tarjeta debe incluir solo números");
+        Long aux = leerLong(campo, parent, "El número de Tarjeta debe incluir solo números");
         if (aux == null){
             return false;
         }
