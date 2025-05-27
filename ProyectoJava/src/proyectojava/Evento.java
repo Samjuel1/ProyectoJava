@@ -12,12 +12,13 @@ public class Evento implements Serializable{
     private long precio;
     private double calificacion;
 
-    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion) {
+    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, LocalDate fecha) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.direccion = new Direccion(calle,numero,ciudad,cp);
         this.precio = precio;
         this.calificacion = calificacion;
+        this.ListaFechas.add(fecha);
     }
 
     public String getTitulo() {
