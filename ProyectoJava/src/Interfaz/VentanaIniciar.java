@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import javax.swing.JOptionPane;
+import proyectojava.GestionClientes;
+
 /**
  *
  * @author icesa
@@ -28,11 +31,11 @@ public class VentanaIniciar extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        campoCorreo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        campoContrasena = new javax.swing.JTextField();
+        botonIniciarSesion = new javax.swing.JButton();
+        botonRegistrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -44,25 +47,25 @@ public class VentanaIniciar extends javax.swing.JFrame {
 
         jLabel2.setText("Usuario:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campoCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campoCorreoActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Contraseña:");
 
-        jButton1.setText("Iniciar sesión");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonIniciarSesion.setText("Iniciar sesión");
+        botonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonIniciarSesionActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Registrarse");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonRegistrarse.setText("Registrarse");
+        botonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonRegistrarseActionPerformed(evt);
             }
         });
 
@@ -76,14 +79,14 @@ public class VentanaIniciar extends javax.swing.JFrame {
                         .addGap(132, 132, 132)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1)
+                            .addComponent(campoCorreo)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
+                            .addComponent(campoContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(285, 285, 285)
-                        .addComponent(jButton1)
+                        .addComponent(botonIniciarSesion)
                         .addGap(110, 110, 110)
-                        .addComponent(jButton2)))
+                        .addComponent(botonRegistrarse)))
                 .addContainerGap(319, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -98,32 +101,49 @@ public class VentanaIniciar extends javax.swing.JFrame {
                 .addGap(95, 95, 95)
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jLabel3)
                 .addGap(49, 49, 49)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(botonIniciarSesion)
+                    .addComponent(botonRegistrarse))
                 .addGap(77, 77, 77))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void campoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_campoCorreoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
+        if (GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaSesion(campoContrasena, this)) {
+                if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText())) {
+                    JOptionPane.showMessageDialog(this,
+                    "Has iniciado sesión.",
+                    "Inicio de sesión correcto",
+                    JOptionPane.INFORMATION_MESSAGE);
+                new VentanaInicio().setVisible(true);
+                dispose();
+                GestionClientes.inicio = true;
+                }
+                else {
+                    JOptionPane.showMessageDialog(this,
+                    "Usuario o Contraseña Incorrectos",
+                    "Inicio de sesión incorrecto",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
+        }
+    }//GEN-LAST:event_botonIniciarSesionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
+        dispose();
+        new Ventana_Registro().setVisible(true);
+    }//GEN-LAST:event_botonRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,12 +181,12 @@ public class VentanaIniciar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton botonIniciarSesion;
+    private javax.swing.JButton botonRegistrarse;
+    private javax.swing.JTextField campoContrasena;
+    private javax.swing.JTextField campoCorreo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
