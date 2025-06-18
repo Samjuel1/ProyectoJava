@@ -18,14 +18,16 @@ public class Cliente implements Serializable {
     private Direccion direccion;
     private ArrayList<Reseña> listaReseñas;
     private ArrayList<Reservas> listaReservas;
+    private boolean esvip;
     
-    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp) {
+    public Cliente(String correo, String contrasena, String nombre, String telefono, String titular_tarjeta, String numero_tarjeta, String fecha_caducidad, String calle, int numero, String ciudad, int cp, boolean esvip) {
         this.correo = correo;
         this.contrasena = contrasena;
         this.nombre = nombre; 
         this.telefono = telefono;
         this.tarjeta = new Tarjeta_credito(titular_tarjeta,numero_tarjeta, fecha_caducidad);
         this.direccion = new Direccion(calle,numero,ciudad,cp);
+        this.esvip = esvip;
         this.listaReservas = new ArrayList<Reservas>();
         this.listaReseñas = new ArrayList<Reseña>();
 
@@ -33,6 +35,9 @@ public class Cliente implements Serializable {
 
     public String getCorreo() {
         return correo;
+    }
+    public boolean getEsvip() {
+        return esvip;
     }
 
     public String getContrasena() {
@@ -57,6 +62,9 @@ public class Cliente implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+    public void setEsvip(boolean esvip) {
+        this.esvip = esvip;
     }
 
     public void setContrasena(String contraseña) {
@@ -101,7 +109,7 @@ public class Cliente implements Serializable {
     
     @Override
     public String toString() {
-        return "Cliente{" + "correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", direccion=" + direccion + '}';
+        return "Cliente{" + "correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", direccion=" + direccion + "VIP: " + esvip + '}';
     }
     
     

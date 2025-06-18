@@ -4,6 +4,7 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 
 package proyectojava;
 
+import Interfaz.Ventana_Registro;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -460,13 +461,20 @@ public class GestionClientes {
                         JSpinner entradas = new JSpinner();
                         SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
                         entradas.setModel(modelo);
+                        if (Cliente.esvip){
+                        panelCompra.add(new JLabel("Es usted VIP así que tendrá que pagar: " + evento.getPrecio()*0.9 + "€ por entrada."));
+                        }
                         ((JSpinner.DefaultEditor) entradas.getEditor()).getTextField().setEditable(false);
                         panelCompra.add(entradas);
                         
                         resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                         
                         if (resultado == JOptionPane.OK_OPTION) {
+                            if (Cliente.esvip){
+                            double cobro = (int) entradas.getValue()*evento.getPrecio()*0.9;
+                            } else{
                             double cobro = (int) entradas.getValue()*evento.getPrecio();
+                            }
                             JPanel panelReseña = new JPanel();
                             panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
                             panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro+ "€"));

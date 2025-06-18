@@ -113,7 +113,8 @@ public class VentanaRegistro extends JFrame{
             String titular_tarjeta = campoNombreT.getText();
             String numero_tarjeta = campoNumeroT.getText();
             String fecha_caducidad = campoFechaT.getText();
-            return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo);
+            boolean esvip = false;
+            return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo,esvip);
         }
 
 }

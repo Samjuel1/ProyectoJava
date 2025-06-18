@@ -103,21 +103,13 @@ public class VentanaInicio extends JFrame {
 
         pestañas.addTab("Buscar eventos", panelBusqueda);
         
-        
-        
-        prueba = false;
-        if (prueba){
-        JPanel panelTexto2 = new JPanel(new GridLayout(2,2));
-        panelTexto2.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        panelTexto2.add(new JLabel("Busca aqui un evento: "));
-        panelTexto2.add(botonlupa);
-        pestañas.addTab("Buscar eventos", panelTexto2);
-        }
-
-        if(admin){
         JPanel panelConfiguracionAdmin = new JPanel();
+    //    if (admin){
         panelConfiguracionAdmin.setLayout( new BoxLayout(panelConfiguracionAdmin,BoxLayout.Y_AXIS));
         panelConfiguracionAdmin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel gestionEvento = new JLabel("Gestión de eventos");
+        gestionEvento.setFont(new Font("Arial", Font.BOLD, 40));
         
         JButton gestionarEvento = new JButton("Gestionar evento");
         gestionarEvento.setFont(new Font("Arial", Font.BOLD, 25));
@@ -131,10 +123,14 @@ public class VentanaInicio extends JFrame {
         JButton consultarReservas = new JButton("Consultar reservas");
         consultarReservas.setFont(new Font("Arial", Font.BOLD, 25));
         
+        gestionEvento.setAlignmentX(Component.CENTER_ALIGNMENT);
         gestionarEvento.setAlignmentX(Component.CENTER_ALIGNMENT);
         consultarEvento.setAlignmentX(Component.CENTER_ALIGNMENT);
         consultarUsuarios.setAlignmentX(Component.CENTER_ALIGNMENT);
         consultarReservas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        gestionEvento.setMaximumSize(new Dimension(380, 100));
+        gestionEvento.setPreferredSize(new Dimension(500, 100));
         
         gestionarEvento.setMaximumSize(new Dimension(300, 100));
         gestionarEvento.setPreferredSize(new Dimension(300, 100));
@@ -148,13 +144,15 @@ public class VentanaInicio extends JFrame {
         consultarReservas.setMaximumSize(new Dimension(300, 100));
         consultarReservas.setPreferredSize(new Dimension(300, 100));
         
-        panelConfiguracionAdmin.add(Box.createVerticalGlue());       
+        panelConfiguracionAdmin.add(Box.createVerticalGlue());   
+        panelConfiguracionAdmin.add(gestionEvento);
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(40)); 
         panelConfiguracionAdmin.add(gestionarEvento);
-        panelConfiguracionAdmin.add(Box.createVerticalStrut(30));  
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(25));  
         panelConfiguracionAdmin.add(consultarEvento);
-        panelConfiguracionAdmin.add(Box.createVerticalStrut(30)); 
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(25)); 
         panelConfiguracionAdmin.add(consultarUsuarios);
-        panelConfiguracionAdmin.add(Box.createVerticalStrut(30)); 
+        panelConfiguracionAdmin.add(Box.createVerticalStrut(25)); 
         panelConfiguracionAdmin.add(consultarReservas);
         panelConfiguracionAdmin.add(Box.createVerticalGlue());
         
@@ -283,8 +281,7 @@ public class VentanaInicio extends JFrame {
             panelConsultarReservas.setVisible(true);
 
         });
-             
-        }
+        //}
         if (!admin){
         JPanel panelMisReservas = new JPanel();
         panelMisReservas.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));

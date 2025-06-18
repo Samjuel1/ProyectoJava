@@ -13,6 +13,7 @@ import proyectojava.GestionClientes;
  * @author pablo
  */
 public class Ventana_Registro extends javax.swing.JFrame {
+    public boolean esvip_;
 
     /**
      * Creates new form Ventana_Registro
@@ -63,6 +64,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
         campoFechaT = new javax.swing.JTextField();
         botonRegistrar = new javax.swing.JButton();
         botonRegistrar1 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         jLabel13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel13.setText("Nombre: ");
@@ -220,6 +222,13 @@ public class Ventana_Registro extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("¿Es usted VIP?");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,6 +280,8 @@ public class Ventana_Registro extends javax.swing.JFrame {
                                     .addComponent(jLabel10)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jCheckBox1)
+                                            .addGap(18, 18, 18)
                                             .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(botonRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -282,7 +293,9 @@ public class Ventana_Registro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jCheckBox1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -415,6 +428,15 @@ public class Ventana_Registro extends javax.swing.JFrame {
         new VentanaIniciar().setVisible(true);
     }//GEN-LAST:event_botonRegistrar1ActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()){
+            esvip_ = true;      
+        } else{
+        esvip_ = false;
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     public Cliente registrarCliente() {
             String nombre = campoNombre.getText();
             String correo = campoCorreo.getText();
@@ -427,7 +449,8 @@ public class Ventana_Registro extends javax.swing.JFrame {
             String titular_tarjeta = campoNombreT.getText();
             String numero_tarjeta = campoNumeroT.getText();
             String fecha_caducidad = campoFechaT.getText();
-            return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo);
+            boolean esvip = esvip_;
+            return new Cliente(correo, contrasena, nombre,telefono,titular_tarjeta,numero_tarjeta,fecha_caducidad,calle,numero,ciudad,codigo,esvip);
         }
     
     /**
@@ -479,6 +502,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
     private javax.swing.JTextField campoNumero;
     private javax.swing.JTextField campoNumeroT;
     private javax.swing.JTextField campoTelefono;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
