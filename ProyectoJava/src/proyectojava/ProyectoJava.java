@@ -5,7 +5,7 @@ Desde aquí se inicializan las ventanas y las clases para poder iniciar la aplic
 */
 
 package proyectojava;
-import Interfaz.Ventana_in_sesion;
+import Interfaz.VentanaIniciar;
 import java.util.HashMap;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -15,7 +15,8 @@ public class ProyectoJava {
     public static HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
     public static ArrayList<Evento> recuperadosEventos = GestionClientes.cargarEventos();
     public static void main(String[] args) {
-       SwingUtilities.invokeLater(() -> new Ventana_in_sesion().setVisible(true));
+       SwingUtilities.invokeLater(() -> new VentanaIniciar().setVisible(true));
+  //     SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
     
     }
     
