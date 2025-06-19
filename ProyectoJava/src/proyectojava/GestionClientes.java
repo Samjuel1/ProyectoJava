@@ -83,48 +83,52 @@ public class GestionClientes {
     // realiza una criba del ArrayList que se le pase utilizando la ciudad como referencia
     
     public static ArrayList<Evento> busquedaEventoPorCiudad(String ciudad, ArrayList<Evento> EventosPorCiudad){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento evento: EventosPorCiudad){
-            if (!evento.getDireccion().getCiudad().equals(ciudad)){
-                EventosPorCiudad.remove(evento);
+            if (evento.getDireccion().getCiudad().equals(ciudad)){
+                eventosFiltrados.add(evento);
             }
         }
-        return EventosPorCiudad;
+        return eventosFiltrados;
     }
     
         // realiza una criba del ArrayList que se le pase utilizando el tipo como referencia
 
     
     public static ArrayList<Evento> busquedaEventoPorTipo(String tipo, ArrayList<Evento> EventosPorTipo){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento evento: EventosPorTipo){
-            if (!evento.getTipo().equals(tipo)){
-                EventosPorTipo.remove(evento);
+            if (evento.getTipo().equals(tipo)){
+                eventosFiltrados.add(evento);
             }
         }
-        return EventosPorTipo;
+        return eventosFiltrados;
     }
     
         // realiza una criba del ArrayList que se le pase utilizando el precio como referencia
 
     
     public static ArrayList<Evento> busquedaEventoPorPrecio(long precio, ArrayList<Evento> EventosPorPrecio){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento evento: EventosPorPrecio){
-            if (evento.getPrecio() > precio) {
-                EventosPorPrecio.remove(evento);
+            if (evento.getPrecio() <= precio) {
+                eventosFiltrados.add(evento);
             }
         }
-        return EventosPorPrecio;
+        return eventosFiltrados;
     }
     
         // realiza una criba del ArrayList que se le pase utilizando la calificacion como referencia
 
     
     public static ArrayList<Evento> busquedaEventoPorCalificacion(double calificacion, ArrayList<Evento> EventosPorCalificacion){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento evento: EventosPorCalificacion){
-            if (evento.getCalificacion() > calificacion) {
-                EventosPorCalificacion.remove(evento);
+            if (evento.getCalificacion() >= calificacion) {
+                eventosFiltrados.add(evento);
             }
         }
-        return EventosPorCalificacion;
+        return eventosFiltrados;
     }
     
     // Ordenacion de Eventos
@@ -132,14 +136,18 @@ public class GestionClientes {
     // ordena los elementos del ArrayList en funcion de la calificacion
     
     public static ArrayList<Evento> ordenacionPorCalificacion(ArrayList<Evento> listaEventos){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
+        for (Evento evento: listaEventos){
+            eventosFiltrados.add(evento);
+        }
         Evento temp;
-        for (int i = 0; i < listaEventos.size()-1; i++){
+        for (int i = 0; i < eventosFiltrados.size()-1; i++){
             boolean terminado = false;
-            for (int j = 0; j < listaEventos.size() -i-1; j++){
-                if (listaEventos.get(j).getCalificacion() < listaEventos.get(j+1).getCalificacion()){
-                    temp = listaEventos.get(j);
-                    listaEventos.set(j, listaEventos.get(j+1));
-                    listaEventos.set(j+1, temp);
+            for (int j = 0; j < eventosFiltrados.size() -i-1; j++){
+                if (eventosFiltrados.get(j).getCalificacion() < eventosFiltrados.get(j+1).getCalificacion()){
+                    temp = eventosFiltrados.get(j);
+                    eventosFiltrados.set(j, eventosFiltrados.get(j+1));
+                    eventosFiltrados.set(j+1, temp);
                     terminado = false;
                 }
             }
@@ -148,12 +156,106 @@ public class GestionClientes {
             }
             
         }
-        return listaEventos;
+        return eventosFiltrados;
     }
+    
+    public static void botonEventoClasificacion(JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5){
+        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
+        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5};
+        for (int i = 0; i < 5; i++){
+            Evento eventoSeleccionado = listaEventos.get(i);
+            JButton boton = listaBotones[i];
+            boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
+        }
+    }
+    
+    public static void accionBotonEventosCalificacion(JButton boton, int pos){
+        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
+        Evento evento = listaEventos.get(pos);
+            JPanel panelBoton = new JPanel();
+                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    
+                    
+                    panelBoton.add(new JLabel("Titulo: " + evento.getTitulo()));
+                    panelBoton.add(new JLabel("Tipo: " + evento.getTipo()));
+                    panelBoton.add(new JLabel("Fecha: " + evento.getFecha()));
+                    panelBoton.add(new JLabel("Direccion:"));
+                    panelBoton.add(new JLabel("Ciudad: " + evento.getDireccion().getCiudad()));
+                    panelBoton.add(new JLabel("Codigo Postal: " + evento.getDireccion().getCp()));
+                    panelBoton.add(new JLabel("Calle y nº: " + evento.getDireccion().getCalle() + " " + evento.getDireccion().getNumero()));
+                    panelBoton.add(new JLabel("Calificacion: " + evento.getCalificacion()));
+                    panelBoton.add(new JLabel("Precio: " + evento.getPrecio()));
+                    panelBoton.add(Box.createVerticalStrut(5));
+                    panelBoton.add(new JLabel("Pulse Ok para proceder a la reserva y Cancel para volver   "));
+                    
+                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                    
+                    if (resultado == JOptionPane.OK_OPTION) {
+                        JPanel panelCompra = new JPanel();
+                        panelCompra.setLayout(new BoxLayout(panelCompra, BoxLayout.Y_AXIS));                         
+                        panelCompra.add(new JLabel("Precio: " + evento.getPrecio()));
+                        JSpinner entradas = new JSpinner();
+                        SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
+                        entradas.setModel(modelo);
+    /*                    if (Cliente.esvip){
+                        panelCompra.add(new JLabel("Es usted VIP así que tendrá que pagar: " + evento.getPrecio()*0.9 + "€ por entrada."));
+                        } */
+                        ((JSpinner.DefaultEditor) entradas.getEditor()).getTextField().setEditable(false);
+                        panelCompra.add(entradas);
+                        
+                        resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                        
+                        if (resultado == JOptionPane.OK_OPTION) {
+                   /*         if (Cliente.esvip){
+                            double cobro = (int) entradas.getValue()*evento.getPrecio()*0.9;
+                            } else{
+                            double cobro = (int) entradas.getValue()*evento.getPrecio();
+                            } */
+      /*Temporal*/          double cobro = (int) entradas.getValue()*evento.getPrecio();
+                            JPanel panelReseña = new JPanel();
+                            panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
+                            panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro + "€"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            
+                            panelReseña.add(new JLabel("Deje aqui su reseña:"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            
+                            JTextField campoReseña = new JTextField(10);
+                            panelReseña.add(campoReseña);
+                            panelReseña.add(Box.createVerticalStrut(5));
+                            panelReseña.add(new JLabel("Puntuenos aqui:"));
+                            panelReseña.add(Box.createVerticalStrut(5));
+
+                            
+                            JSpinner puntuacion = new JSpinner();
+                            SpinnerNumberModel modeloPuntuacion = new SpinnerNumberModel(1,1,5,1);
+                            puntuacion.setModel(modeloPuntuacion);
+                            ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
+                            panelReseña.add(puntuacion);
+                            resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                            if (resultado == JOptionPane.OK_OPTION){
+                                int estrellas = (int) puntuacion.getValue();
+                                Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
+                                Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
+                                HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
+                                lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
+                                lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
+                                ArrayList<Evento> listaSinEvento = GestionClientes.borrarIguales(evento);
+                                evento.añadirReseña(reseña);
+                                
+                                
+                                GestionClientes.guardarClientes(lista);
+                                GestionClientes.guardarEventos(listaSinEvento);
+                                
+                            JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
+                        }
+                    }
+        }
+    
     
         // ordena los elementos del ArrayList en funcion del Precio
     
-    public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
+    /*public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
         Evento temp;
         for (int i = 0; i < listaEventos.size()-1; i++){
             boolean terminado = false;
@@ -171,7 +273,7 @@ public class GestionClientes {
             
         }
         return listaEventos;
-    }
+    }*/
     
     // Inicio de Sesion
     
