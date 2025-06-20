@@ -6,6 +6,8 @@ package Interfaz;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import static proyectojava.GestionClientes.*;
 
 /**
@@ -277,7 +279,21 @@ public class Ventana_Inicio extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Boton stickman
         
-        new VentanaGestionClientes().setVisible(true);
+        JPopupMenu menu = new JPopupMenu();
+
+        JMenuItem item1 = new JMenuItem("Mis reservas");
+        JMenuItem item2 = new JMenuItem("Mis reseñas");
+        JMenuItem item3 = new JMenuItem("Configuración de usuario");
+        
+   //     item1.addActionListener(e -> new VentanaRegistro().setVisible(true));
+   //     item2.addActionListener(e -> System.out.println("Mis reseñas"));
+        item3.addActionListener(e -> new VentanaGestionClientes().setVisible(true));
+
+        menu.add(item1);
+        menu.add(item2);
+        menu.add(item3);
+        
+        menu.show(jButton1, 0, jButton1.getHeight());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
