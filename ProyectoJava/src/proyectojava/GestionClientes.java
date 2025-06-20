@@ -206,12 +206,7 @@ public class GestionClientes {
                         resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                         
                         if (resultado == JOptionPane.OK_OPTION) {
-                   /*         if (Cliente.esvip){
-                            double cobro = (int) entradas.getValue()*evento.getPrecio()*0.9;
-                            } else{
                             double cobro = (int) entradas.getValue()*evento.getPrecio();
-                            } */
-      /*Temporal*/          double cobro = (int) entradas.getValue()*evento.getPrecio();
                             JPanel panelReseña = new JPanel();
                             panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
                             panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro + "€"));
@@ -251,6 +246,8 @@ public class GestionClientes {
                         }
                     }
         }
+    
+    
     
     
         // ordena los elementos del ArrayList en funcion del Precio
