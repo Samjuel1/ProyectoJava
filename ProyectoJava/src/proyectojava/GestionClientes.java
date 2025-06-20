@@ -4,12 +4,13 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 
 package proyectojava;
 
-import Interfaz.Ventana_Registro;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import javax.swing.*;
+import java.util.List;
 
 public class GestionClientes {
     
@@ -159,6 +160,30 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
+    public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
+        for (Evento evento: listaEventos){
+            eventosFiltrados.add(evento);
+        }
+        Evento temp;
+        for (int i = 0; i < eventosFiltrados.size()-1; i++){
+            boolean terminado = false;
+            for (int j = 0; j < eventosFiltrados.size() -i-1; j++){
+                if (eventosFiltrados.get(j).getPrecio() < eventosFiltrados.get(j+1).getPrecio()){
+                    temp = eventosFiltrados.get(j);
+                    eventosFiltrados.set(j, eventosFiltrados.get(j+1));
+                    eventosFiltrados.set(j+1, temp);
+                    terminado = false;
+                }
+            }
+            if(terminado){
+                break;
+            }
+            
+        }
+        return eventosFiltrados;
+    }
+    
     public static void botonEventoClasificacion(JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5){
         ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
         JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5};
@@ -167,6 +192,23 @@ public class GestionClientes {
             JButton boton = listaBotones[i];
             boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
         }
+    }
+    
+    public static ArrayList<Evento> aplicarFiltrosBusqueda(JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JRadioButton precio, JRadioButton calificacion){
+        ArrayList<Evento> listaEventos = cargarEventos();
+        if (checkCiudad.isSelected()){
+            listaEventos = busquedaEventoPorCiudad(campoCiudad.getText(), listaEventos);
+        }
+        if (checkTipo.isSelected()){
+            listaEventos = busquedaEventoPorTipo(campoTipo.getText(), listaEventos);
+        }
+        if (precio.isSelected()){
+            listaEventos = ordenacionPorPrecio(listaEventos);
+        } 
+        else if (calificacion.isSelected()){
+            listaEventos = ordenacionPorCalificacion(listaEventos);
+        }
+        return listaEventos;
     }
     
     public static void accionBotonEventosCalificacion(JButton boton, int pos){
