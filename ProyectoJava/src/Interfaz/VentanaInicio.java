@@ -214,7 +214,7 @@ public class VentanaInicio extends JFrame {
 
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
             ArrayList<Cliente> recuperadosArray = new ArrayList<>(recuperados.values());
-
+            
             String[] nombresClientes = recuperadosArray.stream()
             .map(cliente -> cliente.getCorreo()) 
             .toArray(String[]::new);
@@ -247,38 +247,49 @@ public class VentanaInicio extends JFrame {
         });
  
         consultarReservas.addActionListener(e -> {
-            JFrame panelConsultarReservas = new JFrame("Reservas");
+            JFrame panelConsultarReservas = new JFrame("Usuarios");
             JPanel panelPantallaConsultarReservas = new JPanel();
             panelPantallaConsultarReservas.setLayout(new BoxLayout(panelPantallaConsultarReservas, BoxLayout.Y_AXIS));
             panelConsultarReservas.setSize(300, 200);
             panelConsultarReservas.setLocationRelativeTo(this); 
-        
+
             HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
-            ArrayList<String> recuperadosArray = new ArrayList<>();
-            for (String clave : recuperados.keySet()) {
-            recuperadosArray.add(clave);
-            System.out.println(recuperadosArray);
-            System.out.println("Clave: " + clave);
-            }
+            ArrayList<Cliente> recuperadosArray = new ArrayList<>(recuperados.values());
             
-           JList<String> lista = new JList<>(recuperadosArray.toArray(new String[0]));
-           JScrollPane scroll = new JScrollPane(lista);
-           lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-           
-           lista.addMouseListener(new MouseAdapter() {
+            String[] nombresClientes = recuperadosArray.stream()
+            .map(cliente -> cliente.getCorreo()) 
+            .toArray(String[]::new);
+
+            JList<String> lista = new JList<>(nombresClientes);
+            JScrollPane scroll = new JScrollPane(lista);
+            lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            
+            
+
+
+            lista.addMouseListener(new MouseAdapter() {
                  public void mouseClicked(MouseEvent event) {
                     if (event.getClickCount() == 2) {
                       int index = lista.locationToIndex(event.getPoint());
                         if (index >= 0) {
-                           //Cliente seleccionado = recuperadosArray.get(index);
+                           Cliente seleccionado = recuperadosArray.get(index);
                            
-                           JOptionPane.showMessageDialog(null,"Nombre: ","titulo",JOptionPane.INFORMATION_MESSAGE);
+                           ArrayList<Reservas> reservas = seleccionado.getListaReservas();
+                StringBuilder mensaje = new StringBuilder();
+                for (Reservas i : reservas) {
+                    mensaje.append("- ").append(i.getEvento().getTitulo()).append("\n");
+                }
+
+                           
+                           JOptionPane.showMessageDialog(null,"Reservas: \n" + mensaje,"Reservas de: " + seleccionado.getNombre(), JOptionPane.INFORMATION_MESSAGE);
+
             }
         }
     }
 });
-            panelConsultarReservas.add(scroll);
-            panelConsultarReservas.setVisible(true);
+
+                           panelConsultarReservas.add(scroll);
+                           panelConsultarReservas.setVisible(true);
 
         });
         //}
