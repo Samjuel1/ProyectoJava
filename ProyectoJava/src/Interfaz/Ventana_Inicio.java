@@ -281,17 +281,17 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         
         JPopupMenu menu = new JPopupMenu();
 
-        JMenuItem item1 = new JMenuItem("Mis reservas");
-        JMenuItem item2 = new JMenuItem("Mis reseñas");
-        JMenuItem item3 = new JMenuItem("Configuración de usuario");
+        JMenuItem misReservas = new JMenuItem("Mis reservas");
+        JMenuItem misReseñas = new JMenuItem("Mis reseñas");
+        JMenuItem configuracion = new JMenuItem("Configuración de usuario");
         
-   //     item1.addActionListener(e -> new VentanaRegistro().setVisible(true));
-   //     item2.addActionListener(e -> System.out.println("Mis reseñas"));
-        item3.addActionListener(e -> new VentanaGestionClientes().setVisible(true));
+        misReservas.addActionListener(e -> new VentanaReservas().setVisible(true));
+        misReseñas.addActionListener(e -> new VentanaReseñas().setVisible(true));
+        configuracion.addActionListener(e -> new VentanaGestionClientes().setVisible(true));
 
-        menu.add(item1);
-        menu.add(item2);
-        menu.add(item3);
+        menu.add(misReservas);
+        menu.add(misReseñas);
+        menu.add(configuracion);
         
         menu.show(jButton1, 0, jButton1.getHeight());
     }//GEN-LAST:event_jButton1ActionPerformed
