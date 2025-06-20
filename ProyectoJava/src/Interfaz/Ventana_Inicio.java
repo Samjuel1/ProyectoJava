@@ -71,6 +71,12 @@ public class Ventana_Inicio extends javax.swing.JFrame {
             }
         });
 
+        BotonBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBusquedaActionPerformed(evt);
+            }
+        });
+
         eventoDest1.setText("jButton1");
         eventoDest1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +301,12 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         
         menu.show(jButton1, 0, jButton1.getHeight());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BotonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBusquedaActionPerformed
+        // Boton de la lupa
+        // Añadir la lógica de los resultados de busqueda
+        new VentanaResultados().setVisible(true);
+    }//GEN-LAST:event_BotonBusquedaActionPerformed
 
     /**
      * @param args the command line arguments
