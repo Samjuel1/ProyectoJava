@@ -5,6 +5,8 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 package proyectojava;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -289,31 +291,73 @@ public class GestionClientes {
                     }
         }
     
-    
-    
-    
-        // ordena los elementos del ArrayList en funcion del Precio
-    
-    /*public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
-        Evento temp;
-        for (int i = 0; i < listaEventos.size()-1; i++){
-            boolean terminado = false;
-            for (int j = 0; j < listaEventos.size() -i-1; j++){
-                if (listaEventos.get(j).getPrecio() < listaEventos.get(j+1).getPrecio()){
-                    temp = listaEventos.get(j);
-                    listaEventos.set(j, listaEventos.get(j+1));
-                    listaEventos.set(j+1, temp);
-                    terminado = false;
-                }
+    public static void botonReservas(ArrayList<Reservas> listaReservas, JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5, JButton boton6, JButton boton7, JButton boton8, JButton boton9, int pagina){
+        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9};
+        for (int i = pagina * listaBotones.length; i < pagina * listaBotones.length + 9;i++){
+            int j = i - pagina * listaBotones.length;
+            JButton boton = listaBotones[j];
+            if (i >= listaReservas.size()){
+                boton.setText("");
+            } 
+            else{
+                Reservas reserva = listaReservas.get(i);
+                boton.setText(reserva.getEvento().getTitulo() + "   Precio: " + reserva.getPrecio());
             }
-            if(terminado){
-                break;
-            }
-            
         }
-        return listaEventos;
-    }*/
+    }
     
+    public static void accionBotonReservas(ArrayList<Reservas> listaReservas, int pagina, int nBoton, Component parent){
+        int i = pagina * 9 + nBoton;
+        if (i < listaReservas.size()){
+            Reservas reserva = listaReservas.get(i);
+            JPanel panelBoton = new JPanel();
+                panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    
+                panelBoton.add(new JLabel("Reservante: " + reserva.getReservante()));
+                panelBoton.add(new JLabel("Evento: "));
+                panelBoton.add(new JLabel("Titulo: " + reserva.getEvento().getTitulo()));
+                panelBoton.add(new JLabel("Tipo: " + reserva.getEvento().getTipo()));
+                panelBoton.add(new JLabel("Fecha: " + reserva.getFecha()));
+                panelBoton.add(new JLabel("Direccion:"));
+                panelBoton.add(new JLabel("Ciudad: " + reserva.getEvento().getDireccion().getCiudad()));
+                panelBoton.add(new JLabel("Codigo Postal: " + reserva.getEvento().getDireccion().getCp()));
+                panelBoton.add(new JLabel("Calle y nº: " + reserva.getEvento().getDireccion().getCalle() + ", " + reserva.getEvento().getDireccion().getNumero()));
+                panelBoton.add(new JLabel("Precio: " + reserva.getPrecio()));
+                int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+        }
+    }
+    
+    public static void botonReseñas(ArrayList<Reseña> listaReseñas, JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5, JButton boton6, JButton boton7, JButton boton8, JButton boton9, int pagina){
+        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9};
+        for (int i = pagina * listaBotones.length; i < pagina * listaBotones.length + 9;i++){
+            int j = i - pagina * listaBotones.length;
+            JButton boton = listaBotones[j];
+            if (i >= listaReseñas.size()){
+                boton.setText("");
+            } 
+            else{
+                Reseña reseña = listaReseñas.get(i);
+                boton.setText(reseña.getAutor() + "Estrellas: " + reseña.getEstrellas());
+            }
+        }
+    }
+    
+    public static void accionBotonReseñas(ArrayList<Reseña> listaReseñas, int pagina, int nBoton, Component parent){
+        int i = pagina * 9 + nBoton;
+        if (i < listaReseñas.size()){
+            Reseña reseña = listaReseñas.get(i);
+            JPanel panelBoton = new JPanel();
+                panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    
+                panelBoton.add(new JLabel("Autor: " + reseña.getAutor()));
+                panelBoton.add(new JLabel("Evento: "));
+                panelBoton.add(new JLabel("Titulo: " + reseña.getEvento().getTitulo()));
+                panelBoton.add(new JLabel("Reseña: " + reseña.getTextoReseña()));
+                panelBoton.add(new JLabel("Estrellas: " + reseña.getEstrellas()));
+                int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reseña.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+        }
+    }
+                 
     // Inicio de Sesion
     
     // Metodo que se usa en el inicio de sesion para comprobar si se meten los parametros de admin

@@ -1,5 +1,9 @@
 package Interfaz;
 
+import static proyectojava.GestionClientes.accionBotonReseñas;
+import static proyectojava.GestionClientes.botonReseñas;
+import static proyectojava.GestionClientes.usuarioActivo;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -16,6 +20,7 @@ public class VentanaReseñas extends javax.swing.JFrame {
      */
     public VentanaReseñas() {
         initComponents();
+        botonReseñas(usuarioActivo.getListaReseñas(), botonReseña1, botonReseña2, botonReseña3, botonReseña4, botonReseña5, botonReseña6, botonReseña7, botonReseña8, botonReseña9, 0);
     }
 
     /**
@@ -28,34 +33,213 @@ public class VentanaReseñas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        botonReseña1 = new javax.swing.JButton();
+        botonReseña2 = new javax.swing.JButton();
+        botonReseña3 = new javax.swing.JButton();
+        botonReseña4 = new javax.swing.JButton();
+        botonReseña5 = new javax.swing.JButton();
+        botonReseña6 = new javax.swing.JButton();
+        botonReseña7 = new javax.swing.JButton();
+        botonReseña8 = new javax.swing.JButton();
+        botonReseña9 = new javax.swing.JButton();
+        botonAtras = new javax.swing.JToggleButton();
+        botonAdelante = new javax.swing.JToggleButton();
+        campoPagina = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar mis reseñas");
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel1.setText("Mis reseñas");
 
+        botonReseña1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña1ActionPerformed(evt);
+            }
+        });
+
+        botonReseña2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña2ActionPerformed(evt);
+            }
+        });
+
+        botonReseña3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña3ActionPerformed(evt);
+            }
+        });
+
+        botonReseña4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña4ActionPerformed(evt);
+            }
+        });
+
+        botonReseña5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña5ActionPerformed(evt);
+            }
+        });
+
+        botonReseña6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña6ActionPerformed(evt);
+            }
+        });
+
+        botonReseña7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña7ActionPerformed(evt);
+            }
+        });
+
+        botonReseña8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña8ActionPerformed(evt);
+            }
+        });
+
+        botonReseña9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReseña9ActionPerformed(evt);
+            }
+        });
+
+        botonAtras.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonAtras.setText("<");
+        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtrasActionPerformed(evt);
+            }
+        });
+
+        botonAdelante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonAdelante.setText(">");
+        botonAdelante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAdelanteActionPerformed(evt);
+            }
+        });
+
+        campoPagina.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        campoPagina.setText("0");
+        campoPagina.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(263, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(263, 263, 263))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(botonAtras)
+                                .addGap(4, 4, 4)
+                                .addComponent(botonAdelante))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botonReseña3, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña4, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña5, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña6, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña7, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña8, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReseña9, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonReseña1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReseña9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAdelante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(campoPagina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonReseña1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña1ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 0, this);
+    }//GEN-LAST:event_botonReseña1ActionPerformed
+
+    private void botonReseña2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña2ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 1, this);
+    }//GEN-LAST:event_botonReseña2ActionPerformed
+
+    private void botonReseña3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña3ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 2, this);
+    }//GEN-LAST:event_botonReseña3ActionPerformed
+
+    private void botonReseña4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña4ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 3, this);
+    }//GEN-LAST:event_botonReseña4ActionPerformed
+
+    private void botonReseña5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña5ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 4, this);
+    }//GEN-LAST:event_botonReseña5ActionPerformed
+
+    private void botonReseña6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña6ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 5, this);
+    }//GEN-LAST:event_botonReseña6ActionPerformed
+
+    private void botonReseña7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña7ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 6, this);
+    }//GEN-LAST:event_botonReseña7ActionPerformed
+
+    private void botonReseña8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña8ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 7, this);
+    }//GEN-LAST:event_botonReseña8ActionPerformed
+
+    private void botonReseña9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReseña9ActionPerformed
+        accionBotonReseñas(usuarioActivo.getListaReseñas(), this.pagina, 8, this);
+    }//GEN-LAST:event_botonReseña9ActionPerformed
+
+    private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
+        if (this.pagina > 0){
+            this.pagina -= 1;
+            campoPagina.setText(this.pagina + "");
+            botonReseñas(usuarioActivo.getListaReseñas(), botonReseña1, botonReseña2, botonReseña3, botonReseña4, botonReseña5, botonReseña6, botonReseña7, botonReseña8, botonReseña9, this.pagina);        }
+    }//GEN-LAST:event_botonAtrasActionPerformed
+
+    private void botonAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdelanteActionPerformed
+        if (this.pagina < 5){
+            this.pagina += 1;
+            campoPagina.setText(this.pagina + "");
+            botonReseñas(usuarioActivo.getListaReseñas(), botonReseña1, botonReseña2, botonReseña3, botonReseña4, botonReseña5, botonReseña6, botonReseña7, botonReseña8, botonReseña9, this.pagina);        }
+    }//GEN-LAST:event_botonAdelanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,6 +277,19 @@ public class VentanaReseñas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton botonAdelante;
+    private javax.swing.JToggleButton botonAtras;
+    private javax.swing.JButton botonReseña1;
+    private javax.swing.JButton botonReseña2;
+    private javax.swing.JButton botonReseña3;
+    private javax.swing.JButton botonReseña4;
+    private javax.swing.JButton botonReseña5;
+    private javax.swing.JButton botonReseña6;
+    private javax.swing.JButton botonReseña7;
+    private javax.swing.JButton botonReseña8;
+    private javax.swing.JButton botonReseña9;
+    private javax.swing.JLabel campoPagina;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+    private int pagina = 0;
 }

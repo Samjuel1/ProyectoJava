@@ -1,5 +1,9 @@
 package Interfaz;
 
+import static proyectojava.GestionClientes.accionBotonReservas;
+import static proyectojava.GestionClientes.botonReservas;
+import static proyectojava.GestionClientes.usuarioActivo;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -16,6 +20,7 @@ public class VentanaReservas extends javax.swing.JFrame {
      */
     public VentanaReservas() {
         initComponents();
+        botonReservas(usuarioActivo.getListaReservas(), botonReserva1, botonReserva2, botonReserva3, botonReserva4, botonReserva5, botonReserva6, botonReserva7, botonReserva8, botonReserva9, 0);
     }
 
     /**
@@ -27,7 +32,26 @@ public class VentanaReservas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToggleButton2 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        botonReserva1 = new javax.swing.JButton();
+        botonReserva2 = new javax.swing.JButton();
+        botonReserva3 = new javax.swing.JButton();
+        botonReserva4 = new javax.swing.JButton();
+        botonReserva5 = new javax.swing.JButton();
+        botonReserva6 = new javax.swing.JButton();
+        botonReserva7 = new javax.swing.JButton();
+        botonReserva8 = new javax.swing.JButton();
+        botonReserva9 = new javax.swing.JButton();
+        botonAtras = new javax.swing.JToggleButton();
+        botonAdelante = new javax.swing.JToggleButton();
+        campoPagina = new javax.swing.JLabel();
+
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar mis reservas");
@@ -36,25 +60,199 @@ public class VentanaReservas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel1.setText("Mis reservas");
 
+        botonReserva1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva1ActionPerformed(evt);
+            }
+        });
+
+        botonReserva2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva2ActionPerformed(evt);
+            }
+        });
+
+        botonReserva3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva3ActionPerformed(evt);
+            }
+        });
+
+        botonReserva4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva4ActionPerformed(evt);
+            }
+        });
+
+        botonReserva5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva5ActionPerformed(evt);
+            }
+        });
+
+        botonReserva6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva6ActionPerformed(evt);
+            }
+        });
+
+        botonReserva7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva7ActionPerformed(evt);
+            }
+        });
+
+        botonReserva8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva8ActionPerformed(evt);
+            }
+        });
+
+        botonReserva9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReserva9ActionPerformed(evt);
+            }
+        });
+
+        botonAtras.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonAtras.setText("<");
+        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtrasActionPerformed(evt);
+            }
+        });
+
+        botonAdelante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonAdelante.setText(">");
+        botonAdelante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAdelanteActionPerformed(evt);
+            }
+        });
+
+        campoPagina.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        campoPagina.setText("0");
+        campoPagina.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(jLabel1)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(botonAtras)
+                                .addGap(4, 4, 4)
+                                .addComponent(botonAdelante))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botonReserva3, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva4, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva5, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva6, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva7, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva8, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonReserva9, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReserva9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAdelante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(campoPagina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
+        if (this.pagina > 0){
+            this.pagina -= 1;
+            campoPagina.setText(this.pagina + "");
+            botonReservas(usuarioActivo.getListaReservas(), botonReserva1, botonReserva2, botonReserva3, botonReserva4, botonReserva5, botonReserva6, botonReserva7, botonReserva8, botonReserva9, this.pagina);
+        }
+    }//GEN-LAST:event_botonAtrasActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void botonAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdelanteActionPerformed
+        if (this.pagina < 5){
+            this.pagina += 1;
+            campoPagina.setText(this.pagina + "");
+            botonReservas(usuarioActivo.getListaReservas(), botonReserva1, botonReserva2, botonReserva3, botonReserva4, botonReserva5, botonReserva6, botonReserva7, botonReserva8, botonReserva9, this.pagina);
+        }
+    }//GEN-LAST:event_botonAdelanteActionPerformed
+
+    private void botonReserva8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva8ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 7, this);
+    }//GEN-LAST:event_botonReserva8ActionPerformed
+
+    private void botonReserva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva1ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 0, this);
+    }//GEN-LAST:event_botonReserva1ActionPerformed
+
+    private void botonReserva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva2ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 1, this);
+    }//GEN-LAST:event_botonReserva2ActionPerformed
+
+    private void botonReserva3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva3ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 2, this);
+    }//GEN-LAST:event_botonReserva3ActionPerformed
+
+    private void botonReserva4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva4ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 3, this);
+    }//GEN-LAST:event_botonReserva4ActionPerformed
+
+    private void botonReserva5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva5ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 4, this);
+    }//GEN-LAST:event_botonReserva5ActionPerformed
+
+    private void botonReserva6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva6ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 5, this);
+    }//GEN-LAST:event_botonReserva6ActionPerformed
+
+    private void botonReserva7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva7ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 6, this);
+    }//GEN-LAST:event_botonReserva7ActionPerformed
+
+    private void botonReserva9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReserva9ActionPerformed
+        accionBotonReservas(usuarioActivo.getListaReservas(), this.pagina, 8, this);
+    }//GEN-LAST:event_botonReserva9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,8 +288,22 @@ public class VentanaReservas extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton botonAdelante;
+    private javax.swing.JToggleButton botonAtras;
+    private javax.swing.JButton botonReserva1;
+    private javax.swing.JButton botonReserva2;
+    private javax.swing.JButton botonReserva3;
+    private javax.swing.JButton botonReserva4;
+    private javax.swing.JButton botonReserva5;
+    private javax.swing.JButton botonReserva6;
+    private javax.swing.JButton botonReserva7;
+    private javax.swing.JButton botonReserva8;
+    private javax.swing.JButton botonReserva9;
+    private javax.swing.JLabel campoPagina;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
+    private int pagina = 0;
 }

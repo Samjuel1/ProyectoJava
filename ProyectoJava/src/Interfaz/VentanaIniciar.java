@@ -144,7 +144,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
                     "Has iniciado sesión.",
                     "Inicio de sesión correcto",
                     JOptionPane.INFORMATION_MESSAGE);
-                new VentanaInicio().setVisible(true);
+                new Ventana_Inicio().setVisible(true);
                 dispose();
                 GestionClientes.inicio = true;
                 }
