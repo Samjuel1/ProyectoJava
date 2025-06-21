@@ -51,10 +51,8 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         checkCiudad = new javax.swing.JCheckBox();
         checkTipo = new javax.swing.JCheckBox();
-        checkPrecio = new javax.swing.JCheckBox();
         campoCiudad = new javax.swing.JTextField();
         campoTipo = new javax.swing.JTextField();
-        checkCalificacion = new javax.swing.JCheckBox();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
@@ -130,22 +128,13 @@ public class Ventana_Inicio extends javax.swing.JFrame {
 
         checkTipo.setText("Tipo");
 
-        checkPrecio.setText("Precio");
-        checkPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkPrecioActionPerformed(evt);
-            }
-        });
-
         campoCiudad.setToolTipText("Escribe una ciudad");
 
         campoTipo.setToolTipText("Escribe un tipo");
 
-        checkCalificacion.setText("Calificacion");
+        jRadioButton1.setText("Precio");
 
-        jRadioButton1.setText("jRadioButton1");
-
-        jRadioButton2.setText("jRadioButton2");
+        jRadioButton2.setText("Calificacion");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/stickman.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -176,23 +165,18 @@ public class Ventana_Inicio extends javax.swing.JFrame {
                     .addComponent(eventoDest4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(eventoDest5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkPrecio)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkCalificacion))
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(checkCiudad)
-                                .addComponent(checkTipo))
-                            .addGap(12, 12, 12)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkTipo, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -216,15 +200,11 @@ public class Ventana_Inicio extends javax.swing.JFrame {
                     .addComponent(BotonBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkPrecio)
-                    .addComponent(checkCalificacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addGap(5, 5, 5)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
-                .addGap(8, 8, 8)
+                .addGap(62, 62, 62)
                 .addComponent(eventoDest1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(eventoDest2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,10 +258,6 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkCiudadActionPerformed
 
-    private void checkPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPrecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkPrecioActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Boton stickman
         
@@ -305,7 +281,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
     private void BotonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBusquedaActionPerformed
         // Boton de la lupa
         // Añadir la lógica de los resultados de busqueda
-        new VentanaResultados().setVisible(true);
+        new Ventana_Eventos(aplicarFiltrosBusqueda(checkCiudad, campoCiudad, checkTipo, campoTipo, jRadioButton1, jRadioButton2)).setVisible(true);
     }//GEN-LAST:event_BotonBusquedaActionPerformed
 
     /**
@@ -354,9 +330,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField campoBuscador;
     private javax.swing.JTextField campoCiudad;
     private javax.swing.JTextField campoTipo;
-    private javax.swing.JCheckBox checkCalificacion;
     private javax.swing.JCheckBox checkCiudad;
-    private javax.swing.JCheckBox checkPrecio;
     private javax.swing.JCheckBox checkTipo;
     private javax.swing.JButton eventoDest1;
     private javax.swing.JButton eventoDest2;

@@ -5,14 +5,10 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 package proyectojava;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import javax.swing.*;
-import java.util.List;
 
 public class GestionClientes {
     
@@ -121,19 +117,6 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
-        // realiza una criba del ArrayList que se le pase utilizando la calificacion como referencia
-
-    
-    public static ArrayList<Evento> busquedaEventoPorCalificacion(double calificacion, ArrayList<Evento> EventosPorCalificacion){
-        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
-        for (Evento evento: EventosPorCalificacion){
-            if (evento.getCalificacion() >= calificacion) {
-                eventosFiltrados.add(evento);
-            }
-        }
-        return eventosFiltrados;
-    }
-    
     // Ordenacion de Eventos
     
     // ordena los elementos del ArrayList en funcion de la calificacion
@@ -186,16 +169,6 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
-    public static void botonEventoClasificacion(JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5){
-        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
-        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5};
-        for (int i = 0; i < 5; i++){
-            Evento eventoSeleccionado = listaEventos.get(i);
-            JButton boton = listaBotones[i];
-            boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
-        }
-    }
-    
     public static ArrayList<Evento> aplicarFiltrosBusqueda(JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JRadioButton precio, JRadioButton calificacion){
         ArrayList<Evento> listaEventos = cargarEventos();
         if (checkCiudad.isSelected()){
@@ -212,11 +185,8 @@ public class GestionClientes {
         }
         return listaEventos;
     }
-    
-    public static void accionBotonEventosCalificacion(JButton boton, int pos){
-        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
-        Evento evento = listaEventos.get(pos);
-            JPanel panelBoton = new JPanel();
+    public static void accionBotonEventos (Evento evento){
+        JPanel panelBoton = new JPanel();
                     panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
                     
                     
@@ -241,9 +211,6 @@ public class GestionClientes {
                         JSpinner entradas = new JSpinner();
                         SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
                         entradas.setModel(modelo);
-    /*                    if (Cliente.esvip){
-                        panelCompra.add(new JLabel("Es usted VIP así que tendrá que pagar: " + evento.getPrecio()*0.9 + "€ por entrada."));
-                        } */
                         ((JSpinner.DefaultEditor) entradas.getEditor()).getTextField().setEditable(false);
                         panelCompra.add(entradas);
                         
@@ -289,7 +256,47 @@ public class GestionClientes {
                             JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
                         }
                     }
+    }
+    
+    
+    public static void botonEventoClasificacion(JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5){
+        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
+        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5};
+        for (int i = 0; i < 5; i++){
+            Evento eventoSeleccionado = listaEventos.get(i);
+            JButton boton = listaBotones[i];
+            boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
         }
+    }
+    
+    public static void accionBotonEventosCalificacion(JButton boton, int pos){
+        ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
+        Evento evento = listaEventos.get(pos);
+            accionBotonEventos(evento);
+        }
+    
+    public static void botonEventosBusqueda(ArrayList<Evento> listaEventos, JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5, JButton boton6, JButton boton7, JButton boton8, JButton boton9, int pagina){
+        JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9};
+        for (int i = pagina * listaBotones.length; i < pagina * listaBotones.length + 9;i++){
+            int j = i - pagina * listaBotones.length;
+            JButton boton = listaBotones[j];
+            if (i >= listaEventos.size()){
+                boton.setText("");
+            } 
+            else{
+                Evento evento = listaEventos.get(i);
+                boton.setText(evento.getTitulo()+ " Calificacion: " + evento.getCalificacion());
+            }
+        }
+    }
+    
+    public static void accionBotonEventosBusqueda(ArrayList<Evento> listaEventos, int pagina, int nBoton, Component parent){
+        int i = pagina * 9 + nBoton;
+        if (i < listaEventos.size()){
+            Evento evento = listaEventos.get(i);
+            accionBotonEventos(evento);
+        }
+    }
     
     public static void botonReservas(ArrayList<Reservas> listaReservas, JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5, JButton boton6, JButton boton7, JButton boton8, JButton boton9, int pagina){
         JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9};
