@@ -26,15 +26,17 @@ public class GestionClientes {
     
     // Nombres de Archivos
     
-    private static final String archivo_clientes = "clientes.dat";
+    private static final String ARCHIVO_CLIENTES = "clientes.dat";
     private static final String ARCHIVO_EVENTOS = "eventos.dat";
+    private static final String ARCHIVO_ADMINISTRADORES = "Administradores.dat";
+
     
     // Serializacion de Clientes
     
     
     // Serializa los clientes en un archivo llamado clientes.dat
     public static void guardarClientes(HashMap<String, Cliente> lista) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(archivo_clientes))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_CLIENTES))) {
             out.writeObject(lista);
             System.out.println("Lista de clientes guardada correctamente.");
         } catch (IOException e) {
@@ -44,7 +46,7 @@ public class GestionClientes {
     
     // recupera los clientes serializados del archivo clientes.dat
     public static HashMap<String, Cliente> cargarClientes() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo_clientes))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_CLIENTES))) {
             return (HashMap<String, Cliente>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -74,6 +76,25 @@ public class GestionClientes {
             e.printStackTrace();
             System.out.println("hola");
             return new ArrayList<Evento>(); // si falla, devuelve una lista vacía
+        }
+    }
+    
+    public static void guardarAdmin(HashMap<String, Administrador> lista) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_ADMINISTRADORES))) {
+            out.writeObject(lista);
+            System.out.println("Lista de Admin guardada correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace(); //imprimir error
+        }
+    }
+    
+    public static HashMap<String, Administrador> cargarAdmin() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARCHIVO_ADMINISTRADORES))) {
+            return (HashMap<String, Administrador>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("hola");
+            return new HashMap<String, Administrador>(); // si falla, devuelve una lista vacía
         }
     }
     
@@ -206,8 +227,18 @@ public class GestionClientes {
                     
                     if (resultado == JOptionPane.OK_OPTION) {
                         JPanel panelCompra = new JPanel();
-                        panelCompra.setLayout(new BoxLayout(panelCompra, BoxLayout.Y_AXIS));                         
-                        panelCompra.add(new JLabel("Precio: " + evento.getPrecio()));
+                        panelCompra.setLayout(new BoxLayout(panelCompra, BoxLayout.Y_AXIS));
+                        double precio;
+                        String msg;
+                        if (usuarioActivo.getEsvip()){
+                            precio = evento.getPrecioVip();
+                            msg = " -Precio Vip-";
+                        } 
+                        else{
+                            precio = evento.getPrecio();
+                            msg = "";
+                        }
+                        panelCompra.add(new JLabel("Precio: " + precio + msg));
                         JSpinner entradas = new JSpinner();
                         SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
                         entradas.setModel(modelo);
@@ -217,7 +248,7 @@ public class GestionClientes {
                         resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                         
                         if (resultado == JOptionPane.OK_OPTION) {
-                            double cobro = (int) entradas.getValue()*evento.getPrecio();
+                            double cobro = (int) entradas.getValue()*precio;
                             JPanel panelReseña = new JPanel();
                             panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
                             panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro + "€"));
@@ -232,12 +263,13 @@ public class GestionClientes {
                             panelReseña.add(new JLabel("Puntuenos aqui:"));
                             panelReseña.add(Box.createVerticalStrut(5));
 
-                            
-                            JSpinner puntuacion = new JSpinner();
+                            JSlider puntuacion = new JSlider(0, 100, 50);
+                            panelReseña.add(puntuacion);
+                            /*JSpinner puntuacion = new JSpinner();
                             SpinnerNumberModel modeloPuntuacion = new SpinnerNumberModel(1,1,5,1);
                             puntuacion.setModel(modeloPuntuacion);
                             ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
-                            panelReseña.add(puntuacion);
+                            panelReseña.add(puntuacion);*/
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                             if (resultado == JOptionPane.OK_OPTION){
                                 int estrellas = (int) puntuacion.getValue();
@@ -257,15 +289,19 @@ public class GestionClientes {
                         }
                     }
     }
-    
-    
+     
     public static void botonEventoClasificacion(JButton boton1, JButton boton2, JButton boton3, JButton boton4, JButton boton5){
         ArrayList<Evento> listaEventos = ordenacionPorCalificacion(cargarEventos());
         JButton[] listaBotones = {boton1, boton2, boton3, boton4, boton5};
         for (int i = 0; i < 5; i++){
-            Evento eventoSeleccionado = listaEventos.get(i);
             JButton boton = listaBotones[i];
-            boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
+            if (i >= listaEventos.size()){
+                boton.setText("");
+            }
+            else{
+                Evento eventoSeleccionado = listaEventos.get(i);
+                boton.setText(eventoSeleccionado.getTitulo() + "    Calificacion: " + eventoSeleccionado.getCalificacion());
+            } 
         }
     }
     
@@ -371,6 +407,17 @@ public class GestionClientes {
     
     public static boolean comprobarAdmin(String correo, String contraseña){
         boolean resultado = correo.equals("admin@javaevents.com") && contraseña.equals("admin");
+        return resultado;
+    } 
+    
+    public static boolean comprobarAdminNuevo(String correo, String contraseña){
+        HashMap<String, Administrador> listaAdmins = cargarAdmin();
+        boolean resultado;
+        if (listaAdmins.containsKey(correo)){
+            Administrador admin = listaAdmins.get(correo);
+            resultado = admin.getContraseña().equals(contraseña);
+        }
+        else{resultado = false;}
         return resultado;
     }
     

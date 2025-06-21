@@ -139,7 +139,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         if (GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaSesion(campoContrasena, this)) {
-                if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText())) {
+                if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText()) && !GestionClientes.admin) {
                     JOptionPane.showMessageDialog(this,
                     "Has iniciado sesión.",
                     "Inicio de sesión correcto",
@@ -147,6 +147,14 @@ public class VentanaIniciar extends javax.swing.JFrame {
                 new Ventana_Inicio().setVisible(true);
                 dispose();
                 GestionClientes.inicio = true;
+                }
+                else if (GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText()) && GestionClientes.admin){
+                    JOptionPane.showMessageDialog(this,
+                    "Has iniciado sesión como admin.",
+                    "Inicio de sesión correcto",
+                    JOptionPane.INFORMATION_MESSAGE);
+                new VentanaGestion().setVisible(true);
+                dispose();
                 }
                 else {
                     JOptionPane.showMessageDialog(this,

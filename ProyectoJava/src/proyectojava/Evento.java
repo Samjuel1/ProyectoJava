@@ -44,6 +44,10 @@ public class Evento implements Serializable{
     public double getPrecio() {
         return precio;
     }
+    
+    public double getPrecioVip(){
+        return Math.round(((precio * 0.9) * 100))/100;
+    }
 
     public double getCalificacion() {
         return calificacion;
