@@ -897,6 +897,60 @@ public class GestionClientes {
         return true;
     }
     
+    public static boolean comprobarPinAdmin(JTextField campo, Component parent){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor introduce el pin.",
+                "ERROR de Entrada", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else if (!campo.getText().equals("123456789")){
+            JOptionPane.showMessageDialog(parent,
+                "Contraseña PIN incorrecta.",
+                "ERROR de Entrada", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else {return true;}
+    }
+    
+    public static boolean leerCorreoAdmin(JTextField campo, Component parent){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor, introduce un correo.",
+                "Correo no introducido", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else if (!campo.getText().endsWith("@javaevents.es") && !campo.getText().endsWith("@javaevents.com")){
+            JOptionPane.showMessageDialog(parent,
+                "Formato del correo invalido.",
+                "Formato correo invalido", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else{return true;}
+    }
+    
+    public static boolean compararContraseñaAdmin (JTextField contra1, JTextField contra2, Component parent){
+        if (contra1.getText().equals("") || contra2.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor rellena todos los campos.",
+                "Campo/s vacio/s", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else if (!contra1.getText().equals(contra2.getText())){
+            JOptionPane.showMessageDialog(parent,
+                "Las contraseñas no coinciden.",
+                "Comprueba contraseñas", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else{return true;}
+    }
+    
     // metodo que se encarga de comprobar el contenido del campo de texto de la contraseña para que no este vacio o que se haya puesto la clave admin
         
     public static boolean leerContraseñaSesion(JTextField campo, Component parent){

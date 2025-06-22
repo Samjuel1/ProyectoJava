@@ -4,7 +4,14 @@
  */
 package Interfaz;
 
+import java.util.HashMap;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import proyectojava.Administrador;
 import proyectojava.Cliente;
 import proyectojava.GestionClientes;
 
@@ -65,6 +72,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
         botonRegistrar = new javax.swing.JButton();
         botonRegistrar1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        botonRegistrarAdmin = new javax.swing.JToggleButton();
 
         jLabel13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel13.setText("Nombre: ");
@@ -86,6 +94,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Nuevo Usuario");
+        setSize(new java.awt.Dimension(815, 600));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText(" Introduzca sus Datos: ");
@@ -229,6 +238,14 @@ public class Ventana_Registro extends javax.swing.JFrame {
             }
         });
 
+        botonRegistrarAdmin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonRegistrarAdmin.setText("REGISTRAR ADMIN");
+        botonRegistrarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarAdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,11 +298,14 @@ public class Ventana_Registro extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jCheckBox1)
-                                            .addGap(18, 18, 18)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(botonRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botonRegistrarAdmin)))
                         .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
@@ -293,14 +313,13 @@ public class Ventana_Registro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jCheckBox1))
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botonRegistrar)
-                            .addComponent(botonRegistrar1))))
+                            .addComponent(botonRegistrar1)
+                            .addComponent(jCheckBox1))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -351,7 +370,9 @@ public class Ventana_Registro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(campoFechaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonRegistrarAdmin)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -437,6 +458,49 @@ public class Ventana_Registro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void botonRegistrarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAdminActionPerformed
+        JTextField campoPIN = new JTextField(10);
+        JPanel panelPinAdmin = new JPanel();
+            panelPinAdmin.setLayout(new BoxLayout(panelPinAdmin, BoxLayout.Y_AXIS));
+            panelPinAdmin.add(new JLabel("PIN:"));
+            panelPinAdmin.add(campoPIN);
+           
+            int resultado = JOptionPane.showConfirmDialog(null, panelPinAdmin, "Registro ADMIN", JOptionPane.OK_CANCEL_OPTION);
+           
+            if (resultado == JOptionPane.OK_OPTION && GestionClientes.comprobarPinAdmin(campoPIN,this)){
+                JTextField campoCorreoAdmin = new JTextField(10);
+                JTextField campoContrasenaAdmin = new JTextField(10);
+                JTextField campoConfirmarContraseñaAdmin = new JTextField(10);
+                JPanel panelRegistroAdmin = new JPanel();
+                    panelRegistroAdmin.setLayout(new BoxLayout(panelRegistroAdmin, BoxLayout.Y_AXIS)); 
+                    panelRegistroAdmin.add(new JLabel("Correo: "));
+                    panelRegistroAdmin.add(campoCorreoAdmin);
+                    panelRegistroAdmin.add(Box.createVerticalStrut(10));  
+                    panelRegistroAdmin.add(new JLabel("Contraseña:"));
+                    panelRegistroAdmin.add(campoContrasenaAdmin);
+                    panelRegistroAdmin.add(new JLabel("Confirmar Contraseña:"));
+                    panelRegistroAdmin.add(campoConfirmarContraseñaAdmin);
+
+                resultado = JOptionPane.showConfirmDialog(null, panelRegistroAdmin, "Cambio de contraseña", JOptionPane.OK_CANCEL_OPTION);
+                    
+            
+                if (resultado == JOptionPane.OK_OPTION && (GestionClientes.leerCorreoAdmin(campoCorreoAdmin, this) && GestionClientes.compararContraseñaAdmin(campoContrasenaAdmin, campoConfirmarContraseñaAdmin, this))){
+                    Administrador adminNuevo = registrarAdmin(campoCorreoAdmin, campoContrasenaAdmin);
+                    HashMap<String, Administrador> listaAdmins = GestionClientes.cargarAdmin();
+                    listaAdmins.put(adminNuevo.getCorreo(), adminNuevo);
+                    GestionClientes.guardarAdmin(listaAdmins);
+                    
+                    JOptionPane.showMessageDialog(null, "ADMIN Registrado correctamente", "ADmin Registrado", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+    }//GEN-LAST:event_botonRegistrarAdminActionPerformed
+
+    public Administrador registrarAdmin(JTextField campoCorreo, JTextField campoContra){
+        String correo = campoCorreo.getText();
+        String contraseña = campoContra.getText();
+        return new Administrador(correo, contraseña);
+    }
+    
     public Cliente registrarCliente() {
             String nombre = campoNombre.getText();
             String correo = campoCorreo.getText();
@@ -491,6 +555,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonRegistrar1;
+    private javax.swing.JToggleButton botonRegistrarAdmin;
     private javax.swing.JTextField campoCalle;
     private javax.swing.JTextField campoCiudad;
     private javax.swing.JTextField campoCodigo;
