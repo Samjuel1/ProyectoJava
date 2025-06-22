@@ -4,6 +4,8 @@
  */
 package Interfaz;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import proyectojava.GestionClientes;
 
@@ -136,7 +138,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
     private void campoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCorreoActionPerformed
-
+    
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         if (GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaSesion(campoContrasena, this)) {
                 if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText()) && !GestionClientes.admin) {

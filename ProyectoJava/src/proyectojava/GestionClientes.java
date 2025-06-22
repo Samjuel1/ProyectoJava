@@ -15,6 +15,8 @@ public class GestionClientes {
     public static Cliente usuarioActivo;
     public static boolean admin = false;
     public static boolean inicio = false;
+    String[] opciones = {"Reservar", "Volver"};
+
 
     public static Cliente getUsuarioActivo() {
         return usuarioActivo;
@@ -207,8 +209,11 @@ public class GestionClientes {
         return listaEventos;
     }
     public static void accionBotonEventos (Evento evento){
+        String[] opciones = {"Reservar", "Volver"};
+        ImageIcon icono = new ImageIcon(GestionClientes.class.getResource(evento.getRutaImagen()));
         JPanel panelBoton = new JPanel();
                     panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
+                    
                     
                     
                     panelBoton.add(new JLabel("Titulo: " + evento.getTitulo()));
@@ -223,7 +228,7 @@ public class GestionClientes {
                     panelBoton.add(Box.createVerticalStrut(5));
                     panelBoton.add(new JLabel("Pulse Ok para proceder a la reserva y Cancel para volver   "));
                     
-                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
+                    int resultado = JOptionPane.showOptionDialog(null, panelBoton, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,icono,opciones,opciones[0]);
                     
                     if (resultado == JOptionPane.OK_OPTION) {
                         JPanel panelCompra = new JPanel();

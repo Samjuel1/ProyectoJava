@@ -11,13 +11,20 @@ package Interfaz;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -39,10 +46,15 @@ public class VentanaGestion extends JFrame{
     private JTextField campoAnadirCp;
     private JTextField campoAnadirPrecio;
     private JTextField campoAnadirFecha;
+    private JButton botonImagenEvento;
+    private File imagenOriginal;
+    private String nombre;
+    private String extension;
     
     public VentanaGestion(){
     setTitle("Gestión de eventos");
     setSize(1100, 700);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null); 
     
     JPanel panelVentanaGestion = new JPanel();
@@ -83,7 +95,7 @@ public class VentanaGestion extends JFrame{
     add(panelVentanaGestion); 
     setVisible(true);   
     
-    
+     
     anadirEvento.addActionListener(e -> {
         campoAnadirTitulo = new JTextField(10);
         campoAnadirTipo = new JTextField(10);
@@ -93,6 +105,7 @@ public class VentanaGestion extends JFrame{
         campoAnadirCp = new JTextField(10);
         campoAnadirPrecio = new JTextField(10);
         campoAnadirFecha = new JTextField(10);
+        botonImagenEvento = new JButton("Añadir imagen");
 
         JPanel panelAnadirEvento = new JPanel();
         panelAnadirEvento.setLayout(new BoxLayout(panelAnadirEvento, BoxLayout.Y_AXIS)); 
@@ -119,8 +132,26 @@ public class VentanaGestion extends JFrame{
         panelAnadirEvento.add(Box.createVerticalStrut(10));
         panelAnadirEvento.add(new JLabel("Fecha:"));
         panelAnadirEvento.add(campoAnadirFecha);
-  
-     
+        panelAnadirEvento.add(Box.createVerticalStrut(20));
+        panelAnadirEvento.add(botonImagenEvento);
+        panelAnadirEvento.add(Box.createVerticalStrut(10));
+        
+        botonImagenEvento.addActionListener(i -> {
+         JFileChooser selector = new JFileChooser();
+        selector.setDialogTitle("Selecciona una imagen");
+        selector.setAcceptAllFileFilterUsed(false);
+        selector.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif"));
+
+        int resultado = selector.showOpenDialog(null);
+        
+        
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            imagenOriginal = selector.getSelectedFile();
+        }     
+     });
+        
+        
         
         
         int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Añadir evento", JOptionPane.OK_CANCEL_OPTION);
@@ -139,6 +170,30 @@ public class VentanaGestion extends JFrame{
             if (numero == null) return;
             Long numero2 = leerLong(campoAnadirPrecio, this, " Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
             if (numero2 == null) return;
+            
+           try {
+                BufferedImage original = ImageIO.read(imagenOriginal);
+                Image imagenEscalada = original.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+
+                BufferedImage imagenFinal = new BufferedImage(150, 150, original.getType() == 0 ? BufferedImage.TYPE_INT_RGB : original.getType());
+                Graphics2D g2d = imagenFinal.createGraphics();
+                g2d.drawImage(imagenEscalada, 0, 0, null);
+                g2d.dispose();
+
+                File carpetaDestino = new File("src/resources");
+                if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
+
+                nombre = imagenOriginal.getName();
+                System.out.println(nombre);
+                extension = nombre.substring(nombre.lastIndexOf('.') + 1);
+
+                File archivoDestino = new File(carpetaDestino, nombre); // ("." + extension)
+                ImageIO.write(imagenFinal, extension, archivoDestino);
+
+       //         JOptionPane.showMessageDialog(null, "Imagen escalada y guardada correctamente en:\n" + archivoDestino.getAbsolutePath());
+            } catch (IOException o) {
+                JOptionPane.showMessageDialog(null, "Error al procesar la imagen:\n" + o.getMessage());
+            }
 
             JOptionPane.showMessageDialog(this, 
             "Evento registrado correctamente",
@@ -315,7 +370,8 @@ public class VentanaGestion extends JFrame{
         int cp = Integer.parseInt(campoAnadirCp.getText());
         long precio = Long.parseLong(campoAnadirPrecio.getText());
         String fecha = campoAnadirFecha.getText();
-        return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha);
+        String rutaImagen = "/resources/" + nombre;
+        return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha, rutaImagen);
         
         }
     

@@ -17,8 +17,9 @@ public class Evento implements Serializable{
     private long precio;
     private double calificacion;
     private ArrayList<Reseña> listaReseñas;
+    private String rutaImagen;
 
-    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, String fecha) {
+    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, String fecha, String rutaImagen) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.direccion = new Direccion(calle,numero,ciudad,cp);
@@ -26,6 +27,7 @@ public class Evento implements Serializable{
         this.calificacion = calificacion;
         this.fecha = fecha;
         this.listaReseñas = new ArrayList<Reseña>();
+        this.rutaImagen = rutaImagen;
     }
 
     public String getTitulo() {
@@ -54,6 +56,22 @@ public class Evento implements Serializable{
     }
     public String getFecha(){
         return fecha;
+    }
+
+    public ArrayList<Reseña> getListaReseñas() {
+        return listaReseñas;
+    }
+
+    public void setListaReseñas(ArrayList<Reseña> listaReseñas) {
+        this.listaReseñas = listaReseñas;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 
     public void setTitulo(String titulo) {
