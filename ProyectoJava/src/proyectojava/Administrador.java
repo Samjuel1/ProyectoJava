@@ -4,11 +4,13 @@
  */
 package proyectojava;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pablo
  */
-public class Administrador {
+public class Administrador implements Serializable{
     private String correo;
     private String contraseña;
 

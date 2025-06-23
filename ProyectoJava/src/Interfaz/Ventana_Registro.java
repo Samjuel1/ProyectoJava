@@ -465,7 +465,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
             panelPinAdmin.add(new JLabel("PIN:"));
             panelPinAdmin.add(campoPIN);
            
-            int resultado = JOptionPane.showConfirmDialog(null, panelPinAdmin, "Registro ADMIN", JOptionPane.OK_CANCEL_OPTION);
+            int resultado = JOptionPane.showConfirmDialog(null, panelPinAdmin, "PIN: (123456789)", JOptionPane.OK_CANCEL_OPTION);
            
             if (resultado == JOptionPane.OK_OPTION && GestionClientes.comprobarPinAdmin(campoPIN,this)){
                 JTextField campoCorreoAdmin = new JTextField(10);
