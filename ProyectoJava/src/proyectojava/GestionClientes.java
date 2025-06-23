@@ -14,8 +14,8 @@ public class GestionClientes {
     
     public static Cliente usuarioActivo;
     public static boolean admin = false;
+    public static Administrador adminActivo;
     public static boolean inicio = false;
-    String[] opciones = {"Reservar", "Volver"};
 
 
     public static Cliente getUsuarioActivo() {
@@ -84,7 +84,7 @@ public class GestionClientes {
     public static void guardarAdmin(HashMap<String, Administrador> lista) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_ADMINISTRADORES))) {
             out.writeObject(lista);
-            System.out.println("Lista de Admin guardada correctamente.");
+            System.out.println("Lista de Admins guardada correctamente.");
         } catch (IOException e) {
             e.printStackTrace(); //imprimir error
         }
@@ -208,6 +208,7 @@ public class GestionClientes {
         }
         return listaEventos;
     }
+    
     public static void accionBotonEventos (Evento evento){
         String[] opciones = {"Reservar", "Volver"};
         ImageIcon icono = new ImageIcon(GestionClientes.class.getResource(evento.getRutaImagen()));
@@ -411,11 +412,6 @@ public class GestionClientes {
     // Metodo que se usa en el inicio de sesion para comprobar si se meten los parametros de admin
     
     public static boolean comprobarAdmin(String correo, String contraseña){
-        boolean resultado = correo.equals("admin@javaevents.com") && contraseña.equals("admin");
-        return resultado;
-    } 
-    
-    public static boolean comprobarAdminNuevo(String correo, String contraseña){
         HashMap<String, Administrador> listaAdmins = cargarAdmin();
         boolean resultado;
         if (listaAdmins.containsKey(correo)){
@@ -444,9 +440,13 @@ public class GestionClientes {
     public static boolean inicioDeSesion(String correo, String contraseña){
         boolean resultado = true;
         GestionClientes.admin = comprobarAdmin(correo, contraseña);
-        if (!GestionClientes.admin){
-            resultado = GestionClientes.comprobarUsuario(correo, contraseña);
-            GestionClientes.setUsuarioActivo(GestionClientes.cargarClientes().get(correo));
+        if (GestionClientes.admin = comprobarAdmin(correo, contraseña)){
+            GestionClientes.adminActivo = GestionClientes.cargarAdmin().get(correo);
+        }
+        else {
+            if (resultado = GestionClientes.comprobarUsuario(correo, contraseña)){
+                GestionClientes.setUsuarioActivo(GestionClientes.cargarClientes().get(correo));
+            }
         }
         return resultado;
     }
@@ -599,169 +599,6 @@ public class GestionClientes {
         return clientesArray.toArray(new String[0]);
     }
     
-    // Metodo que crea un boton con un evento en funcion de la calificacion y la posicion que le llega
-    
-    public static JButton crearBoton(int posicion){
-        ArrayList<Evento> eventosOrdenados = ordenacionPorCalificacion(GestionClientes.cargarEventos());
-        JButton boton = new JButton(eventosOrdenados.get(posicion+1).getTitulo() + "    Calificacion: " + eventosOrdenados.get(posicion+1).getCalificacion());
-        boton.setFont(new Font("Arial", Font.BOLD,30));
-        boton.setBackground(Color.WHITE);
-        boton.setHorizontalAlignment(SwingConstants.LEFT);
-        return boton;
-    }
-    
-    // funcion que permite crear automaticamente los botones presente en la pestaña reseñasy darles una funcion para mostrar su contenido
-    
-    public static void crearBotonReseñas(ArrayList<Reseña> listaReseñas, JPanel panel){
-        if(listaReseñas != null){
-        for(Reseña reseña : listaReseñas){
-            JButton boton = new JButton(reseña.getEvento().getTitulo() + "    Estrellas: " + reseña.getEstrellas());
-            boton.setFont(new Font("Arial", Font.BOLD,20));
-            boton.setBackground(Color.WHITE);
-            boton.setHorizontalAlignment(SwingConstants.LEFT);
-            boton.setMaximumSize(new Dimension(800, 80));
-            boton.setPreferredSize(new Dimension(800, 80));
-            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(boton);
-            boton.addActionListener(e -> {
-                    JPanel panelBoton = new JPanel();
-                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
-                    panelBoton.add(new JLabel("Evento: " + reseña.getEvento().getTitulo()));
-                    panelBoton.add(new JLabel("Autor: " + reseña.getAutor()));
-                    panelBoton.add(new JLabel("Reseña: " + reseña.getTextoReseña()));
-                    panelBoton.add(new JLabel("Estrellas : " + reseña.getEstrellas()));
-                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reseña.getEvento().getTitulo(), JOptionPane.OK_OPTION);
-            });
-        }
-    }
-    }
-    
-    // funcion que permite crera de forma automatica los botones presentes en la pestaña reservas y que les da utilidad permitiendo enseñar la informacion de la misma
-    
-    public static void crearBotonReservas(ArrayList<Reservas> listaReservas, JPanel panel){
-        if(listaReservas != null){
-        for(Reservas reserva : listaReservas){
-            JButton boton = new JButton(reserva.getEvento().getTitulo() + ". Precio: " + reserva.getPrecio() + "euros.");
-            boton.setFont(new Font("Arial", Font.BOLD,20));
-            boton.setBackground(Color.WHITE);
-            boton.setHorizontalAlignment(SwingConstants.LEFT);
-            boton.setMaximumSize(new Dimension(800, 80));
-            boton.setPreferredSize(new Dimension(800, 80));
-            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(boton);
-            boton.addActionListener(e -> {
-                    JPanel panelBoton = new JPanel();
-                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
-                    panelBoton.add(new JLabel("Evento: " + reserva.getEvento().getTitulo()));
-                    panelBoton.add(new JLabel("A nombre de: " + reserva.getReservante()));
-                    panelBoton.add(new JLabel("Direccion:"));
-                    panelBoton.add(new JLabel("Ciudad: " + reserva.getEvento().getDireccion().getCiudad()));
-                    panelBoton.add(new JLabel("Codigo Postal: " + reserva.getEvento().getDireccion().getCp()));
-                    panelBoton.add(new JLabel("Calle y nº: " + reserva.getEvento().getDireccion().getCalle() + " " + reserva.getEvento().getDireccion().getNumero()));
-                    panelBoton.add(new JLabel("Fecha: " + reserva.getFecha()));
-                    panelBoton.add(new JLabel("Precio Total: " + reserva.getPrecio()));
-                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.OK_OPTION);
-            });
-        }
-    }
-    }
-    
-    // metodo que permite automatizar el proceso de crera los botones presentes en la venta eventos y que les da utilidad
-    // permitiendo reservar y pagar el evento ademas de dejar una reseña y una puntuacion que se guardaran en el usuario
-    
-    public static void crearBotonEventos(ArrayList<Evento> listaEventos, JPanel panel){
-        for (Evento evento: listaEventos){
-            JButton boton = new JButton(evento.getTitulo() + "    Calificacion: " + evento.getCalificacion());
-            boton.setFont(new Font("Arial", Font.BOLD,20));
-            boton.setBackground(Color.WHITE);
-            boton.setHorizontalAlignment(SwingConstants.LEFT);
-            boton.setMaximumSize(new Dimension(800, 80));
-            boton.setPreferredSize(new Dimension(800, 80));
-            boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(boton);
-                boton.addActionListener(e -> {
-                    JPanel panelBoton = new JPanel();
-                    panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
-                    
-                    
-                    panelBoton.add(new JLabel("Titulo: " + evento.getTitulo()));
-                    panelBoton.add(new JLabel("Tipo: " + evento.getTipo()));
-                    panelBoton.add(new JLabel("Fecha: " + evento.getFecha()));
-                    panelBoton.add(new JLabel("Direccion:"));
-                    panelBoton.add(new JLabel("Ciudad: " + evento.getDireccion().getCiudad()));
-                    panelBoton.add(new JLabel("Codigo Postal: " + evento.getDireccion().getCp()));
-                    panelBoton.add(new JLabel("Calle y nº: " + evento.getDireccion().getCalle() + " " + evento.getDireccion().getNumero()));
-                    panelBoton.add(new JLabel("Calificacion: " + evento.getCalificacion()));
-                    panelBoton.add(new JLabel("Precio: " + evento.getPrecio()));
-                    panelBoton.add(Box.createVerticalStrut(5));
-                    panelBoton.add(new JLabel("Pulse Ok para proceder a la reserva y Cancel para volver   "));
-                    
-                    int resultado = JOptionPane.showConfirmDialog(null, panelBoton, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
-                    
-                    if (resultado == JOptionPane.OK_OPTION) {
-                        JPanel panelCompra = new JPanel();
-                        panelCompra.setLayout(new BoxLayout(panelCompra, BoxLayout.Y_AXIS));                         
-                        panelCompra.add(new JLabel("Precio: " + evento.getPrecio()));
-                        JSpinner entradas = new JSpinner();
-                        SpinnerNumberModel modelo = new SpinnerNumberModel(1,1,30,1);
-                        entradas.setModel(modelo);
-    /*                    if (Cliente.esvip){
-                        panelCompra.add(new JLabel("Es usted VIP así que tendrá que pagar: " + evento.getPrecio()*0.9 + "€ por entrada."));
-                        } */
-                        ((JSpinner.DefaultEditor) entradas.getEditor()).getTextField().setEditable(false);
-                        panelCompra.add(entradas);
-                        
-                        resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
-                        
-                        if (resultado == JOptionPane.OK_OPTION) {
-                   /*         if (Cliente.esvip){
-                            double cobro = (int) entradas.getValue()*evento.getPrecio()*0.9;
-                            } else{
-                            double cobro = (int) entradas.getValue()*evento.getPrecio();
-                            } */
-      /*Temporal*/          double cobro = (int) entradas.getValue()*evento.getPrecio();
-                            JPanel panelReseña = new JPanel();
-                            panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
-                            panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro + "€"));
-                            panelReseña.add(Box.createVerticalStrut(5));
-                            
-                            panelReseña.add(new JLabel("Deje aqui su reseña:"));
-                            panelReseña.add(Box.createVerticalStrut(5));
-                            
-                            JTextField campoReseña = new JTextField(10);
-                            panelReseña.add(campoReseña);
-                            panelReseña.add(Box.createVerticalStrut(5));
-                            panelReseña.add(new JLabel("Puntuenos aqui:"));
-                            panelReseña.add(Box.createVerticalStrut(5));
-
-                            
-                            JSpinner puntuacion = new JSpinner();
-                            SpinnerNumberModel modeloPuntuacion = new SpinnerNumberModel(1,1,5,1);
-                            puntuacion.setModel(modeloPuntuacion);
-                            ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
-                            panelReseña.add(puntuacion);
-                            resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
-                            if (resultado == JOptionPane.OK_OPTION){
-                                int estrellas = (int) puntuacion.getValue();
-                                Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
-                                Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
-                                HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
-                                lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
-                                lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
-                                ArrayList<Evento> listaSinEvento = GestionClientes.borrarIguales(evento);
-                                evento.añadirReseña(reseña);
-                                
-                                
-                                GestionClientes.guardarClientes(lista);
-                                GestionClientes.guardarEventos(listaSinEvento);
-                                
-                            JOptionPane.showMessageDialog(null, "Gracias por su compra y por confiar en nosotros", "Reseña puesta", JOptionPane.PLAIN_MESSAGE);}
-                        }
-                    }
-                });
-        }
-    }
-    
     // metodo auxiliar para eliminar un objeto de un array lista y poder remplazarlo con uno modificaco
     
     public static ArrayList<Evento> borrarIguales(Evento eventoABuscar){
@@ -832,21 +669,6 @@ public class GestionClientes {
         return true;
     }
     
-    // metodo que se encarga de comprobar el formato de la contraseña para que tenga un minimo de longitud 
-    
-    public static boolean leerContraseñaRegistro(JTextField campo, Component parent){
-        if (GestionClientes.leerContraseñaSesion(campo, parent)){
-            if (campo.getText().length() <= 8){
-                JOptionPane.showMessageDialog(parent,
-                "La contraseña debe ser mayor de ocho caracteres",
-                "Error de entrada",
-                JOptionPane.INFORMATION_MESSAGE);
-                return false;
-            }
-        }
-        return true;
-    }
-    
     // metodo que se encarga de leer el formato de los campos de texto para los numeros de telefono y que tengan una longitud especifica
     
     public static boolean leerTelefono(JTextField campo, Component parent){
@@ -898,6 +720,37 @@ public class GestionClientes {
                 "Formato correo invalido", 
                 JOptionPane.INFORMATION_MESSAGE);
             return false;
+        }
+        return true;
+    }
+    
+        // metodo que se encarga de comprobar el contenido del campo de texto de la contraseña para que no este vacio o que se haya puesto la clave admin
+        
+    public static boolean leerContraseñaSesion(JTextField campo, Component parent){
+        if (campo.getText().equals("")){
+            JOptionPane.showMessageDialog(parent,
+                "Por favor, introduce los datos.",
+                "Contraseña no introducida", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        else if (campo.getText().equals("admin")){
+            return true;
+        }
+        return true;
+    }
+    
+        // metodo que se encarga de comprobar el formato de la contraseña para que tenga un minimo de longitud 
+    
+    public static boolean leerContraseñaRegistro(JTextField campo, Component parent){
+        if (GestionClientes.leerContraseñaSesion(campo, parent)){
+            if (campo.getText().length() <= 8){
+                JOptionPane.showMessageDialog(parent,
+                "La contraseña debe ser mayor de ocho caracteres",
+                "Error de entrada",
+                JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
         }
         return true;
     }
@@ -954,21 +807,5 @@ public class GestionClientes {
             return false;
         }
         else{return true;}
-    }
-    
-    // metodo que se encarga de comprobar el contenido del campo de texto de la contraseña para que no este vacio o que se haya puesto la clave admin
-        
-    public static boolean leerContraseñaSesion(JTextField campo, Component parent){
-        if (campo.getText().equals("")){
-            JOptionPane.showMessageDialog(parent,
-                "Por favor, introduce los datos.",
-                "Contraseña no introducida", 
-                JOptionPane.INFORMATION_MESSAGE);
-            return false;
-        }
-        else if (campo.getText().equals("admin")){
-            return true;
-        }
-        return true;
     }
 }
