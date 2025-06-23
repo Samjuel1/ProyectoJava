@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.*;
 
 /**
@@ -266,14 +267,21 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         JMenuItem misReservas = new JMenuItem("Mis reservas");
         JMenuItem misReseñas = new JMenuItem("Mis reseñas");
         JMenuItem configuracion = new JMenuItem("Configuración de usuario");
+        JMenuItem cerrarSesion = new JMenuItem("Cerrar Sesión");
         
         misReservas.addActionListener(e -> new VentanaReservas().setVisible(true));
         misReseñas.addActionListener(e -> new VentanaReseñas().setVisible(true));
         configuracion.addActionListener(e -> new VentanaGestionClientes().setVisible(true));
+        cerrarSesion.addActionListener(e -> {
+                new VentanaIniciar().setVisible(true);
+                dispose();
+                GestionClientes.setUsuarioActivo(null);
+        });
 
         menu.add(misReservas);
         menu.add(misReseñas);
         menu.add(configuracion);
+        menu.add(cerrarSesion);
         
         menu.show(jButton1, 0, jButton1.getHeight());
     }//GEN-LAST:event_jButton1ActionPerformed

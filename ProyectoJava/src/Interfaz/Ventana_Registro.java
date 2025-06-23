@@ -70,7 +70,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         campoFechaT = new javax.swing.JTextField();
         botonRegistrar = new javax.swing.JButton();
-        botonRegistrar1 = new javax.swing.JButton();
+        botonVolver = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         botonRegistrarAdmin = new javax.swing.JToggleButton();
 
@@ -221,13 +221,13 @@ public class Ventana_Registro extends javax.swing.JFrame {
             }
         });
 
-        botonRegistrar1.setBackground(new java.awt.Color(204, 204, 204));
-        botonRegistrar1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        botonRegistrar1.setText("CANCELAR");
-        botonRegistrar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonRegistrar1.addActionListener(new java.awt.event.ActionListener() {
+        botonVolver.setBackground(new java.awt.Color(204, 204, 204));
+        botonVolver.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        botonVolver.setText("VOLVER");
+        botonVolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrar1ActionPerformed(evt);
+                botonVolverActionPerformed(evt);
             }
         });
 
@@ -301,7 +301,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
-                                            .addComponent(botonRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -318,7 +318,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
                         .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botonRegistrar)
-                            .addComponent(botonRegistrar1)
+                            .addComponent(botonVolver)
                             .addComponent(jCheckBox1))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
@@ -444,10 +444,10 @@ public class Ventana_Registro extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
-    private void botonRegistrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrar1ActionPerformed
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
         dispose();
         new VentanaIniciar().setVisible(true);
-    }//GEN-LAST:event_botonRegistrar1ActionPerformed
+    }//GEN-LAST:event_botonVolverActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
@@ -554,8 +554,8 @@ public class Ventana_Registro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonRegistrar;
-    private javax.swing.JButton botonRegistrar1;
     private javax.swing.JToggleButton botonRegistrarAdmin;
+    private javax.swing.JButton botonVolver;
     private javax.swing.JTextField campoCalle;
     private javax.swing.JTextField campoCiudad;
     private javax.swing.JTextField campoCodigo;
