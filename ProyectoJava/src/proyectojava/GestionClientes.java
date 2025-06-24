@@ -225,7 +225,17 @@ public class GestionClientes {
     
     public static void accionBotonEventos (Evento evento){
         String[] opciones = {"Reservar", "Volver"};
-        ImageIcon icono = new ImageIcon(GestionClientes.class.getResource(evento.getRutaImagen()));
+        System.out.print(evento.getRutaImagen());
+        ImageIcon icono = new ImageIcon("/resources/imagen_negra");
+        File archivo = new File(evento.getRutaImagen()); // Ruta absoluta o relativa al proyecto
+if (archivo.exists()) {
+    icono = new ImageIcon(archivo.getPath());
+    // úsalo en tu JLabel, JOptionPane, etc.
+} else {
+    System.out.println("La imagen no existe en: " + archivo.getAbsolutePath());
+}
+
+      //  ImageIcon icono = new ImageIcon(GestionClientes.class.getResource(evento.getRutaImagen()));
         JPanel panelBoton = new JPanel();
                     panelBoton.setLayout(new BoxLayout(panelBoton, BoxLayout.Y_AXIS));
                     

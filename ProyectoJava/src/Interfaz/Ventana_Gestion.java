@@ -53,7 +53,9 @@ public class Ventana_Gestion extends javax.swing.JFrame {
     private JTextField campoAnadirPrecio;
     private JTextField campoAnadirFecha;
     private JButton botonImagenEvento;
+    private JButton botonModificarImagen;
     private File imagenOriginal;
+    private File imagenCambiada;
     private String nombre;
     private String extension;
     
@@ -223,7 +225,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                 g2d.drawImage(imagenEscalada, 0, 0, null);
                 g2d.dispose();
 
-                File carpetaDestino = new File("src/resources");
+                File carpetaDestino = new File("resources");
                 if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
 
                 nombre = imagenOriginal.getName();
@@ -285,6 +287,8 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                     int index = lista.locationToIndex(event.getPoint());
                     if (index >= 0) {
                         Evento seleccionado = eventosRecuperados.get(index);
+                        
+                        panelPantallaEliminarEvento.removeAll();
                                               
                         panelPantallaEliminarEvento.add(new JLabel("¿Estás seguro que deseas eliminar el evento " + seleccionado.getTitulo() + '?'));
                         
@@ -313,6 +317,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
             panelPantallaModificarEvento.setLayout(new BoxLayout(panelPantallaModificarEvento, BoxLayout.Y_AXIS)); 
             panelModificarEvento.setSize(300, 200);
             panelModificarEvento.setLocationRelativeTo(this); 
+            
             
             
         
@@ -368,7 +373,26 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
                         panelPantallaModificarEvento.add(new JLabel("Fecha: "));
                         panelPantallaModificarEvento.add(campoModificarFecha);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(20));
+                        botonModificarImagen = new JButton("Modificar imagen");
+                        panelPantallaModificarEvento.add(botonModificarImagen);
+                        panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
                         
+                        botonModificarImagen.addActionListener(i -> {
+                           JFileChooser selector = new JFileChooser();
+                           selector.setDialogTitle("Selecciona una imagen");
+                           selector.setAcceptAllFileFilterUsed(false);
+                           selector.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif"));
+
+                           int resultado = selector.showOpenDialog(null);
+        
+        
+
+                           if (resultado == JFileChooser.APPROVE_OPTION) {
+                           imagenCambiada = selector.getSelectedFile();
+                           }     
+                           });
+                                             
                         int resultado = JOptionPane.showConfirmDialog(null, panelPantallaModificarEvento, "Modificar evento", JOptionPane.OK_CANCEL_OPTION);
                         
                         if (resultado == JOptionPane.OK_OPTION){
@@ -382,6 +406,47 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         LocalDate fechaModificada = leerFecha(campoModificarFecha.getText(), null);
                         
                         
+                        try {
+                            File archivo = new File(seleccionado.getRutaImagen());
+                            System.out.println(archivo);
+
+                            if (archivo.exists()) {
+                                if (archivo.delete()) {
+                                    System.out.println("Archivo eliminado correctamente.");
+                                    } else {
+                                    System.out.println("No se pudo eliminar el archivo.");
+                                    }
+                                    } else {
+                                    System.out.println("El archivo no existe.");
+                                    }
+                            
+                             BufferedImage original = ImageIO.read(imagenCambiada);
+                             Image imagenEscalada = original.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+
+                             BufferedImage imagenFinal = new BufferedImage(150, 150, original.getType() == 0 ? BufferedImage.TYPE_INT_RGB : original.getType());
+                             Graphics2D g2d = imagenFinal.createGraphics();
+                             g2d.drawImage(imagenEscalada, 0, 0, null);
+                             g2d.dispose();
+
+                             File carpetaDestino = new File("resources");
+                             if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
+
+                             nombre = imagenCambiada.getName();
+                             System.out.println(nombre);
+                             extension = nombre.substring(nombre.lastIndexOf('.') + 1);
+
+                             File archivoDestino = new File(carpetaDestino, nombre); // ("." + extension)
+                             ImageIO.write(imagenFinal, extension, archivoDestino);
+
+       //         JOptionPane.showMessageDialog(null, "Imagen escalada y guardada correctamente en:\n" + archivoDestino.getAbsolutePath());
+            } catch (IOException o) {
+                JOptionPane.showMessageDialog(null, "Error al procesar la imagen:\n" + o.getMessage());
+            }
+                        JOptionPane.showMessageDialog(null, 
+                        "Evento modificado correctamente",
+                        "Evento modificado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    
                         seleccionado.setTitulo(tituloModificado);
                         seleccionado.setTipo(tipoModificado);
                         seleccionado.getDireccion().setCalle(calleModificada);
@@ -390,11 +455,12 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         seleccionado.getDireccion().setCp(cpModificado);
                         seleccionado.setPrecio(precioModificado);
                         seleccionado.setFecha(fechaModificada);
+                        seleccionado.setRutaImagen("resources/" + nombre);
 
                         
                         GestionClientes.guardarEventos(eventosRecuperados);
 
-                        }else if(resultado == JOptionPane.CANCEL_OPTION){panelPantallaModificarEvento.removeAll();}
+                        }else if(resultado == JOptionPane.CANCEL_OPTION){panelPantallaModificarEvento.removeAll();}                      
                     }
                 }
             }
