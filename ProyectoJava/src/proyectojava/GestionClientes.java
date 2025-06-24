@@ -28,6 +28,14 @@ public class GestionClientes {
     public static void setUsuarioActivo(Cliente usuarioActivo) {
         GestionClientes.usuarioActivo = usuarioActivo;
     }
+
+    public static Administrador getAdminActivo() {
+        return adminActivo;
+    }
+
+    public static void setAdminActivo(Administrador adminActivo) {
+        GestionClientes.adminActivo = adminActivo;
+    }
     
     // Nombres de Archivos
     
@@ -171,7 +179,7 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
-    public static ArrayList<Evento> busquedaEventoPorFecha (JFormattedTextField campoFecha, ArrayList<Evento> listaEventos, Component parent){
+    public static ArrayList<Evento> busquedaEventoPorFechaEventos (JFormattedTextField campoFecha, ArrayList<Evento> listaEventos, Component parent){
         ArrayList<Evento> listaFiltrada = new ArrayList<>();
         LocalDate fechaBase = leerFecha(campoFecha.getText(), parent);
         for (Evento evento : listaEventos){
@@ -180,6 +188,30 @@ public class GestionClientes {
             }
         }
         return listaFiltrada;
+    }
+    
+    public static ArrayList<Reservas> ordenacionPorFechaReserva(ArrayList<Reservas> listaReservas){
+        ArrayList<Reservas> reservasFiltradas = new ArrayList<>();
+        for (Reservas reserva: listaReservas){
+            reservasFiltradas.add(reserva);
+        }
+        Reservas temp;
+        for (int i = 0; i < reservasFiltradas.size()-1; i++){
+            boolean terminado = false;
+            for (int j = 0; j < reservasFiltradas.size() -i-1; j++){
+                if (leerFecha(reservasFiltradas.get(j).getFecha(), null).isAfter(leerFecha(reservasFiltradas.get(j+1).getFecha(), null))){
+                    temp = reservasFiltradas.get(j);
+                    reservasFiltradas.set(j, reservasFiltradas.get(j+1));
+                    reservasFiltradas.set(j+1, temp);
+                    terminado = false;
+                }
+            }
+            if(terminado){
+                break;
+            }
+            
+        }
+        return reservasFiltradas;
     }
     
     public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
@@ -206,7 +238,7 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
-    public static ArrayList<Evento> aplicarFiltrosBusqueda(JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JRadioButton precio, JRadioButton calificacion){
+    public static ArrayList<Evento> aplicarFiltrosBusqueda(JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JCheckBox checkFecha, JFormattedTextField campoFecha, JRadioButton precio, JRadioButton calificacion){
         ArrayList<Evento> listaEventos = cargarEventos();
         if (checkCiudad.isSelected()){
             listaEventos = busquedaEventoPorCiudad(campoCiudad.getText(), listaEventos);
@@ -216,7 +248,10 @@ public class GestionClientes {
         }
         if (precio.isSelected()){
             listaEventos = ordenacionPorPrecio(listaEventos);
-        } 
+        }
+        if (checkFecha.isSelected()){
+            listaEventos = busquedaEventoPorFechaEventos(campoFecha, listaEventos, null);
+        }
         else if (calificacion.isSelected()){
             listaEventos = ordenacionPorCalificacion(listaEventos);
         }

@@ -2,6 +2,7 @@ package Interfaz;
 
 import static proyectojava.GestionClientes.accionBotonReservas;
 import static proyectojava.GestionClientes.botonReservas;
+import static proyectojava.GestionClientes.ordenacionPorFechaReserva;
 import static proyectojava.GestionClientes.usuarioActivo;
 
 /*
@@ -20,7 +21,7 @@ public class VentanaReservas extends javax.swing.JFrame {
      */
     public VentanaReservas() {
         initComponents();
-        botonReservas(usuarioActivo.getListaReservas(), botonReserva1, botonReserva2, botonReserva3, botonReserva4, botonReserva5, botonReserva6, botonReserva7, botonReserva8, botonReserva9, 0);
+        botonReservas(ordenacionPorFechaReserva(usuarioActivo.getListaReservas()), botonReserva1, botonReserva2, botonReserva3, botonReserva4, botonReserva5, botonReserva6, botonReserva7, botonReserva8, botonReserva9, 0);
         setLocationRelativeTo(null);
     }
 
