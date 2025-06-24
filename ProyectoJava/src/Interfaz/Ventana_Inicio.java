@@ -24,6 +24,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         initComponents();
         ajustarImagenBoton();
         botonEventoClasificacion(eventoDest1,eventoDest2,eventoDest3,eventoDest4,eventoDest5);
+        setLocationRelativeTo(null);
     }
 
     /**

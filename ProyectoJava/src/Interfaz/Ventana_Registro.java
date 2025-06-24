@@ -27,6 +27,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
      */
     public Ventana_Registro() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
