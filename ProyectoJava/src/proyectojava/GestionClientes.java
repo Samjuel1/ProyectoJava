@@ -7,6 +7,7 @@ package proyectojava;
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -262,13 +263,12 @@ public class GestionClientes {
         String[] opciones = {"Reservar", "Volver"};
         System.out.print(evento.getRutaImagen());
         ImageIcon icono = new ImageIcon("/resources/imagen_negra");
-        File archivo = new File(evento.getRutaImagen()); // Ruta absoluta o relativa al proyecto
-if (archivo.exists()) {
-    icono = new ImageIcon(archivo.getPath());
-    // úsalo en tu JLabel, JOptionPane, etc.
-} else {
-    System.out.println("La imagen no existe en: " + archivo.getAbsolutePath());
-}
+        File archivo = new File(evento.getRutaImagen()); 
+        if (archivo.exists()) {
+           icono = new ImageIcon(archivo.getPath());
+        } else {
+        System.out.println("La imagen no existe en: " + archivo.getAbsolutePath());
+        }
 
       //  ImageIcon icono = new ImageIcon(GestionClientes.class.getResource(evento.getRutaImagen()));
         JPanel panelBoton = new JPanel();
@@ -313,11 +313,69 @@ if (archivo.exists()) {
                         resultado = JOptionPane.showConfirmDialog(null, panelCompra, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                         
                         if (resultado == JOptionPane.OK_OPTION) {
+                            String vip;
+                            if (usuarioActivo.getEsvip() == true){vip = "Sí";} else {vip = "No";}
                             double cobro = (int) entradas.getValue()*precio;
                             JPanel panelReseña = new JPanel();
                             panelReseña.setLayout(new BoxLayout(panelReseña, BoxLayout.Y_AXIS));
                             panelReseña.add(new JLabel("Usted ha comprado " + entradas.getValue() + " por un total de: " + cobro + "€"));
                             panelReseña.add(Box.createVerticalStrut(5));
+                            
+                            String carpeta = "recibos";
+                            new File(carpeta).mkdirs();
+
+                            String nombreArchivo = "recibos/recibo_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH-mm-ss, dd_MM_yyyy")) + ".txt";
+                            try (BufferedWriter recibo = new BufferedWriter(new FileWriter(nombreArchivo))){
+                                recibo.write("- Información de la reserva:");
+                                recibo.newLine();
+                                recibo.newLine();
+                                recibo.write("    Fecha de la reserva: " + evento.getFecha());
+                                recibo.newLine();
+                                recibo.write("    Precio: " + evento.getPrecio());
+                                recibo.newLine();
+                                recibo.write("    - Datos del evento:");
+                                recibo.newLine();
+                                recibo.write("        Título: " + evento.getTitulo());
+                                recibo.newLine();
+                                recibo.write("        Tipo de evento: " + evento.getTipo());
+                                recibo.newLine();
+                                recibo.write("        Dirección: ");
+                                recibo.newLine();
+                                recibo.write("            Calle: " + evento.getDireccion().getCalle());
+                                recibo.newLine();
+                                recibo.write("            Número: " + evento.getDireccion().getNumero());
+                                recibo.newLine();
+                                recibo.write("            Ciudad: " + evento.getDireccion().getCiudad());
+                                recibo.newLine();
+                                recibo.write("            Código postal: " + evento.getDireccion().getCp());
+                                recibo.newLine();
+                                recibo.write("    - Datos del reservante: ");
+                                recibo.newLine();
+                                recibo.write("        Nombre: " + usuarioActivo.getNombre());
+                                recibo.newLine();
+                                recibo.write("        Correo electrónico: " + usuarioActivo.getCorreo());
+                                recibo.newLine();
+                                recibo.write("        Teléfono: " + usuarioActivo.getCorreo());
+                                recibo.newLine();
+                                recibo.write("        - Dirección del reservante: ");
+                                recibo.newLine();
+                                recibo.write("            Calle: " + usuarioActivo.getDireccion().getCalle());
+                                recibo.newLine();
+                                recibo.write("            Número: " + usuarioActivo.getDireccion().getNumero());
+                                recibo.newLine();
+                                recibo.write("            Ciudad: " + usuarioActivo.getDireccion().getCiudad());
+                                recibo.newLine();
+                                recibo.write("            Código postal: " + usuarioActivo.getDireccion().getCp());
+                                recibo.newLine();
+                                recibo.write("        Cliente VIP: " + vip);
+                                recibo.newLine();
+                                recibo.newLine();
+                                recibo.write("Muchas gracias por su compra.");
+                            
+                            } catch (IOException e) {
+                                System.out.println("no se crea el archivo");
+                               e.printStackTrace();
+                            }
                             
                             panelReseña.add(new JLabel("Deje aqui su reseña:"));
                             panelReseña.add(Box.createVerticalStrut(5));
@@ -719,25 +777,29 @@ if (archivo.exists()) {
     
     public static boolean comprobarFecha(String campoFecha, Component parent){
         boolean resultado;
-        DateTimeFormatter  formato = DateTimeFormatter .ofPattern("dd/MM/yyyy");
+        DateTimeFormatter  formato = DateTimeFormatter .ofPattern("yyyy-MM-dd");
         if (campoFecha.equals("")){
+            System.out.println("No tengo nada");
             resultado = false;
         } 
         else{
             try {
                 LocalDate.parse(campoFecha, formato);
                 resultado = true;
+                System.out.println("Lo intento y sale");
             } 
             catch (DateTimeParseException e) {
                 resultado = false;
+                System.out.println("Lo intento y no sale");
             }
         }
         return resultado;
     }
     
     public static LocalDate tratarFecha(String campoFecha){
-        String[] stringFecha = campoFecha.split("/");
-        LocalDate fecha = LocalDate.of(Integer.parseInt(stringFecha[2]), Integer.parseInt(stringFecha[1]), Integer.parseInt(stringFecha[0]));
+        String[] stringFecha = campoFecha.split("-");
+        LocalDate fecha = LocalDate.of(Integer.parseInt(stringFecha[0]), Integer.parseInt(stringFecha[1]), Integer.parseInt(stringFecha[2]));
+        System.out.println(fecha);
         return fecha;
     }
     

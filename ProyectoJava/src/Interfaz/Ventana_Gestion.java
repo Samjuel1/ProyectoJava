@@ -1,7 +1,10 @@
 package Interfaz;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -86,7 +89,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
         jLabel1.setText("Gestión de eventos");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("ADÑADIR EVENTO");
+        jButton1.setText("AÑADIR EVENTO");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -195,10 +198,32 @@ public class Ventana_Gestion extends javax.swing.JFrame {
         panelAnadirEvento.add(campoAnadirPrecio);
         panelAnadirEvento.add(Box.createVerticalStrut(10));
         panelAnadirEvento.add(new JLabel("Fecha:"));
+        campoAnadirFecha.setText("yyyy-mm-dd");
         panelAnadirEvento.add(campoAnadirFecha);
         panelAnadirEvento.add(Box.createVerticalStrut(20));
         panelAnadirEvento.add(botonImagenEvento);
         panelAnadirEvento.add(Box.createVerticalStrut(10));
+        
+
+        campoAnadirFecha.setForeground(Color.GRAY); // Texto placeholder en gris
+
+        // Cuando obtiene foco (usuario hace clic)
+        campoAnadirFecha.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (campoAnadirFecha.getText().equals("yyyy-mm-dd")) {
+                    campoAnadirFecha.setText("");
+                    campoAnadirFecha.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (campoAnadirFecha.getText().isEmpty()) {
+                    campoAnadirFecha.setForeground(Color.GRAY);
+                    campoAnadirFecha.setText("yyyy-mm-dd");
+                }
+            }
+        });
+
         
         botonImagenEvento.addActionListener(i -> {
          JFileChooser selector = new JFileChooser();
@@ -234,6 +259,13 @@ public class Ventana_Gestion extends javax.swing.JFrame {
             if (numero == null) return;
             Long numero2 = leerLong(campoAnadirPrecio, this, " Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
             if (numero2 == null) return;
+            LocalDate fecha_ = leerFecha(fecha, null);
+            if (fecha_ == null){
+            JOptionPane.showMessageDialog(this, 
+            "Error en el formato de fecha.\n Por favor, vuelve a introducir los datos.",
+            "Formato de fecha inválido",
+            JOptionPane.INFORMATION_MESSAGE);
+            }
             if (leerFecha(campoAnadirFecha.getText(), null) == null)return;
             if (!leerTexto(campoAnadirTitulo, null, "Porfavor Introduzca un título")) return;
             if (!leerTexto(campoAnadirTipo, null, "Porfavor Introduzca un Tipo")) return;
@@ -510,7 +542,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
         int cp = Integer.parseInt(campoAnadirCp.getText());
         long precio = Long.parseLong(campoAnadirPrecio.getText());
         LocalDate fecha = leerFecha(campoAnadirFecha.getText(), null);
-        String rutaImagen = "/resources/" + nombre;
+        String rutaImagen = "resources/" + nombre;
         return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha, rutaImagen);
         
         }

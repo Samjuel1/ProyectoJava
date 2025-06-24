@@ -6,7 +6,7 @@ así como consultar los usuarios, las reservas y los eventos.
 
 
 */
-package Interfaz;
+/*package Interfaz;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -373,6 +373,6 @@ public class VentanaGestion extends JFrame{
         String rutaImagen = "/resources/" + nombre;
         return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha, rutaImagen);
         
-        }
+        }*/
     
-}
+//}
