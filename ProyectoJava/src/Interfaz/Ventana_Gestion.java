@@ -265,6 +265,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
             "Error en el formato de fecha.\n Por favor, vuelve a introducir los datos.",
             "Formato de fecha inválido",
             JOptionPane.INFORMATION_MESSAGE);
+            return;
             }
             if (leerFecha(campoAnadirFecha.getText(), null) == null)return;
             if (!leerTexto(campoAnadirTitulo, null, "Porfavor Introduzca un título")) return;
