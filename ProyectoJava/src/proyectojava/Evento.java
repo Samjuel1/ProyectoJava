@@ -7,19 +7,20 @@ Es una clase serializada para poder guardar sus datos cuando la aplicación se c
 package proyectojava;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Evento implements Serializable{
     private String titulo;
     private String tipo;
     private Direccion direccion;
-    private String fecha;
+    private LocalDate fecha;
     private long precio;
     private double calificacion;
     private ArrayList<Reseña> listaReseñas;
     private String rutaImagen;
 
-    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, String fecha, String rutaImagen) {
+    public Evento(String titulo, String tipo, String calle, int numero, String ciudad, int cp, long precio, double calificacion, LocalDate fecha, String rutaImagen) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.direccion = new Direccion(calle,numero,ciudad,cp);
@@ -54,7 +55,7 @@ public class Evento implements Serializable{
     public double getCalificacion() {
         return calificacion;
     }
-    public String getFecha(){
+    public LocalDate getFecha(){
         return fecha;
     }
 
@@ -77,7 +78,7 @@ public class Evento implements Serializable{
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public void setFecha(String fecha){
+    public void setFecha(LocalDate fecha){
         this.fecha = fecha;
     }
 

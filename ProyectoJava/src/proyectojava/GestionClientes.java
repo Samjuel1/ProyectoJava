@@ -6,6 +6,9 @@ package proyectojava;
 
 import java.awt.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
@@ -168,6 +171,17 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
+    public static ArrayList<Evento> busquedaEventoPorFecha (JFormattedTextField campoFecha, ArrayList<Evento> listaEventos, Component parent){
+        ArrayList<Evento> listaFiltrada = new ArrayList<>();
+        LocalDate fechaBase = leerFecha(campoFecha.getText(), parent);
+        for (Evento evento : listaEventos){
+            if (evento.getFecha().isEqual(fechaBase) || evento.getFecha().isAfter(fechaBase)){
+                listaFiltrada.add(evento);
+            }
+        }
+        return listaFiltrada;
+    }
+    
     public static ArrayList<Evento> ordenacionPorPrecio(ArrayList<Evento> listaEventos){
         ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento evento: listaEventos){
@@ -219,7 +233,7 @@ public class GestionClientes {
                     
                     panelBoton.add(new JLabel("Titulo: " + evento.getTitulo()));
                     panelBoton.add(new JLabel("Tipo: " + evento.getTipo()));
-                    panelBoton.add(new JLabel("Fecha: " + evento.getFecha()));
+                    panelBoton.add(new JLabel("Fecha: " + evento.getFecha().toString()));
                     panelBoton.add(new JLabel("Direccion:"));
                     panelBoton.add(new JLabel("Ciudad: " + evento.getDireccion().getCiudad()));
                     panelBoton.add(new JLabel("Codigo Postal: " + evento.getDireccion().getCp()));
@@ -279,7 +293,7 @@ public class GestionClientes {
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                             if (resultado == JOptionPane.OK_OPTION){
                                 int estrellas = (int) puntuacion.getValue();
-                                Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha(), cobro, evento);
+                                Reservas reserva = new Reservas(GestionClientes.usuarioActivo.getNombre(), evento.getFecha().toString(), cobro, evento);
                                 Reseña reseña = new Reseña(campoReseña.getText(), estrellas, evento, GestionClientes.usuarioActivo.getCorreo());
                                 HashMap<String, Cliente> lista = GestionClientes.cargarClientes();
                                 lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
@@ -656,6 +670,38 @@ public class GestionClientes {
                 return false;
         }
         return true;
+    }
+    
+    public static boolean comprobarFecha(String campoFecha, Component parent){
+        boolean resultado;
+        DateTimeFormatter  formato = DateTimeFormatter .ofPattern("dd/MM/yyyy");
+        if (campoFecha.equals("")){
+            resultado = false;
+        } 
+        else{
+            try {
+                LocalDate.parse(campoFecha, formato);
+                resultado = true;
+            } 
+            catch (DateTimeParseException e) {
+                resultado = false;
+            }
+        }
+        return resultado;
+    }
+    
+    public static LocalDate tratarFecha(String campoFecha){
+        String[] stringFecha = campoFecha.split("/");
+        LocalDate fecha = LocalDate.of(Integer.parseInt(stringFecha[2]), Integer.parseInt(stringFecha[1]), Integer.parseInt(stringFecha[0]));
+        return fecha;
+    }
+    
+    public static LocalDate leerFecha(String campoFecha, Component parent){
+        if (comprobarFecha(campoFecha, parent)){
+            return tratarFecha(campoFecha);
+        } else {
+            return null;
+        }
     }
     
         // metodo que se encarga de comprobar el formato de los numeros en los campos de informacion para asegurarse de que son unicamente numeros
