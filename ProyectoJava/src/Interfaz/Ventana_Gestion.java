@@ -1,5 +1,6 @@
 package Interfaz;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -7,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -24,6 +26,7 @@ import javax.swing.ListSelectionModel;
 import proyectojava.Evento;
 import proyectojava.GestionClientes;
 import static proyectojava.GestionClientes.leerEntero;
+import static proyectojava.GestionClientes.leerFecha;
 import static proyectojava.GestionClientes.leerLong;
 
 /*
@@ -341,7 +344,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         JTextField campoModificarCiudad = new JTextField(seleccionado.getDireccion().ciudad);
                         JTextField campoModificarCp = new JTextField(String.valueOf(seleccionado.getDireccion().cp));
                         JTextField campoModificarPrecio = new JTextField(String.valueOf(seleccionado.getPrecio()));
-                        JTextField campoModificarFecha = new JTextField(seleccionado.getFecha());
+                        JTextField campoModificarFecha = new JTextField(seleccionado.getFecha().toString());
                         panelPantallaModificarEvento.add(new JLabel("Título: "));
                         panelPantallaModificarEvento.add(campoModificarTitulo);
                         panelPantallaModificarEvento.add(Box.createVerticalStrut(10));
@@ -376,7 +379,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         String ciudadModificada = campoModificarCiudad.getText();
                         int cpModificado = Integer.parseInt(campoModificarCp.getText());
                         long precioModificado = Long.parseLong(campoModificarPrecio.getText());
-                        String fechaModificada = campoModificarFecha.getText();
+                        LocalDate fechaModificada = leerFecha(campoModificarFecha.getText(), null);
                         
                         
                         seleccionado.setTitulo(tituloModificado);
@@ -410,7 +413,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
         String ciudad = campoAnadirCiudad.getText();
         int cp = Integer.parseInt(campoAnadirCp.getText());
         long precio = Long.parseLong(campoAnadirPrecio.getText());
-        String fecha = campoAnadirFecha.getText();
+        LocalDate fecha = leerFecha(campoAnadirFecha.getText(), null);
         String rutaImagen = "/resources/" + nombre;
         return new Evento(titulo,tipo,calle,numero,ciudad,cp,precio,0,fecha, rutaImagen);
         
