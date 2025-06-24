@@ -21,6 +21,7 @@ public class VentanaReseñas extends javax.swing.JFrame {
     public VentanaReseñas() {
         initComponents();
         botonReseñas(usuarioActivo.getListaReseñas(), botonReseña1, botonReseña2, botonReseña3, botonReseña4, botonReseña5, botonReseña6, botonReseña7, botonReseña8, botonReseña9, 0);
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -66,7 +66,7 @@ public class GestionClientes {
     public static void guardarEventos(ArrayList<Evento> lista) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARCHIVO_EVENTOS))) {
             out.writeObject(lista);
-            System.out.println("Lista de clientes guardada correctamente.");
+            System.out.println("Lista de eventos guardada correctamente.");
         } catch (IOException e) {
             e.printStackTrace(); //imprimir error
         }

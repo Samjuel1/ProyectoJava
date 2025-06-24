@@ -26,6 +26,7 @@ public class VentanaGestionClientes extends javax.swing.JFrame {
      */
     public VentanaGestionClientes() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

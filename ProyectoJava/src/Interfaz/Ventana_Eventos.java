@@ -22,6 +22,7 @@ public class Ventana_Eventos extends javax.swing.JFrame {
         this.listaEventos = eventos;
         initComponents();
         botonEventosBusqueda(this.listaEventos, botonEvento1, botonEvento2, botonEvento3, botonEvento4, botonEvento5, botonEvento6, botonEvento7, botonEvento8, botonEvento9, this.pagina);
+        setLocationRelativeTo(null);
         
     }
 

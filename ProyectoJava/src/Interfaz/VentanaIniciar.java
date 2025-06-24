@@ -20,6 +20,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
      */
     public VentanaIniciar() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,6 +44,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iniciar sesión");
         setBackground(new java.awt.Color(204, 255, 204));
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Iniciar sesión");
