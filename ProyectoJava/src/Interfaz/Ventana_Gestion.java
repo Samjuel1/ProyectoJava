@@ -205,9 +205,8 @@ public class Ventana_Gestion extends javax.swing.JFrame {
         panelAnadirEvento.add(Box.createVerticalStrut(10));
         
 
-        campoAnadirFecha.setForeground(Color.GRAY); // Texto placeholder en gris
+        campoAnadirFecha.setForeground(Color.GRAY); 
 
-        // Cuando obtiene foco (usuario hace clic)
         campoAnadirFecha.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
                 if (campoAnadirFecha.getText().equals("yyyy-mm-dd")) {
