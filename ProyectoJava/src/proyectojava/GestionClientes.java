@@ -4,7 +4,6 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 
 package proyectojava;
 
-import Interfaz.Ventana_Inicio;
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
