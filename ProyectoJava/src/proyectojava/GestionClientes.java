@@ -164,17 +164,20 @@ public class GestionClientes {
         }    
     }
     
-        // realiza una criba del ArrayList que se le pase utilizando el precio como referencia
-
-    
-    public static ArrayList<Evento> busquedaEventoPorPrecio(long precio, ArrayList<Evento> EventosPorPrecio){
-        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
-        for (Evento evento: EventosPorPrecio){
-            if (evento.getPrecio() <= precio) {
-                eventosFiltrados.add(evento);
+    public static ArrayList<Evento> busquedaEventoPorFechaEventos (JFormattedTextField campoFecha, ArrayList<Evento> listaEventos, Component parent){
+        ArrayList<Evento> listaFiltrada = new ArrayList<>();
+        LocalDate fechaBase = leerFecha(campoFecha.getText(), null);
+        System.out.println(campoFecha.getText());
+        if (fechaBase == null){
+            JOptionPane.showMessageDialog(null, "Formato de fecha no valido, se saltara el filtro", "Error de Entrada", JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
+        for (Evento evento : listaEventos){
+            if (evento.getFecha().isEqual(fechaBase) || evento.getFecha().isAfter(fechaBase)){
+                listaFiltrada.add(evento);
             }
         }
-        return eventosFiltrados;
+        return listaFiltrada;
     }
     
     // Ordenacion de Eventos
@@ -203,22 +206,6 @@ public class GestionClientes {
             
         }
         return eventosFiltrados;
-    }
-    
-    public static ArrayList<Evento> busquedaEventoPorFechaEventos (JFormattedTextField campoFecha, ArrayList<Evento> listaEventos, Component parent){
-        ArrayList<Evento> listaFiltrada = new ArrayList<>();
-        LocalDate fechaBase = leerFecha(campoFecha.getText(), null);
-        System.out.println(campoFecha.getText());
-        if (fechaBase == null){
-            JOptionPane.showMessageDialog(null, "Formato de fecha no valido, se saltara el filtro", "Error de Entrada", JOptionPane.INFORMATION_MESSAGE);
-            return null;
-        }
-        for (Evento evento : listaEventos){
-            if (evento.getFecha().isEqual(fechaBase) || evento.getFecha().isAfter(fechaBase)){
-                listaFiltrada.add(evento);
-            }
-        }
-        return listaFiltrada;
     }
     
     public static ArrayList<Reservas> ordenacionPorFechaReserva(ArrayList<Reservas> listaReservas){
@@ -426,13 +413,12 @@ public class GestionClientes {
                             panelReseña.add(new JLabel("Puntuenos aqui:"));
                             panelReseña.add(Box.createVerticalStrut(5));
 
-                            JSlider puntuacion = new JSlider(0, 100, 50);
+                            JSlider puntuacion = new JSlider(1, 5, 5);
+                            puntuacion.setMinorTickSpacing(1);  
+                            puntuacion.setMajorTickSpacing(1); 
+                            puntuacion.setPaintLabels(true);
+                            puntuacion.setPaintTicks(true);
                             panelReseña.add(puntuacion);
-                            /*JSpinner puntuacion = new JSpinner();
-                            SpinnerNumberModel modeloPuntuacion = new SpinnerNumberModel(1,1,5,1);
-                            puntuacion.setModel(modeloPuntuacion);
-                            ((JSpinner.DefaultEditor) puntuacion.getEditor()).getTextField().setEditable(false);
-                            panelReseña.add(puntuacion);*/
                             resultado = JOptionPane.showConfirmDialog(null, panelReseña, evento.getTitulo(), JOptionPane.OK_CANCEL_OPTION);
                             if (resultado == JOptionPane.OK_OPTION){
                                 int estrellas = (int) puntuacion.getValue();
