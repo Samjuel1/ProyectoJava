@@ -13,32 +13,62 @@ public class Tarjeta_credito implements Serializable{
     private String nombre_titular;
     
     
+    /**
+     * @return Devuelve el número de la tarjeta
+     */
 
     public String getNumero_tarjeta() {
         return numero_tarjeta;
     }
+    
+    /**
+     * 
+     * @param numero_tarjeta Número de la tarjeta
+     */
 
     public void setNumero_tarjeta(String numero_tarjeta) {
         this.numero_tarjeta = numero_tarjeta;
     }
-
     
+    /**
+     * @return Devuelve la fecha de caducidad de la tarjeta
+     */
 
     public String getFecha_caducidad() {
         return fecha_caducidad;
     }
+    
+    /**
+     * @param fecha_caducidad Fecha de caducidad de la tarjeta
+     */
 
     public void setFecha_caducidad(String fecha_caducidad) {
         this.fecha_caducidad = fecha_caducidad;
     }
+    
+    /**
+     * @return Devuelve el nombre del titular de la tarjeta
+     */
 
     public String getNombre_titular() {
         return nombre_titular;
     }
+    
+    /**
+     * @param nombre_titular Nombre del titular de la tarjeta
+     */
 
     public void setNombre_titular(String nombre_titular) {
         this.nombre_titular = nombre_titular;
     }
+    
+    /**
+     * El método Tarjeta_credito devuelve una tarjeta de crédito que será asignada a un usuario.
+     * 
+     * @param nombre_titular Nombre del titular de la tarjeta
+     * @param numero_tarjeta Número de la tarjeta
+     * @param fecha_caducidad Fecha de caducidad de la tarjeta
+     */
 
 
     public Tarjeta_credito(String nombre_titular, String numero_tarjeta, String fecha_caducidad) {
@@ -46,6 +76,10 @@ public class Tarjeta_credito implements Serializable{
         this.numero_tarjeta = numero_tarjeta;
         this.fecha_caducidad = fecha_caducidad;
     }
+    
+    /**
+     * @return Devuelve la información completa de la tarjeta de crédito
+     */
 
     @Override
     public String toString() {
