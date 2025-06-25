@@ -149,6 +149,21 @@ public class GestionClientes {
         }
     }
     
+    public static ArrayList<Evento> busquedaEventoPorTitulo(JTextField titulo, ArrayList<Evento> EventosPorCiudad){
+        if (titulo.getText().equals("")){
+            return null;
+        }
+        else{
+            ArrayList<Evento> eventosFiltrados = new ArrayList<>();
+            for (Evento evento: EventosPorCiudad){
+                if (evento.getTitulo().equals(titulo)){
+                    eventosFiltrados.add(evento);
+                }
+            }
+            return eventosFiltrados;
+        }    
+    }
+    
         // realiza una criba del ArrayList que se le pase utilizando el precio como referencia
 
     
@@ -254,22 +269,23 @@ public class GestionClientes {
         return eventosFiltrados;
     }
     
-    public static ArrayList<Evento> aplicarFiltrosBusqueda(JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JCheckBox checkFecha, JFormattedTextField campoFecha, JRadioButton precio, JRadioButton calificacion){
+    public static ArrayList<Evento> aplicarFiltrosBusqueda(JTextField campoTitulo, JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JCheckBox checkFecha, JFormattedTextField campoFecha, JRadioButton precio, JRadioButton calificacion){
         ArrayList<Evento> listaEventos = cargarEventos();
+        ArrayList<Evento> resultado = busquedaEventoPorTitulo(campoTitulo, listaEventos);
         if (checkCiudad.isSelected()){
-            ArrayList<Evento> resultado = busquedaEventoPorCiudad(campoCiudad, listaEventos);
+            resultado = busquedaEventoPorCiudad(campoCiudad, listaEventos);
             if (resultado != null) {
                 listaEventos = resultado;
             }  
         }
         if (checkTipo.isSelected()){
-            ArrayList<Evento> resultado = busquedaEventoPorTipo(campoTipo, listaEventos);
+            resultado = busquedaEventoPorTipo(campoTipo, listaEventos);
             if (resultado != null) {
                 listaEventos = resultado;
             }
         }
         if (checkFecha.isSelected()){
-            ArrayList<Evento> resultado = busquedaEventoPorFechaEventos(campoFecha, listaEventos, null);
+            resultado = busquedaEventoPorFechaEventos(campoFecha, listaEventos, null);
             if (resultado != null) {
                 listaEventos = resultado;
             }

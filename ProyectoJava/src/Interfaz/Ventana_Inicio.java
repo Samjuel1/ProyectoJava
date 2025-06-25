@@ -320,7 +320,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
     private void BotonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBusquedaActionPerformed
         // Boton de la lupa
         // Añadir la lógica de los resultados de busqueda
-        new Ventana_Eventos(aplicarFiltrosBusqueda(checkCiudad, campoCiudad, checkTipo, campoTipo, checkFecha, campoFecha, jRadioButton1, jRadioButton2)).setVisible(true);
+        new Ventana_Eventos(aplicarFiltrosBusqueda(campoBuscador, checkCiudad, campoCiudad, checkTipo, campoTipo, checkFecha, campoFecha, jRadioButton1, jRadioButton2)).setVisible(true);
     }//GEN-LAST:event_BotonBusquedaActionPerformed
 
     private void checkFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFechaActionPerformed
