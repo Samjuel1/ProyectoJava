@@ -15,7 +15,7 @@ public class Evento implements Serializable{
     private String tipo;
     private Direccion direccion;
     private LocalDate fecha;
-    private long precio;
+    private double precio;
     private double calificacion;
     private ArrayList<Reseña> listaReseñas;
     private String rutaImagen;
@@ -91,7 +91,7 @@ public class Evento implements Serializable{
     }
 
 
-    public void setPrecio(long precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

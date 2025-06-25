@@ -61,6 +61,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
     private File imagenCambiada;
     private String nombre;
     private String extension;
+    private int auxiliar;
     
     public Ventana_Gestion() {
         initComponents();
@@ -163,6 +164,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Boton 1: Añadir evento
+        auxiliar = 0;
         
         campoAnadirTitulo = new JTextField(10);
         campoAnadirTipo = new JTextField(10);
@@ -225,7 +227,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
 
         
         botonImagenEvento.addActionListener(i -> {
-         JFileChooser selector = new JFileChooser();
+        JFileChooser selector = new JFileChooser();
         selector.setDialogTitle("Selecciona una imagen");
         selector.setAcceptAllFileFilterUsed(false);
         selector.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif"));
@@ -236,13 +238,14 @@ public class Ventana_Gestion extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             imagenOriginal = selector.getSelectedFile();
-        }     
+            auxiliar = 1;
+        }
      });
         
         
+        String[] opciones = {"Añadir evento","Cancelar"};
         
-        
-        int resultado = JOptionPane.showConfirmDialog(null, panelAnadirEvento, "Añadir evento", JOptionPane.OK_CANCEL_OPTION);
+        int resultado = JOptionPane.showOptionDialog(null, panelAnadirEvento, "Añadir evento", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
         String titulo = campoAnadirTitulo.getText();
         String tipo = campoAnadirTipo.getText();
         String calle = campoAnadirCalle.getText();
@@ -252,20 +255,20 @@ public class Ventana_Gestion extends javax.swing.JFrame {
 
         
         if (resultado == JOptionPane.OK_OPTION) {
-            Integer numero = leerEntero(campoAnadirNumero, this, " Error en el formato del Numero\nPor favor vuelva a introducir los datos.");
+            Integer numero = leerEntero(campoAnadirNumero, this, "Error en el formato del Numero\nPor favor vuelva a introducir los datos.");
             if (numero == null) return;
-            numero = leerEntero(campoAnadirCp, this, " Error en el formato del Codigo Postal\nPor favor vuelva a introducir los datos.");
+            numero = leerEntero(campoAnadirCp, this, "Error en el formato del Codigo Postal\nPor favor vuelva a introducir los datos.");
             if (numero == null) return;
-            Long numero2 = leerLong(campoAnadirPrecio, this, " Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
+            Long numero2 = leerLong(campoAnadirPrecio, this, "Error en el formato del Precio\nPor favor vuelva a introducir los datos.");
             if (numero2 == null) return;
-            LocalDate fecha_ = leerFecha(fecha, null);
+       /*     LocalDate fecha_ = leerFecha(fecha, null);
             if (fecha_ == null){
             JOptionPane.showMessageDialog(this, 
             "Error en el formato de fecha.\n Por favor, vuelve a introducir los datos.",
             "Formato de fecha inválido",
             JOptionPane.INFORMATION_MESSAGE);
             return;
-            }
+            } */
             if (leerFecha(campoAnadirFecha.getText(), null) == null)return;
             if (!leerTexto(campoAnadirTitulo, null, "Porfavor Introduzca un título")) return;
             if (!leerTexto(campoAnadirTipo, null, "Porfavor Introduzca un Tipo")) return;
@@ -273,6 +276,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
             if (!leerTexto(campoAnadirCalle, null, "Porfavor Introduzca una Calle")) return;
             
            try {
+               if (auxiliar == 1){
                 BufferedImage original = ImageIO.read(imagenOriginal);
                 Image imagenEscalada = original.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 
@@ -288,13 +292,16 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                 System.out.println(nombre);
                 extension = nombre.substring(nombre.lastIndexOf('.') + 1);
 
-                File archivoDestino = new File(carpetaDestino, nombre); // ("." + extension)
-                ImageIO.write(imagenFinal, extension, archivoDestino);
+                File archivoDestino = new File(carpetaDestino, nombre); 
+                ImageIO.write(imagenFinal, extension, archivoDestino);}
 
        //         JOptionPane.showMessageDialog(null, "Imagen escalada y guardada correctamente en:\n" + archivoDestino.getAbsolutePath());
             } catch (IOException o) {
                 JOptionPane.showMessageDialog(null, "Error al procesar la imagen:\n" + o.getMessage());
             }
+            if (auxiliar == 0){JOptionPane.showMessageDialog(null, "Por favor, seleccione una imagen\nVuelva a introducir los datos","Imagen no seleccionada", JOptionPane.INFORMATION_MESSAGE);
+            return;}
+           
 
             JOptionPane.showMessageDialog(this, 
             "Evento registrado correctamente",
@@ -348,7 +355,8 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                                               
                         panelPantallaEliminarEvento.add(new JLabel("¿Estás seguro que deseas eliminar el evento " + seleccionado.getTitulo() + '?'));
                         
-                        int resultado = JOptionPane.showConfirmDialog(null, panelPantallaEliminarEvento, "Eliminar evento", JOptionPane.OK_CANCEL_OPTION);
+                        String[] opciones = {"Eliminar", "Volver"};
+                        int resultado = JOptionPane.showOptionDialog(null, panelPantallaEliminarEvento, "Eliminar evento", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
                         
                         if (resultado == JOptionPane.OK_OPTION){ eventosRecuperados.remove(seleccionado);
                         GestionClientes.guardarEventos(eventosRecuperados);
@@ -367,6 +375,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Boton 3: Modificar evento
+        auxiliar = 0;
         
         JFrame panelModificarEvento = new JFrame("Modificar evento");
             JPanel panelPantallaModificarEvento = new JPanel();
@@ -448,8 +457,9 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                            imagenCambiada = selector.getSelectedFile();
                            }     
                            });
-                                             
-                        int resultado = JOptionPane.showConfirmDialog(null, panelPantallaModificarEvento, "Modificar evento", JOptionPane.OK_CANCEL_OPTION);
+                        
+                        String[] opciones = {"Modificar evento", "Cancelar"};
+                      int resultado = JOptionPane.showOptionDialog(null, panelPantallaModificarEvento, "Modificar evento", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
                         
                         if (resultado == JOptionPane.OK_OPTION){
                         String tituloModificado = campoModificarTitulo.getText();
@@ -458,22 +468,23 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                         int numeroModificado = Integer.parseInt(campoModificarNumero.getText());
                         String ciudadModificada = campoModificarCiudad.getText();
                         int cpModificado = Integer.parseInt(campoModificarCp.getText());
-                        long precioModificado = Long.parseLong(campoModificarPrecio.getText());
+                        double precioModificado = Double.parseDouble(campoModificarPrecio.getText());
                         LocalDate fechaModificada = leerFecha(campoModificarFecha.getText(), null);
                         
                         
                         try {
+                            if (auxiliar == 1){
                             File archivo = new File(seleccionado.getRutaImagen());
                             System.out.println(archivo);
 
                             if (archivo.exists()) {
                                 if (archivo.delete()) {
-                                    System.out.println("Archivo eliminado correctamente.");
+                                    System.out.println("Archivo eliminado correctamente");
                                     } else {
-                                    System.out.println("No se pudo eliminar el archivo.");
+                                    System.out.println("No se pudo eliminar el archivo");
                                     }
                                     } else {
-                                    System.out.println("El archivo no existe.");
+                                    System.out.println("El archivo no existe");
                                     }
                             
                              BufferedImage original = ImageIO.read(imagenCambiada);
@@ -492,7 +503,7 @@ public class Ventana_Gestion extends javax.swing.JFrame {
                              extension = nombre.substring(nombre.lastIndexOf('.') + 1);
 
                              File archivoDestino = new File(carpetaDestino, nombre); // ("." + extension)
-                             ImageIO.write(imagenFinal, extension, archivoDestino);
+                             ImageIO.write(imagenFinal, extension, archivoDestino);}
 
        //         JOptionPane.showMessageDialog(null, "Imagen escalada y guardada correctamente en:\n" + archivoDestino.getAbsolutePath());
             } catch (IOException o) {
