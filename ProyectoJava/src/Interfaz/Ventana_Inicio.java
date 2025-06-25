@@ -163,7 +163,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         });
 
         botonRecargarPagina.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        botonRecargarPagina.setText("REGARGAR PAGINA");
+        botonRecargarPagina.setText("RECARGAR PAGINA");
         botonRecargarPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRecargarPaginaActionPerformed(evt);
@@ -194,7 +194,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(12, 12, 12)
                         .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
