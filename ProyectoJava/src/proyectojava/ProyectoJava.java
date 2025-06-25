@@ -11,12 +11,14 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 
+
 public class ProyectoJava {
     public static HashMap<String, Cliente> recuperados = GestionClientes.cargarClientes();
     public static ArrayList<Evento> recuperadosEventos = GestionClientes.cargarEventos();
     public static void main(String[] args) {
        SwingUtilities.invokeLater(() -> new VentanaIniciar().setVisible(true));
   //     SwingUtilities.invokeLater(() -> new VentanaGestion().setVisible(true));
+  
     
     }
     

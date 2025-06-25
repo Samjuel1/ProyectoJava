@@ -156,7 +156,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
                     "Has iniciado sesión como admin.",
                     "Inicio de sesión correcto",
                     JOptionPane.INFORMATION_MESSAGE);
-                new Ventana_Gestion().setVisible(true);
+                new VentanaAdmin().setVisible(true);
                 dispose();
                 }
                 else {

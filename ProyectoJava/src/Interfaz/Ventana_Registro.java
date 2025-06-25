@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.HashMap;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -29,6 +32,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -427,8 +431,24 @@ public class Ventana_Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField14ActionPerformed
 
+    
     private void campoFechaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaTActionPerformed
-        // TODO add your handling code here:
+        campoFechaT.setText("yyyy-mm-dd");
+        campoFechaT.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (campoFechaT.getText().equals("yyyy-mm-dd")) {
+                    campoFechaT.setText("");
+                    campoFechaT.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (campoFechaT.getText().isEmpty()) {
+                    campoFechaT.setForeground(Color.GRAY);
+                    campoFechaT.setText("yyyy-mm-dd");
+                }
+            }
+        });
     }//GEN-LAST:event_campoFechaTActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
@@ -501,6 +521,7 @@ public class Ventana_Registro extends javax.swing.JFrame {
         String contraseña = campoContra.getText();
         return new Administrador(correo, contraseña);
     }
+    
     
     public Cliente registrarCliente() {
             String nombre = campoNombre.getText();
