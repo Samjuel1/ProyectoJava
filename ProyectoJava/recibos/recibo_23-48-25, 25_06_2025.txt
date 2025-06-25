@@ -1,0 +1,24 @@
+- Información de la reserva:
+
+    Fecha de la reserva: 2023-02-15
+    Precio: 45.0
+    - Datos del evento:
+        Título: Fiesta en Casa de Lorena
+        Tipo de evento: Fiesta
+        Dirección: 
+            Calle: Milpies
+            Número: 5
+            Ciudad: Albacete
+            Código postal: 45089
+    - Datos del reservante: 
+        Nombre: samuel
+        Correo electrónico: samuel@gmail.com
+        Teléfono: samuel@gmail.com
+        - Dirección del reservante: 
+            Calle: m
+            Número: 4
+            Ciudad: madrid
+            Código postal: 28840
+        Cliente VIP: No
+
+Muchas gracias por su compra.

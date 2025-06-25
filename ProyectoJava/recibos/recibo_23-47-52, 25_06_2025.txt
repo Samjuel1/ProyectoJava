@@ -1,0 +1,24 @@
+- Información de la reserva:
+
+    Fecha de la reserva: 2026-02-01
+    Precio: 55.0
+    - Datos del evento:
+        Título: Teatro La bella y La Bestia
+        Tipo de evento: Teatro
+        Dirección: 
+            Calle: Majadahonda
+            Número: 3
+            Ciudad: Barcelona
+            Código postal: 28076
+    - Datos del reservante: 
+        Nombre: samuel
+        Correo electrónico: samuel@gmail.com
+        Teléfono: samuel@gmail.com
+        - Dirección del reservante: 
+            Calle: m
+            Número: 4
+            Ciudad: madrid
+            Código postal: 28840
+        Cliente VIP: No
+
+Muchas gracias por su compra.

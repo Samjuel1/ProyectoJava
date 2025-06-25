@@ -641,7 +641,7 @@ public class GestionClientes {
                 panelBoton.add(new JLabel("Codigo Postal: " + reserva.getEvento().getDireccion().getCp()));
                 panelBoton.add(new JLabel("Calle y nº: " + reserva.getEvento().getDireccion().getCalle() + ", " + reserva.getEvento().getDireccion().getNumero()));
                 panelBoton.add(new JLabel("Precio: " + reserva.getPrecio()));
-                int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, panelBoton, reserva.getEvento().getTitulo(), JOptionPane.PLAIN_MESSAGE);
         }
     }
     
@@ -683,7 +683,7 @@ public class GestionClientes {
                 panelBoton.add(new JLabel("Titulo: " + reseña.getEvento().getTitulo()));
                 panelBoton.add(new JLabel("Reseña: " + reseña.getTextoReseña()));
                 panelBoton.add(new JLabel("Estrellas: " + reseña.getEstrellas()));
-                int resultado = JOptionPane.showConfirmDialog(null, panelBoton, reseña.getEvento().getTitulo(), JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, panelBoton, reseña.getEvento().getTitulo(), JOptionPane.PLAIN_MESSAGE);
         }
     }
 
