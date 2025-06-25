@@ -142,7 +142,7 @@ public class VentanaIniciar extends javax.swing.JFrame {
     }//GEN-LAST:event_campoCorreoActionPerformed
     
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
-        if (GestionClientes.leerCorreo(campoCorreo, this) && GestionClientes.leerContraseñaSesion(campoContrasena, this)) {
+        if (GestionClientes.leerCorreo(campoCorreo, this)) {
                 if(GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText()) && !GestionClientes.admin) {
                     JOptionPane.showMessageDialog(this,
                     "Has iniciado sesión.",
@@ -150,7 +150,6 @@ public class VentanaIniciar extends javax.swing.JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
                 new Ventana_Inicio().setVisible(true);
                 dispose();
-                GestionClientes.inicio = true;
                 }
                 else if (GestionClientes.inicioDeSesion(campoCorreo.getText(), campoContrasena.getText()) && GestionClientes.admin){
                     JOptionPane.showMessageDialog(this,
