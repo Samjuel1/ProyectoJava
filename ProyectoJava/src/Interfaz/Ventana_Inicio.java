@@ -154,7 +154,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
             }
         });
 
-        campoFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yyyy"))));
+        campoFecha.setToolTipText("yyyy/MM/dd");
         campoFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoFechaActionPerformed(evt);
