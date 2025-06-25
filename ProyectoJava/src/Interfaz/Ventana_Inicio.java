@@ -60,6 +60,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         checkFecha = new javax.swing.JCheckBox();
         campoFecha = new javax.swing.JFormattedTextField();
+        botonRecargarPagina = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventana Inicio");
@@ -161,6 +162,14 @@ public class Ventana_Inicio extends javax.swing.JFrame {
             }
         });
 
+        botonRecargarPagina.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        botonRecargarPagina.setText("REGARGAR PAGINA");
+        botonRecargarPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRecargarPaginaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,6 +212,10 @@ public class Ventana_Inicio extends javax.swing.JFrame {
                                     .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonRecargarPagina)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +259,9 @@ public class Ventana_Inicio extends javax.swing.JFrame {
                 .addComponent(eventoDest4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(eventoDest5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(botonRecargarPagina)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -330,6 +345,11 @@ public class Ventana_Inicio extends javax.swing.JFrame {
     private void campoFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoFechaActionPerformed
+
+    private void botonRecargarPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarPaginaActionPerformed
+        new Ventana_Inicio().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botonRecargarPaginaActionPerformed
  
     /**
      * @param args the command line arguments
@@ -368,6 +388,7 @@ public class Ventana_Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonBusqueda;
+    private javax.swing.JToggleButton botonRecargarPagina;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

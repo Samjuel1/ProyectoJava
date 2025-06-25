@@ -4,6 +4,7 @@ GestionClientes es la clase en la que se guardan la mayoría de los métodos pud
 
 package proyectojava;
 
+import Interfaz.Ventana_Inicio;
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
@@ -149,14 +150,14 @@ public class GestionClientes {
         }
     }
     
-    public static ArrayList<Evento> busquedaEventoPorTitulo(JTextField titulo, ArrayList<Evento> EventosPorCiudad){
+    public static ArrayList<Evento> busquedaEventoPorTitulo(JTextField titulo, ArrayList<Evento> EventosPorTitulo){
         if (titulo.getText().equals("")){
             return null;
         }
         else{
             ArrayList<Evento> eventosFiltrados = new ArrayList<>();
-            for (Evento evento: EventosPorCiudad){
-                if (evento.getTitulo().equals(titulo)){
+            for (Evento evento: EventosPorTitulo){
+                if (evento.getTitulo().toLowerCase().contains(titulo.getText().toLowerCase())){
                     eventosFiltrados.add(evento);
                 }
             }
@@ -259,6 +260,9 @@ public class GestionClientes {
     public static ArrayList<Evento> aplicarFiltrosBusqueda(JTextField campoTitulo, JCheckBox checkCiudad, JTextField campoCiudad, JCheckBox checkTipo, JTextField campoTipo, JCheckBox checkFecha, JFormattedTextField campoFecha, JRadioButton precio, JRadioButton calificacion){
         ArrayList<Evento> listaEventos = cargarEventos();
         ArrayList<Evento> resultado = busquedaEventoPorTitulo(campoTitulo, listaEventos);
+        if (resultado != null){
+            listaEventos = resultado;
+        }
         if (checkCiudad.isSelected()){
             resultado = busquedaEventoPorCiudad(campoCiudad, listaEventos);
             if (resultado != null) {
@@ -428,9 +432,11 @@ public class GestionClientes {
                                 lista.get(usuarioActivo.getCorreo()).añadirReserva(reserva);
                                 lista.get(usuarioActivo.getCorreo()).añadirReseña(reseña);
                                 ArrayList<Evento> listaSinEvento = GestionClientes.borrarIguales(evento);
-                                evento.añadirReseña(reseña);
-                                
-                                
+                                Evento eventoNuevo = evento;
+                                eventoNuevo.añadirReseña(reseña);
+                                eventoNuevo.setCalificacion(evento.calcularCalificacion());
+                                listaSinEvento.add(eventoNuevo);
+                                                          
                                 GestionClientes.guardarClientes(lista);
                                 GestionClientes.guardarEventos(listaSinEvento);
                                 
@@ -529,7 +535,7 @@ public class GestionClientes {
             } 
             else{
                 Reseña reseña = listaReseñas.get(i);
-                boton.setText(reseña.getAutor() + "Estrellas: " + reseña.getEstrellas());
+                boton.setText(reseña.getAutor() + "   Estrellas: " + reseña.getEstrellas());
             }
         }
     }
@@ -747,7 +753,7 @@ public class GestionClientes {
     public static ArrayList<Evento> borrarIguales(Evento eventoABuscar){
         ArrayList<Evento> lista = GestionClientes.cargarEventos();
         for (Evento evento : lista){
-            if(evento.getTitulo().equals(eventoABuscar)){
+            if(evento.getTitulo().equals(eventoABuscar.getTitulo())){
                 lista.remove(evento);
                 break;
             }

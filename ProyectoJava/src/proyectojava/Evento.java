@@ -102,6 +102,17 @@ public class Evento implements Serializable{
         if (!this.listaReseñas.contains(reseña)){
         this.listaReseñas.add(reseña);}}
     
+    public double calcularCalificacion(){
+        int suma = 0;
+        int conteo = 0;
+        for(Reseña reseña : this.listaReseñas){
+            suma += reseña.getEstrellas();
+            conteo += 1;
+        }
+        double resultado = suma / conteo;
+        return resultado;
+    }
+    
 
     @Override
     public String toString() {
